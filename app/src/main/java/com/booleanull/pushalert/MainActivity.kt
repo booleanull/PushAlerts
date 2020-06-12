@@ -1,8 +1,7 @@
-package com.booleanull.sleepork
+package com.booleanull.pushalert
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import com.booleanull.core_ui.base.BaseFragment
 
 class MainActivity : AppCompatActivity() {

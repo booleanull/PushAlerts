@@ -1,4 +1,4 @@
-package com.booleanull.sleepork.repository
+package com.booleanull.pushalert.repository
 
 import com.booleanull.core.*
 import com.booleanull.core.dto.AlarmWithFilterDTO
