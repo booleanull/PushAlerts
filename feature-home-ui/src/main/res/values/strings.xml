@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ApplicationNotFound">Приложения не найдены</string>
+    <string name="FilterNotFound">Фильтры не найдены</string>
+    <string name="TurnOnAlarm">Включить будильник</string>
+    <string name="TurnOnFilter">Включить фильтрацию</string>
+    <string name="MainSection">Основное</string>
+    <string name="OptionalSection">Дополнительное</string>
+    <string name="AddNewFilter">Добавить новый фильтр</string>
+    <string name="RemoveFilter">Фильтр \"%1$s\" был удален</string>
+    <string name="ErrorText">Упс! Что-то пошло не так, попробуйте снова</string>
+</resources>
