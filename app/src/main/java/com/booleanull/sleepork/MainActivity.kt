@@ -2,6 +2,7 @@ package com.booleanull.sleepork
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.booleanull.core_ui.base.BaseFragment
 
 class MainActivity : AppCompatActivity() {
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity() {
                     .replace(R.id.container, MainFragment())
                     .commit()
         }
+        Toast.makeText(this, "Hello, CI", Toast.LENGTH_SHORT).show()
     }
 
     override fun onBackPressed() {
