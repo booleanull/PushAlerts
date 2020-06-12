@@ -1,9 +1,10 @@
 package com.booleanull.pushalert.di
 
 import androidx.room.Room
-import com.booleanull.core.gateway.ApplicationGateway
 import com.booleanull.core.ApplicationDatabase
+import com.booleanull.core.Configuration
 import com.booleanull.core.gateway.AlarmGateway
+import com.booleanull.core.gateway.ApplicationGateway
 import com.booleanull.core_ui.base.BaseRouter
 import com.booleanull.pushalert.repository.AlarmRepository
 import com.booleanull.pushalert.repository.ApplicationRepository
@@ -18,6 +19,7 @@ val appModule = module {
     single {
         Room.databaseBuilder(get(), ApplicationDatabase::class.java, "ApplicationDatabase").build()
     }
+    single { Configuration(false) }
 
     single<ApplicationGateway> { ApplicationRepository() }
     single<AlarmGateway> { AlarmRepository(get()) }
