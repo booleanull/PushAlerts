@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
                     .replace(R.id.container, MainFragment())
                     .commit()
         }
-        Toast.makeText(this, "Hello, CI", Toast.LENGTH_SHORT).show()
     }
 
     override fun onBackPressed() {
