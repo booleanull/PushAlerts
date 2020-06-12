@@ -1,4 +1,4 @@
-rootProject.name='Sleepork'
+rootProject.name='PushAlert'
 include ':app'
 include ':core-ui'
 include ':feature-home'

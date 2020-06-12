@@ -1,12 +1,12 @@
-package com.booleanull.sleepork.di
+package com.booleanull.pushalert.di
 
 import androidx.room.Room
 import com.booleanull.core.gateway.ApplicationGateway
 import com.booleanull.core.ApplicationDatabase
 import com.booleanull.core.gateway.AlarmGateway
 import com.booleanull.core_ui.base.BaseRouter
-import com.booleanull.sleepork.repository.AlarmRepository
-import com.booleanull.sleepork.repository.ApplicationRepository
+import com.booleanull.pushalert.repository.AlarmRepository
+import com.booleanull.pushalert.repository.ApplicationRepository
 import org.koin.dsl.module
 import ru.terrakok.cicerone.Cicerone
 
