@@ -1,8 +1,6 @@
 package com.booleanull.pushalert
 
-import android.os.Build
 import android.os.Bundle
-import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.booleanull.core_ui.base.BaseFragment
-import com.booleanull.core_ui.base.ForwardShared
+import com.booleanull.core_ui.command.AnimatedCommand
 import com.booleanull.feature_home_ui.screen.HomeScreen
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.android.ext.android.inject
@@ -29,20 +27,13 @@ class MainFragment : BaseFragment() {
                 nextFragment: Fragment?,
                 fragmentTransaction: FragmentTransaction?
             ) {
-                (command as? ForwardShared)?.let { command ->
-                    fragmentTransaction?.let {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            currentFragment?.sharedElementReturnTransition =
-                                TransitionInflater.from(requireContext()).inflateTransition(
-                                    R.transition.default_transition
-                                )
-                            nextFragment?.sharedElementEnterTransition =
-                                TransitionInflater.from(requireContext()).inflateTransition(
-                                    R.transition.default_transition
-                                )
-                        }
-                        it.addSharedElement(command.getSharedView(), command.getSharedName())
-                    }
+                if (command is AnimatedCommand) {
+                    command.animate(
+                        requireContext(),
+                        currentFragment,
+                        nextFragment,
+                        fragmentTransaction
+                    )
                 }
             }
         }
@@ -75,7 +66,7 @@ class MainFragment : BaseFragment() {
     }
 
     override fun onBackPressed(): Boolean {
-        if((childFragmentManager.fragments.lastOrNull() as? BaseFragment)?.onBackPressed() != false) {
+        if ((childFragmentManager.fragments.lastOrNull() as? BaseFragment)?.onBackPressed() != false) {
             return true
         }
         return false
