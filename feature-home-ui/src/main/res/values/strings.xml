@@ -6,7 +6,10 @@
     <string name="TurnOnFilter">Включить фильтрацию</string>
     <string name="MainSection">Основное</string>
     <string name="OptionalSection">Дополнительное</string>
-    <string name="AddNewFilter">Добавить новый фильтр</string>
+    <string name="AddNewFilter">Добавление нового фильтра</string>
     <string name="RemoveFilter">Фильтр \"%1$s\" был удален</string>
     <string name="ErrorText">Упс! Что-то пошло не так, попробуйте снова</string>
+    <string name="EnterFilter">Введите фильтр</string>
+    <string name="Add">Добавить</string>
+    <string name="FilterDescription">В фильтр Вы можете добавить как заголовок уведомления, так и его содержимое. Например, если вы хотите поставить будильник на получение сообщения от конкретного человека, Вам необходимо указать, как он записан в приложении.</string>
 </resources>

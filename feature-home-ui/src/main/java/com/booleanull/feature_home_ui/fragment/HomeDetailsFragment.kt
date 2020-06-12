@@ -11,10 +11,13 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
-import com.booleanull.core_ui.*
+import com.booleanull.core_ui.ItemTouchSwipeHelper
+import com.booleanull.core_ui.Line
+import com.booleanull.core_ui.RecyclerDivider
 import com.booleanull.core_ui.base.BaseFragment
-import com.booleanull.feature_home_ui.adapter.FilterAdapter
+import com.booleanull.core_ui.setChecked
 import com.booleanull.feature_home_ui.R
+import com.booleanull.feature_home_ui.adapter.FilterAdapter
 import com.booleanull.feature_home_ui.viewmodel.HomeDetailsViewModel
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
@@ -24,7 +27,6 @@ import org.koin.core.parameter.parametersOf
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
-import kotlin.random.Random
 
 
 class HomeDetailsFragment : BaseFragment() {
@@ -70,7 +72,8 @@ class HomeDetailsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         toolbar.navigationIcon =
-            ContextCompat.getDrawable(requireContext(),
+            ContextCompat.getDrawable(
+                requireContext(),
                 R.drawable.ic_arrow_back
             )
         toolbar.setNavigationOnClickListener { onBackPressed() }
@@ -87,9 +90,12 @@ class HomeDetailsFragment : BaseFragment() {
         filterRecyclerView.adapter = filterAdapter
         filterRecyclerView.addItemDecoration(
             RecyclerDivider(
-                line = Line(0, 0, 1, ContextCompat.getColor(requireContext(),
-                    R.color.colorDivider
-                ))
+                line = Line(
+                    0, 0, 1, ContextCompat.getColor(
+                        requireContext(),
+                        R.color.colorDivider
+                    )
+                )
             )
         )
         ItemTouchHelper(ItemTouchSwipeHelper(filterAdapter)).attachToRecyclerView(filterRecyclerView)
@@ -111,8 +117,16 @@ class HomeDetailsFragment : BaseFragment() {
         }
 
         fab.setOnClickListener {
-            val rand = Random.nextInt(0, 100).toString()
-            viewModel.addFilter(rand)
+            FilterAddBottomSheetFragment()
+                .apply {
+                    delegate = object : FilterAddBottomSheetFragment.Delegate {
+                        override fun onFinished(filter: String) {
+                            viewModel.addFilter(filter)
+                        }
+                    }
+                }.also {
+                    it.showNow(childFragmentManager, FilterAddBottomSheetFragment::class.simpleName)
+                }
         }
 
         filterOverlapLayout.setOnClickListener { }
