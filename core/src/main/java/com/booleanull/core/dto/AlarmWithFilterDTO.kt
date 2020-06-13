@@ -7,5 +7,5 @@ data class AlarmWithFilterDTO(
     @Embedded
     val alarm: AlarmDTO,
     @Relation(parentColumn = "packageName", entity = FilterDTO::class, entityColumn = "package")
-    val filters: List<FilterDTO>
+    val filters: Set<FilterDTO>
 )

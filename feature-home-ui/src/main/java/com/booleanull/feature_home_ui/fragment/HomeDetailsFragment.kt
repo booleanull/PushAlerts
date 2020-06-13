@@ -148,7 +148,7 @@ class HomeDetailsFragment : BaseFragment() {
                 filterRecyclerView.alpha = if (it.isFilter) 1.0f else 0.5f
                 filterOverlapLayout.isVisible = !it.isFilter
             }
-            updateFilterAdapter(it.filters.map { it.filter }.toMutableList())
+            updateFilterAdapter(it.filters.map { it.filter }.sorted().toMutableList())
         })
 
         viewModel.errorNotFound.observe(viewLifecycleOwner, Observer {
