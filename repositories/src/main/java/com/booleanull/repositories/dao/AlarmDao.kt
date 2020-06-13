@@ -1,10 +1,9 @@
-package com.booleanull.core.dao
+package com.booleanull.repositories.dao
 
 import androidx.room.*
 import com.booleanull.core.dto.AlarmDTO
 import com.booleanull.core.dto.AlarmWithFilterDTO
 import com.booleanull.core.dto.FilterDTO
-
 
 @Dao
 interface AlarmDao {

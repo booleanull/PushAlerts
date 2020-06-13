@@ -1,8 +1,8 @@
-package com.booleanull.core
+package com.booleanull.repositories
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.booleanull.core.dao.AlarmDao
+import com.booleanull.repositories.dao.AlarmDao
 import com.booleanull.core.dto.AlarmDTO
 import com.booleanull.core.dto.FilterDTO
 

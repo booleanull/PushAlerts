@@ -1,4 +1,4 @@
-package com.booleanull.pushalert.repository
+package com.booleanull.repositories
 
 import android.Manifest
 import android.content.Context

@@ -1,6 +1,5 @@
-package com.booleanull.pushalert.repository
+package com.booleanull.repositories
 
-import com.booleanull.core.*
 import com.booleanull.core.dto.AlarmWithFilterDTO
 import com.booleanull.core.dto.FilterDTO
 import com.booleanull.core.functional.Either
