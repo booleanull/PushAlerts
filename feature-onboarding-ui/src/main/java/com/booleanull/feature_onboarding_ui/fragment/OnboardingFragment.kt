@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.booleanull.core_ui.base.BaseFragment
 import com.booleanull.feature_onboarding_ui.R
+import com.booleanull.feature_onboarding_ui.adapter.OnboardingAdapter
 import kotlinx.android.synthetic.main.fragment_onboarding.*
 
 class OnboardingFragment : BaseFragment() {
@@ -21,8 +22,6 @@ class OnboardingFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        button.setOnClickListener {
-            Toast.makeText(requireContext(), "Hello", Toast.LENGTH_SHORT).show()
-        }
+        viewPager.adapter = OnboardingAdapter(childFragmentManager)
     }
 }

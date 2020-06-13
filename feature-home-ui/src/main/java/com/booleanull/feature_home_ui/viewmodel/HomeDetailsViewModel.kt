@@ -36,7 +36,7 @@ class HomeDetailsViewModel(
                 isAlarm = false,
                 isFilter = false
             ),
-            mutableListOf()
+            mutableSetOf()
         )
     )
     val alarm: LiveData<AlarmWithFilter>
@@ -76,7 +76,7 @@ class HomeDetailsViewModel(
     }
 
     fun addFilter(filter: String) {
-        alarmInternal.value = alarmInternal.value!!.apply { filters.add(0,
+        alarmInternal.value = alarmInternal.value!!.apply { filters.add(
             Filter(packageName, filter)
         ) }
         insertAlarm()

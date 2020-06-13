@@ -12,7 +12,7 @@ class SearchAlarm(private val alarmRepository: AlarmGateway) :
 
     override suspend fun run(params: Params?): Either<Exception, AlarmWithFilter> {
         checkNotNull(params)
-        return alarmRepository.searchAlarm(params.packageName).map { it.toAlarmWithFilter() }
+        return alarmRepository.searchAlarm(params.packageName).map { it.toAlarmWithFilter().apply { filters.sortedBy { it.filter } } }
     }
 
     data class Params(

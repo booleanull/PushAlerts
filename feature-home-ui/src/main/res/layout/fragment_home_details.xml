@@ -154,7 +154,7 @@
                         android:clipChildren="false"
                         android:orientation="vertical"
                         android:overScrollMode="never"
-                        android:paddingBottom="136dp"
+                        android:paddingBottom="144dp"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:listitem="@layout/cell_filter" />
 
@@ -173,15 +173,16 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
+        app:backgroundTint="?colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="54dp"
+        android:layout_marginBottom="62dp"
         android:src="@drawable/ic_add"
-        android:tint="@android:color/white"
+        app:tint="@android:color/white"
         android:visibility="invisible"
         tools:visibility="visible" />
 
