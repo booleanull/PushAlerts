@@ -3,7 +3,6 @@ package com.booleanull.core.dto
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import com.booleanull.core.dto.AlarmDTO
 
 @Entity(
     foreignKeys = [ForeignKey(entity = AlarmDTO::class,

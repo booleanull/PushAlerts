@@ -34,10 +34,8 @@ class HomeFragment : BaseFragment() {
                 HomeDetailsScreen(
                     application.packageName
                 ),
-                R.anim.explode_enter,
-                R.anim.explode_exit,
-                R.anim.explode_pop_enter,
-                R.anim.explode_pop_exit
+                view,
+                application.packageName
             )
         }
     }

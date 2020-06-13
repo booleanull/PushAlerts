@@ -1,15 +1,15 @@
 package com.booleanull.pushalert.di
 
 import androidx.room.Room
-import com.booleanull.core.ApplicationDatabase
+import com.booleanull.repositories.ApplicationDatabase
 import com.booleanull.core.Configuration
 import com.booleanull.core.gateway.AlarmGateway
 import com.booleanull.core.gateway.ApplicationGateway
 import com.booleanull.core_ui.base.BaseRouter
 import com.booleanull.core_ui.handler.NavigationDeeplinkHandler
 import com.booleanull.pushalert.GlobalNavigationDeeplinkHandler
-import com.booleanull.pushalert.repository.AlarmRepository
-import com.booleanull.pushalert.repository.ApplicationRepository
+import com.booleanull.repositories.AlarmRepository
+import com.booleanull.repositories.ApplicationRepository
 import org.koin.dsl.module
 import ru.terrakok.cicerone.Cicerone
 
