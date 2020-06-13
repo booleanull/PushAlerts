@@ -34,9 +34,6 @@ class FilterAddBottomSheetFragment : RoundedBottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        filterCloseImageView.setOnClickListener {
-            dismiss()
-        }
         filterAddButton.setOnClickListener {
             if (!filterEditText.text.isNullOrBlank()) {
                 delegate?.onFinished(filterEditText.text.toString())
