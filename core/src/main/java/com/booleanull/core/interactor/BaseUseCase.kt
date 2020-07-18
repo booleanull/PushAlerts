@@ -7,13 +7,13 @@ import kotlin.coroutines.CoroutineContext
 abstract class BaseUseCase<out Type, in Params> : UseCase, KoinComponent
         where Type : Any {
 
-    private lateinit var scope: CoroutineScope
-
-    override fun setScope(coroutineScope: CoroutineScope) {
-        scope = coroutineScope
-    }
+    private var scope: CoroutineScope? = null
 
     abstract suspend fun run(params: Params?): Type
+
+    override fun join(coroutineScope: CoroutineScope) {
+        scope = coroutineScope
+    }
 
     operator fun invoke(
         params: Params? = null,
@@ -22,7 +22,9 @@ abstract class BaseUseCase<out Type, in Params> : UseCase, KoinComponent
         val defaultDispatcher: CoroutineContext = Dispatchers.Default
         val mainDispatcher: CoroutineContext = Dispatchers.Main
 
-        val job = scope.async(defaultDispatcher) { run(params) }
-        scope.launch(mainDispatcher) { onResult(job.await()) }
+        scope?.async(defaultDispatcher) { run(params) }?.let { job ->
+            scope?.launch(mainDispatcher) { onResult(job.await()) }
+        }
     }
+
 }

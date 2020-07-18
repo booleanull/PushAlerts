@@ -11,18 +11,16 @@ import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
-import com.booleanull.core_ui.base.BaseFragment
-import com.booleanull.core_ui.Line
 import com.booleanull.core_ui.RecyclerDivider
+import com.booleanull.core_ui.base.BaseFragment
 import com.booleanull.core_ui.dp
 import com.booleanull.feature_home.data.Application
-import com.booleanull.feature_home_ui.adapter.ApplicationAdapter
 import com.booleanull.feature_home_ui.R
+import com.booleanull.feature_home_ui.adapter.ApplicationAdapter
 import com.booleanull.feature_home_ui.screen.HomeDetailsScreen
 import com.booleanull.feature_home_ui.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
 
 class HomeFragment : BaseFragment() {
 
@@ -42,11 +40,12 @@ class HomeFragment : BaseFragment() {
 
     private val applicationRecyclerDivider by lazy {
         RecyclerDivider(
-            line = Line(
+            line = RecyclerDivider.Line(
                 dp(68),
                 0,
                 1,
-                ContextCompat.getColor(requireContext(),
+                ContextCompat.getColor(
+                    requireContext(),
                     R.color.colorDivider
                 )
             )
@@ -94,7 +93,7 @@ class HomeFragment : BaseFragment() {
                 || event.action == KeyEvent.ACTION_DOWN
                 && event.keyCode == KeyEvent.KEYCODE_ENTER
             ) {
-                if(!searchEditText.text.isNullOrBlank())
+                if (!searchEditText.text.isNullOrBlank())
                     viewModel.searchApplication(searchEditText.text.toString())
                 true
             }
@@ -122,7 +121,7 @@ class HomeFragment : BaseFragment() {
                     if (it) R.drawable.ic_close else R.drawable.ic_search
                 )
             )
-            if(it) {
+            if (it) {
                 searchEditText.requestFocusFromTouch()
             }
         })

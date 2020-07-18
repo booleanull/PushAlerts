@@ -5,11 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.booleanull.core_ui.ItemTouchSwipeHelper
+import com.booleanull.core_ui.DismissItemTouchSwipeHelper
 import com.booleanull.feature_home_ui.R
 import kotlinx.android.synthetic.main.cell_filter.view.*
 
-class FilterAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(), ItemTouchSwipeHelper.ItemTouchSwipeHelperAdapter {
+class FilterAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(), DismissItemTouchSwipeHelper.ItemTouchSwipeHelperAdapter {
 
     var filters: MutableList<String> = mutableListOf()
 

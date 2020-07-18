@@ -3,13 +3,13 @@ package com.booleanull.core_ui
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
-class ItemTouchSwipeHelper(private val adapter: ItemTouchSwipeHelperAdapter) : ItemTouchHelper.Callback() {
+class DismissItemTouchSwipeHelper(private val adapter: ItemTouchSwipeHelperAdapter) : ItemTouchHelper.Callback() {
 
     override fun getMovementFlags(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder
     ): Int {
-        return makeMovementFlags(0, ItemTouchHelper.START + ItemTouchHelper.END)
+        return makeMovementFlags(0, ItemTouchHelper.START + ItemTouchHelper.END) // TODO: CHECK THIS
     }
 
     override fun onMove(

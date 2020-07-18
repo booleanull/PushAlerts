@@ -2,8 +2,6 @@ package com.booleanull.feature_home.interactor
 
 import android.content.Context
 import com.booleanull.core.gateway.ApplicationGateway
-import com.booleanull.core.functional.Either
-import com.booleanull.core.functional.map
 import com.booleanull.core.interactor.BaseUseCase
 import com.booleanull.feature_home.data.Application
 import com.booleanull.feature_home.data.toApplication

@@ -4,40 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import com.booleanull.core.Configuration
+import com.booleanull.core_ui.base.BaseAppNavigator
 import com.booleanull.core_ui.base.BaseFragment
-import com.booleanull.core_ui.command.AnimatedCommand
 import com.booleanull.feature_home_ui.screen.HomeScreen
 import com.booleanull.feature_onboarding_ui.screen.OnboardingScreen
 import org.koin.android.ext.android.inject
 import ru.terrakok.cicerone.NavigatorHolder
-import ru.terrakok.cicerone.android.support.SupportAppNavigator
-import ru.terrakok.cicerone.commands.Command
 
 class MainFragment : BaseFragment() {
     private val navigatorHolder: NavigatorHolder by inject()
     private val configuration: Configuration by inject()
 
     private val navigator by lazy {
-        object : SupportAppNavigator(requireActivity(), childFragmentManager, R.id.container) {
-            override fun setupFragmentTransaction(
-                command: Command?,
-                currentFragment: Fragment?,
-                nextFragment: Fragment?,
-                fragmentTransaction: FragmentTransaction?
-            ) {
-                if (command is AnimatedCommand) {
-                    command.animate(
-                        requireContext(),
-                        currentFragment,
-                        nextFragment,
-                        fragmentTransaction
-                    )
-                }
-            }
-        }
+        BaseAppNavigator(requireContext(), requireActivity(), childFragmentManager, R.id.container)
     }
 
     override fun onCreateView(
@@ -66,6 +46,13 @@ class MainFragment : BaseFragment() {
         }
     }
 
+    override fun onBackPressed(): Boolean {
+        if ((childFragmentManager.fragments.lastOrNull() as? BaseFragment)?.onBackPressed() != false) {
+            return true
+        }
+        return false
+    }
+
     override fun onResume() {
         super.onResume()
         navigatorHolder.setNavigator(navigator)
@@ -74,12 +61,5 @@ class MainFragment : BaseFragment() {
     override fun onPause() {
         navigatorHolder.removeNavigator()
         super.onPause()
-    }
-
-    override fun onBackPressed(): Boolean {
-        if ((childFragmentManager.fragments.lastOrNull() as? BaseFragment)?.onBackPressed() != false) {
-            return true
-        }
-        return false
     }
 }

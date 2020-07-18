@@ -1,4 +1,4 @@
-package com.booleanull.feature_home_ui.di
+package com.booleanull.feature_home_ui
 
 import com.booleanull.feature_home.interactor.*
 import com.booleanull.feature_home_ui.viewmodel.HomeDetailsViewModel

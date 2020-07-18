@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import com.booleanull.core.dto.ApplicationDTO
 import com.booleanull.core.gateway.ApplicationGateway
-import com.booleanull.core.functional.Either
+import com.booleanull.core.functional.Task
 
 class ApplicationRepository : ApplicationGateway {
 
@@ -31,7 +31,7 @@ class ApplicationRepository : ApplicationGateway {
         }
     }
 
-    override suspend fun searchApplicationList(context: Context, query: String): Either<Exception, List<ApplicationDTO>> {
+    override suspend fun searchApplicationList(context: Context, query: String): Task<Exception, List<ApplicationDTO>> {
         val packageManager = context.packageManager
 
         val packages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA)
@@ -55,23 +55,23 @@ class ApplicationRepository : ApplicationGateway {
         }
 
         return if(filteredPackages.isNotEmpty()) {
-            Either.Success(filteredPackages)
+            Task.Success(filteredPackages)
         } else {
-            Either.Failure(IllegalArgumentException("Applications not found"))
+            Task.Failure(IllegalArgumentException("Applications not found"))
         }
     }
 
     override suspend fun getApplication(
         context: Context,
         packageName: String
-    ): Either<java.lang.Exception, ApplicationDTO> {
+    ): Task<java.lang.Exception, ApplicationDTO> {
         val packageManager = context.packageManager
 
         val packages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA)
         packages.firstOrNull {
             it.packageName == packageName
         }?.let {
-            return Either.Success(
+            return Task.Success(
                 ApplicationDTO(
                     packageManager.getApplicationLabel(it.applicationInfo).toString(),
                     it.packageName,
@@ -79,6 +79,6 @@ class ApplicationRepository : ApplicationGateway {
                 )
             )
         }
-        return Either.Failure(IllegalArgumentException("Application with this ID not found"))
+        return Task.Failure(IllegalArgumentException("Application with this ID not found"))
     }
 }

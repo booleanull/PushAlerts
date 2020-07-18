@@ -1,7 +1,7 @@
 package com.booleanull.feature_home.interactor
 
 import android.content.Context
-import com.booleanull.core.functional.Either
+import com.booleanull.core.functional.Task
 import com.booleanull.core.functional.map
 import com.booleanull.core.gateway.ApplicationGateway
 import com.booleanull.core.interactor.BaseUseCase
@@ -9,9 +9,9 @@ import com.booleanull.feature_home.data.Application
 import com.booleanull.feature_home.data.toApplication
 
 class SearchApplicationList(private val applicationRepository: ApplicationGateway) :
-    BaseUseCase<Either<Exception, List<Application>>, SearchApplicationList.Params>() {
+    BaseUseCase<Task<Exception, List<Application>>, SearchApplicationList.Params>() {
 
-    override suspend fun run(params: Params?): Either<Exception, List<Application>> {
+    override suspend fun run(params: Params?): Task<Exception, List<Application>> {
         checkNotNull(params)
         val applications = applicationRepository.searchApplicationList(params.context, params.query)
             .map { it.map { it.toApplication() } }
