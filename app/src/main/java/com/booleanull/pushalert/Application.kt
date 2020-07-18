@@ -1,8 +1,7 @@
 package com.booleanull.pushalert
 
 import android.app.Application
-import com.booleanull.feature_home_ui.di.homeModule
-import com.booleanull.pushalert.di.appModule
+import com.booleanull.feature_home_ui.homeModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin

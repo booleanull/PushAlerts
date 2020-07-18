@@ -1,10 +1,11 @@
 package com.booleanull.core_ui.base
 
 import android.view.View
-import com.booleanull.core_ui.command.ForwardCustom
-import com.booleanull.core_ui.command.ForwardShared
+import com.booleanull.core_ui.command.AnimateForward
+import com.booleanull.core_ui.command.SharedViewForward
 import com.booleanull.core_ui.handler.NavigationDeeplinkHandler
 import ru.terrakok.cicerone.BaseRouter
+import ru.terrakok.cicerone.Router
 import ru.terrakok.cicerone.commands.Back
 import ru.terrakok.cicerone.commands.BackTo
 import ru.terrakok.cicerone.commands.Forward
@@ -18,7 +19,7 @@ class BaseRouter(private val navigationDeeplinkHandler: NavigationDeeplinkHandle
 
     fun navigateTo(screen: BaseScreen, sharedView: View, sharedName: String) {
         executeCommands(
-            ForwardShared(
+            SharedViewForward(
                 screen,
                 sharedView,
                 sharedName
@@ -27,7 +28,7 @@ class BaseRouter(private val navigationDeeplinkHandler: NavigationDeeplinkHandle
     }
 
     fun navigateTo(screen: BaseScreen, enter: Int, exit: Int, popEnter: Int, popExit: Int) {
-        executeCommands(ForwardCustom(screen, enter, exit, popEnter, popExit))
+        executeCommands(AnimateForward(screen, enter, exit, popEnter, popExit))
     }
 
     fun navigateChain(screen: BaseScreen, vararg screens: BaseScreen) {
@@ -40,7 +41,7 @@ class BaseRouter(private val navigationDeeplinkHandler: NavigationDeeplinkHandle
     fun navigateChain(screen: BaseScreen, enter: Int, exit: Int, popEnter: Int, popExit: Int, vararg screens: BaseScreen) {
         executeCommands(Replace(screen))
         screens.forEach {
-            executeCommands(ForwardCustom(it, enter, exit, popEnter, popExit))
+            executeCommands(AnimateForward(it, enter, exit, popEnter, popExit))
         }
     }
 
@@ -58,6 +59,6 @@ class BaseRouter(private val navigationDeeplinkHandler: NavigationDeeplinkHandle
 
     fun resolve(screen: String): BaseScreen {
         return navigationDeeplinkHandler.resolveScreen(screen)
-            ?: throw IllegalArgumentException("Incorrect deep link url")
+            ?: throw IllegalArgumentException("Incorrect deeplink url")
     }
 }

@@ -6,15 +6,8 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-data class Line(
-    val left: Int,
-    val right: Int,
-    val height: Int,
-    val color: Int
-)
-
 class RecyclerDivider(
-    private val marginItem: Int = 0,
+    private val margin: Int = 0,
     private val line: Line
 ) :
     RecyclerView.ItemDecoration() {
@@ -33,10 +26,7 @@ class RecyclerDivider(
     ) {
         super.getItemOffsets(outRect, view, parent, state)
 
-        val margin = View.MeasureSpec.getSize(marginItem)
-        val lineHeight = View.MeasureSpec.getSize(line.height)
-
-        outRect.bottom = margin + lineHeight
+        outRect.bottom = margin + line.height
         outRect.top = margin
         outRect.left = margin
         outRect.right = margin
@@ -46,18 +36,20 @@ class RecyclerDivider(
         super.onDraw(c, parent, state)
         c.save()
 
-        val left = View.MeasureSpec.getSize(line.left).toFloat()
-        val right = View.MeasureSpec.getSize(line.right).toFloat()
-        val heightLine = View.MeasureSpec.getSize(line.height).toFloat()
-
         for (i in 0 until parent.childCount - 1) {
             val child = parent.getChildAt(i)
             val width = child.measuredWidth.toFloat()
-            val margin = View.MeasureSpec.getSize(marginItem)
-            val height = child.y + child.measuredHeight - heightLine + margin
-            c.drawRect(left, height, width + right, height + heightLine, paint)
+            val height = child.y + child.measuredHeight - line.height + margin
+            c.drawRect(line.left.toFloat(), height, width + line.right.toFloat(), height + line.height, paint)
         }
 
         c.restore()
     }
+
+    data class Line(
+        val left: Int,
+        val right: Int,
+        val height: Int,
+        val color: Int
+    )
 }

@@ -9,7 +9,7 @@ class HomeDetailsScreen(private val packageName: String) : BaseScreen() {
 
     override fun getFragment(): Fragment {
         return HomeDetailsFragment().apply {
-            arguments = Bundle().apply {
+            arguments = Bundle(1).apply {
                 putString("packageName", packageName)
             }
         }

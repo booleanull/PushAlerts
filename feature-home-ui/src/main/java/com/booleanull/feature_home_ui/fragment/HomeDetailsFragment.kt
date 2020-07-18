@@ -11,8 +11,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
-import com.booleanull.core_ui.ItemTouchSwipeHelper
-import com.booleanull.core_ui.Line
+import com.booleanull.core_ui.DismissItemTouchSwipeHelper
 import com.booleanull.core_ui.RecyclerDivider
 import com.booleanull.core_ui.base.BaseFragment
 import com.booleanull.core_ui.setChecked
@@ -28,13 +27,23 @@ import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
-
 class HomeDetailsFragment : BaseFragment() {
 
     private lateinit var viewModel: HomeDetailsViewModel
 
     private val filterAdapter by lazy {
         FilterAdapter()
+    }
+
+    private val filterItemDecoration by lazy {
+        RecyclerDivider(
+            line = RecyclerDivider.Line(
+                0, 0, 1, ContextCompat.getColor(
+                    requireContext(),
+                    R.color.colorDivider
+                )
+            )
+        )
     }
 
     private val alarmSwitchOnCheckedChangeListener =
@@ -88,19 +97,9 @@ class HomeDetailsFragment : BaseFragment() {
         iconImageView.transitionName = arguments?.getString("packageName") ?: ""
 
         filterRecyclerView.adapter = filterAdapter
-        filterRecyclerView.addItemDecoration(
-            RecyclerDivider(
-                line = Line(
-                    0, 0, 1, ContextCompat.getColor(
-                        requireContext(),
-                        R.color.colorDivider
-                    )
-                )
-            )
-        )
-        ItemTouchHelper(ItemTouchSwipeHelper(filterAdapter)).attachToRecyclerView(filterRecyclerView)
-        filterAdapter.delegate = object :
-            FilterAdapter.Delegate {
+        filterRecyclerView.addItemDecoration(filterItemDecoration)
+        ItemTouchHelper(DismissItemTouchSwipeHelper(filterAdapter)).attachToRecyclerView(filterRecyclerView)
+        filterAdapter.delegate = object : FilterAdapter.Delegate {
             override fun onSwipeDismiss(position: Int) {
                 val item = filterAdapter.filters[position]
                 viewModel.removeFilter(item)

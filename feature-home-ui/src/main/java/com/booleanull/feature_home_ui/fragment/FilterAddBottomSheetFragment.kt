@@ -28,7 +28,7 @@ class FilterAddBottomSheetFragment : RoundedBottomSheetDialogFragment() {
 
     override fun onStart() {
         super.onStart()
-        dialog?.window?.decorView?.findViewById<View>(com.google.android.material.R.id.touch_outside)
+        dialog?.window?.decorView?.findViewById<View>(R.id.touch_outside)
             ?.setOnClickListener(null)
     }
 

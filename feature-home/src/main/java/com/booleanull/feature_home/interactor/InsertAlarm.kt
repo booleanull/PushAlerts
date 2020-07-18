@@ -6,12 +6,11 @@ import com.booleanull.feature_home.data.AlarmWithFilter
 import com.booleanull.feature_home.data.toAlarmWithFilterDTO
 
 class InsertAlarm(private val alarmRepository: AlarmGateway) :
-    BaseUseCase<Any, InsertAlarm.Params>() {
+    BaseUseCase<Unit, InsertAlarm.Params>() {
 
-    override suspend fun run(params: Params?): Any {
+    override suspend fun run(params: Params?) {
         checkNotNull(params)
         alarmRepository.insertAlarm(params.alarmWithFilter.toAlarmWithFilterDTO())
-        return 0
     }
 
     data class Params(

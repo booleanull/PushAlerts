@@ -4,5 +4,5 @@ import kotlinx.coroutines.CoroutineScope
 
 interface UseCase {
 
-    fun setScope(coroutineScope: CoroutineScope)
+    fun join(coroutineScope: CoroutineScope)
 }
