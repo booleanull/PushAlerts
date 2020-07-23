@@ -1,9 +1,9 @@
-package com.booleanull.core_ui
+package com.booleanull.core_ui.helper
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
-class DismissItemTouchSwipeHelper(private val adapter: ItemTouchSwipeHelperAdapter) : ItemTouchHelper.Callback() {
+class DismissItemTouchHelper(private val onItemDismissListener: OnItemDismissListener) : ItemTouchHelper.Callback() {
 
     override fun getMovementFlags(
         recyclerView: RecyclerView,
@@ -21,10 +21,10 @@ class DismissItemTouchSwipeHelper(private val adapter: ItemTouchSwipeHelperAdapt
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        adapter.onItemDismiss(viewHolder.adapterPosition)
+        onItemDismissListener.onItemDismiss(viewHolder.adapterPosition)
     }
 
-    interface ItemTouchSwipeHelperAdapter {
+    interface OnItemDismissListener {
 
         fun onItemDismiss(position: Int)
     }

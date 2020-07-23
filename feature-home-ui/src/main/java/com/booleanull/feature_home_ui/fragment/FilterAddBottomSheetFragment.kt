@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import com.booleanull.core_ui.RoundedBottomSheetDialogFragment
+import com.booleanull.core_ui.base.RoundedBottomSheetDialogFragment
 import com.booleanull.feature_home_ui.R
 import kotlinx.android.synthetic.main.fragment_filter_add_bottom_sheet.*
 

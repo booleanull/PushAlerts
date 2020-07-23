@@ -10,13 +10,16 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.DiffUtil
-import com.booleanull.core_ui.RecyclerDivider
+import com.booleanull.core_ui.adapter.GenericAdapter
+import com.booleanull.core_ui.adapter.GenericItemDiff
+import com.booleanull.core_ui.adapter.OnItemClickListener
 import com.booleanull.core_ui.base.BaseFragment
 import com.booleanull.core_ui.dp
+import com.booleanull.core_ui.getColor
+import com.booleanull.core_ui.helper.RecyclerDivider
 import com.booleanull.feature_home.data.Application
 import com.booleanull.feature_home_ui.R
-import com.booleanull.feature_home_ui.adapter.ApplicationAdapter
+import com.booleanull.feature_home_ui.adapter.ApplicationViewHolderFactory
 import com.booleanull.feature_home_ui.screen.HomeDetailsScreen
 import com.booleanull.feature_home_ui.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -27,14 +30,42 @@ class HomeFragment : BaseFragment() {
     private val viewModel: HomeViewModel by viewModel()
 
     private val applicationAdapter by lazy {
-        ApplicationAdapter { application, view ->
-            router.navigateTo(
-                HomeDetailsScreen(
-                    application.packageName
-                ),
-                view,
-                application.packageName
-            )
+        GenericAdapter(ApplicationViewHolderFactory()).apply {
+            setOnItemClickListener(object :
+                OnItemClickListener<ApplicationViewHolderFactory.ApplicationItemClickData> {
+                override fun onItemClick(item: ApplicationViewHolderFactory.ApplicationItemClickData) {
+                    router.navigateTo(
+                        HomeDetailsScreen(
+                            item.application.packageName
+                        ),
+                        item.view,
+                        item.application.packageName
+                    )
+                }
+            })
+            setDiffUtil(object : GenericItemDiff<Application> {
+                override fun areItemsTheSame(
+                    oldItems: List<Application>,
+                    newItems: List<Application>,
+                    oldItemPosition: Int,
+                    newItemPosition: Int
+                ): Boolean {
+                    val old = oldItems[oldItemPosition]
+                    val new = newItems[newItemPosition]
+                    return old.packageName == new.packageName
+                }
+
+                override fun areContentsTheSame(
+                    oldItems: List<Application>,
+                    newItems: List<Application>,
+                    oldItemPosition: Int,
+                    newItemPosition: Int
+                ): Boolean {
+                    val old = oldItems[oldItemPosition]
+                    val new = newItems[newItemPosition]
+                    return old.name == new.name
+                }
+            })
         }
     }
 
@@ -44,9 +75,12 @@ class HomeFragment : BaseFragment() {
                 dp(68),
                 0,
                 1,
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.colorDivider
+                requireContext().getColor(
+                    R.attr.colorDivider,
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.colorGray
+                    )
                 )
             )
         )
@@ -101,7 +135,7 @@ class HomeFragment : BaseFragment() {
         }
 
         viewModel.applicationList.observe(viewLifecycleOwner, Observer {
-            updateApplicationAdapter(it)
+            applicationAdapter.dataList = it.toMutableList()
         })
 
         viewModel.loading.observe(viewLifecycleOwner, Observer {
@@ -130,17 +164,5 @@ class HomeFragment : BaseFragment() {
             searchProgressBar.isVisible = it
             searchImageView.isVisible = !it
         })
-    }
-
-    private fun updateApplicationAdapter(list: List<Application>) {
-        val contactDiffUtilCallback =
-            ApplicationAdapter.ApplicationDiffUtilCallback(
-                applicationAdapter.applications,
-                list
-            )
-        val diffResult = DiffUtil.calculateDiff(contactDiffUtilCallback)
-
-        applicationAdapter.applications = list
-        diffResult.dispatchUpdatesTo(applicationAdapter)
     }
 }

@@ -9,14 +9,16 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
-import com.booleanull.core_ui.DismissItemTouchSwipeHelper
-import com.booleanull.core_ui.RecyclerDivider
+import com.booleanull.core_ui.adapter.GenericAdapter
+import com.booleanull.core_ui.adapter.GenericItemDiff
 import com.booleanull.core_ui.base.BaseFragment
+import com.booleanull.core_ui.getColor
+import com.booleanull.core_ui.helper.DismissItemTouchHelper
+import com.booleanull.core_ui.helper.RecyclerDivider
 import com.booleanull.core_ui.setChecked
 import com.booleanull.feature_home_ui.R
-import com.booleanull.feature_home_ui.adapter.FilterAdapter
+import com.booleanull.feature_home_ui.adapter.FilterViewHolderFactory
 import com.booleanull.feature_home_ui.viewmodel.HomeDetailsViewModel
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
@@ -32,15 +34,57 @@ class HomeDetailsFragment : BaseFragment() {
     private lateinit var viewModel: HomeDetailsViewModel
 
     private val filterAdapter by lazy {
-        FilterAdapter()
+        GenericAdapter(FilterViewHolderFactory()).apply {
+            setOnItemDismissListener(object : DismissItemTouchHelper.OnItemDismissListener {
+                override fun onItemDismiss(position: Int) {
+                    val item = this@apply.dataList[position]
+                    viewModel.removeFilter(item)
+                    Snackbar.make(
+                        requireParentFragment().requireView(),
+                        getString(R.string.RemoveFilter, item),
+                        Snackbar.LENGTH_SHORT
+                    )
+                        .setAction(android.R.string.cancel) {
+                            viewModel.addFilter(item)
+                        }
+                        .show()
+                }
+            })
+            setDiffUtil(object : GenericItemDiff<String> {
+                override fun areItemsTheSame(
+                    oldItems: List<String>,
+                    newItems: List<String>,
+                    oldItemPosition: Int,
+                    newItemPosition: Int
+                ): Boolean {
+                    val old = oldItems[oldItemPosition]
+                    val new = newItems[newItemPosition]
+                    return old == new
+                }
+
+                override fun areContentsTheSame(
+                    oldItems: List<String>,
+                    newItems: List<String>,
+                    oldItemPosition: Int,
+                    newItemPosition: Int
+                ): Boolean {
+                    val old = oldItems[oldItemPosition]
+                    val new = newItems[newItemPosition]
+                    return old == new
+                }
+            })
+        }
     }
 
     private val filterItemDecoration by lazy {
         RecyclerDivider(
             line = RecyclerDivider.Line(
-                0, 0, 1, ContextCompat.getColor(
-                    requireContext(),
-                    R.color.colorDivider
+                0, 0, 1, requireContext().getColor(
+                    R.attr.colorDivider,
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.colorGray
+                    )
                 )
             )
         )
@@ -98,22 +142,11 @@ class HomeDetailsFragment : BaseFragment() {
 
         filterRecyclerView.adapter = filterAdapter
         filterRecyclerView.addItemDecoration(filterItemDecoration)
-        ItemTouchHelper(DismissItemTouchSwipeHelper(filterAdapter)).attachToRecyclerView(filterRecyclerView)
-        filterAdapter.delegate = object : FilterAdapter.Delegate {
-            override fun onSwipeDismiss(position: Int) {
-                val item = filterAdapter.filters[position]
-                viewModel.removeFilter(item)
-                Snackbar.make(
-                    requireParentFragment().requireView(),
-                    getString(R.string.RemoveFilter, item),
-                    Snackbar.LENGTH_SHORT
-                )
-                    .setAction(android.R.string.cancel) {
-                        viewModel.addFilter(item)
-                    }
-                    .show()
-            }
-        }
+        ItemTouchHelper(
+            DismissItemTouchHelper(
+                filterAdapter
+            )
+        ).attachToRecyclerView(filterRecyclerView)
 
         fab.setOnClickListener {
             FilterAddBottomSheetFragment()
@@ -147,7 +180,7 @@ class HomeDetailsFragment : BaseFragment() {
                 filterRecyclerView.alpha = if (it.isFilter) 1.0f else 0.5f
                 filterOverlapLayout.isVisible = !it.isFilter
             }
-            updateFilterAdapter(it.filters.map { it.filter }.sorted().toMutableList())
+            filterAdapter.dataList = it.filters.map { it.filter }.sorted().toMutableList()
         })
 
         viewModel.errorNotFound.observe(viewLifecycleOwner, Observer {
@@ -159,17 +192,5 @@ class HomeDetailsFragment : BaseFragment() {
                 .show()
             onBackPressed()
         })
-    }
-
-    private fun updateFilterAdapter(list: List<String>) {
-        val contactDiffUtilCallback =
-            FilterAdapter.FilterDiffUtilCallback(
-                filterAdapter.filters.toList(),
-                list
-            )
-        val diffResult = DiffUtil.calculateDiff(contactDiffUtilCallback)
-
-        filterAdapter.filters = list.toMutableList()
-        diffResult.dispatchUpdatesTo(filterAdapter)
     }
 }

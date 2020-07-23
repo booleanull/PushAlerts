@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.booleanull.core_ui.base.BaseViewModel
-import com.booleanull.core_ui.SingleLiveEvent
+import com.booleanull.core_ui.helper.SingleLiveEvent
 import com.booleanull.feature_home.data.Alarm
 import com.booleanull.feature_home.data.AlarmWithFilter
 import com.booleanull.feature_home.data.Application
@@ -42,7 +42,8 @@ class HomeDetailsViewModel(
     val alarm: LiveData<AlarmWithFilter>
         get() = alarmInternal
 
-    private val errorNotFoundInternal = SingleLiveEvent<Nothing>()
+    private val errorNotFoundInternal =
+        SingleLiveEvent<Nothing>()
     val errorNotFound: LiveData<Nothing>
         get() = errorNotFoundInternal
 

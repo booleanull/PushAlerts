@@ -3,15 +3,14 @@ package com.booleanull.core_ui.base
 import android.view.View
 import com.booleanull.core_ui.command.AnimateForward
 import com.booleanull.core_ui.command.SharedViewForward
-import com.booleanull.core_ui.handler.NavigationDeeplinkHandler
+import com.booleanull.core_ui.handler.NavigationDeepLinkHandler
 import ru.terrakok.cicerone.BaseRouter
-import ru.terrakok.cicerone.Router
 import ru.terrakok.cicerone.commands.Back
 import ru.terrakok.cicerone.commands.BackTo
 import ru.terrakok.cicerone.commands.Forward
 import ru.terrakok.cicerone.commands.Replace
 
-class BaseRouter(private val navigationDeeplinkHandler: NavigationDeeplinkHandler) : BaseRouter() {
+class BaseRouter(private val navigationDeepLinkHandler: NavigationDeepLinkHandler) : BaseRouter() {
 
     fun navigateTo(screen: BaseScreen) {
         executeCommands(Forward(screen))
@@ -58,7 +57,7 @@ class BaseRouter(private val navigationDeeplinkHandler: NavigationDeeplinkHandle
     }
 
     fun resolve(screen: String): BaseScreen {
-        return navigationDeeplinkHandler.resolveScreen(screen)
+        return navigationDeepLinkHandler.resolveScreen(screen)
             ?: throw IllegalArgumentException("Incorrect deeplink url")
     }
 }

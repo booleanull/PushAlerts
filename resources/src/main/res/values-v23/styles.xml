@@ -2,10 +2,12 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorBlueGray</item>
-        <item name="colorPrimaryDark">@color/colorBlueGray</item>
+        <item name="colorPrimary">@color/colorWhite</item>
+        <item name="colorPrimaryDark">@color/colorWhiteSecondary</item>
         <item name="colorAccent">@color/colorBlueGray</item>
-        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="colorTextBold">@color/colorBlack</item>
+        <item name="colorDivider">@color/colorGray</item>
+        <item name="android:statusBarColor">@color/colorWhiteSecondary</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>

@@ -6,7 +6,7 @@ import com.booleanull.core.Configuration
 import com.booleanull.core.gateway.AlarmGateway
 import com.booleanull.core.gateway.ApplicationGateway
 import com.booleanull.core_ui.base.BaseRouter
-import com.booleanull.core_ui.handler.NavigationDeeplinkHandler
+import com.booleanull.core_ui.handler.NavigationDeepLinkHandler
 import com.booleanull.repositories.AlarmRepository
 import com.booleanull.repositories.ApplicationRepository
 import org.koin.dsl.module
@@ -20,7 +20,7 @@ val appModule = module {
     single { Cicerone.create(BaseRouter(get())) }
     single { get<Cicerone<BaseRouter>>().router }
     single { get<Cicerone<BaseRouter>>().navigatorHolder }
-    single<NavigationDeeplinkHandler> { ApplicationNavigationDeeplinkHandler() }
+    single<NavigationDeepLinkHandler> { ApplicationNavigationDeepLinkHandler() }
 
     single<ApplicationGateway> { ApplicationRepository() }
     single<AlarmGateway> { AlarmRepository(get()) }

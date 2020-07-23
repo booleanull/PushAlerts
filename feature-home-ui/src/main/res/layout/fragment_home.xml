@@ -5,14 +5,12 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="?attr/colorPrimaryDark"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/Toolbar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
@@ -34,7 +32,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="@string/app_name"
-                        android:textColor="@android:color/black"
+                        android:textColor="?attr/colorTextBold"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -47,8 +45,8 @@
                         android:hint="Поиск"
                         android:inputType="text|textNoSuggestions"
                         android:singleLine="true"
-                        android:textColor="@android:color/black"
-                        android:textColorHint="@android:color/black"
+                        android:textColor="?attr/colorTextBold"
+                        android:textColorHint="?attr/colorTextBold"
                         android:visibility="gone" />
 
                 </FrameLayout>
@@ -65,7 +63,8 @@
                         android:layout_gravity="center_vertical"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:padding="4dp"
-                        app:srcCompat="@drawable/ic_search" />
+                        app:srcCompat="@drawable/ic_search"
+                        android:tint="?attr/colorPrimary"/>
 
                     <ProgressBar
                         android:id="@+id/searchProgressBar"

@@ -1,4 +1,4 @@
-package com.booleanull.core_ui;
+package com.booleanull.core_ui.helper;
 
 import android.util.Log;
 
