@@ -4,12 +4,10 @@ import android.content.ComponentName
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
-import android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS
 import android.text.TextUtils
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.booleanull.core_ui.base.BaseFragment
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,14 +19,16 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.container, MainFragment())
-                    .commit()
+                .beginTransaction()
+                .replace(
+                    R.id.container,
+                    MainFragment().apply { arguments = Bundle().apply { putString("Route", intent.getStringExtra("Route")) } })
+                .commit()
         }
 
-        if(!isNotificationServiceEnabled()){
+        if (!isNotificationServiceEnabled()) {
             enableNotificationListenerAlertDialog = buildNotificationServiceAlertDialog();
-            enableNotificationListenerAlertDialog?.show();
+            enableNotificationListenerAlertDialog?.show()
         }
     }
 

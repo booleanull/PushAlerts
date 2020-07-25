@@ -1,8 +1,8 @@
 package com.booleanull.pushalert
 
+import android.content.Intent
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
-import android.widget.Toast
 import com.booleanull.feature_home.interactor.SearchAlarm
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -45,8 +45,12 @@ class NotificationListenerService : NotificationListenerService() {
     }
 
     private fun onPushIntercepted(sbn: StatusBarNotification, rankingMap: RankingMap?) {
-        Toast.makeText(applicationContext, sbn.packageName, Toast.LENGTH_LONG)
-            .show()
+        startActivity(Intent().apply {
+            action = Intent.ACTION_MAIN
+            setClassName(packageName, "$packageName.MainActivity")
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            putExtra("Route", "Alarm")
+        })
     }
 
     override fun onDestroy() {
