@@ -1,16 +1,21 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorBlueGray</item>
-        <item name="colorPrimaryDark">@color/colorBlueGray</item>
+        <item name="colorPrimary">@color/colorWhite</item>
+        <item name="colorPrimaryDark">@color/colorWhiteSecondary</item>
         <item name="colorAccent">@color/colorBlueGray</item>
-        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="colorTextBold">@color/colorBlack</item>
+        <item name="colorDivider">@color/colorGray</item>
+        <item name="android:statusBarColor">@color/colorWhiteSecondary</item>
     </style>
 
-    <!-- ToolBar -->
-    <style name="Toolbar" parent="ThemeOverlay.MaterialComponents.Light">
-        <item name="colorPrimary">@android:color/white</item>
-        <item name="colorPrimaryDark">@android:color/white</item>
+    <style name="AppTheme.Dark" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/colorBlackSecondary</item>
+        <item name="colorPrimaryDark">@color/colorBlack</item>
+        <item name="colorAccent">@color/colorBlueGray</item>
+        <item name="colorTextBold">@color/colorWhite</item>
+        <item name="colorDivider">@color/colorGrayDark</item>
+        <item name="android:statusBarColor">@color/colorBlackSecondary</item>
     </style>
 
     <!-- Bottom Sheet -->

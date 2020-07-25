@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.booleanull.core_ui.base.BaseFragment
-import com.booleanull.core_ui.handler.NavigationDeeplinkHandler
 import com.booleanull.feature_onboarding_ui.R
 import kotlinx.android.synthetic.main.fragment_onboarding_item.*
 

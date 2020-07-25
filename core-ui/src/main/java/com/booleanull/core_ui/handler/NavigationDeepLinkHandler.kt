@@ -2,7 +2,7 @@ package com.booleanull.core_ui.handler
 
 import com.booleanull.core_ui.base.BaseScreen
 
-interface NavigationDeeplinkHandler {
+interface NavigationDeepLinkHandler {
 
     fun resolveScreen(screen: String): BaseScreen?
 }
