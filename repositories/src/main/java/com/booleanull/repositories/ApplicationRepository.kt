@@ -51,7 +51,7 @@ class ApplicationRepository : ApplicationGateway {
                 packageManager.getActivityIcon(packageManager.getLaunchIntentForPackage(it.packageName)!!)
             )
         }.filter {
-            it.name.startsWith(query, true) || it.packageName.startsWith(query, true)
+            it.name.contains(query, true) || it.packageName.contains(query, true)
         }
 
         return if(filteredPackages.isNotEmpty()) {

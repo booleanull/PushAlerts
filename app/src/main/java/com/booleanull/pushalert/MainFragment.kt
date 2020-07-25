@@ -13,6 +13,7 @@ import org.koin.android.ext.android.inject
 import ru.terrakok.cicerone.NavigatorHolder
 
 class MainFragment : BaseFragment() {
+
     private val navigatorHolder: NavigatorHolder by inject()
     private val configuration: Configuration by inject()
 

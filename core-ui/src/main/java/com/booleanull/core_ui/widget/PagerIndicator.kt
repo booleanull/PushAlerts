@@ -33,6 +33,13 @@ class PagerIndicator @JvmOverloads constructor(
         }
 
     @Dimension
+    var sizeActiveCircle: Float = 12f
+        set(value) {
+            field = value
+            requestLayout()
+        }
+
+    @Dimension
     var sizeCircle: Float = 8f
         set(value) {
             field = value
@@ -75,8 +82,15 @@ class PagerIndicator @JvmOverloads constructor(
 
     init {
         context.obtainStyledAttributes(attrs, R.styleable.PagerIndicator, defStyleAttr, 0).apply {
-            activeColor = getColor(R.styleable.PagerIndicator_activeColor, context.getAttributeColor(R.attr.colorPrimary))
-            disabledColor = getColor(R.styleable.PagerIndicator_disabledColor, context.getAttributeColor(R.attr.colorPrimaryDark))
+            activeColor = getColor(
+                R.styleable.PagerIndicator_activeColor,
+                context.getAttributeColor(R.attr.colorPrimary)
+            )
+            disabledColor = getColor(
+                R.styleable.PagerIndicator_disabledColor,
+                context.getAttributeColor(R.attr.colorPrimaryDark)
+            )
+            sizeActiveCircle = getDimension(R.styleable.PagerIndicator_sizeActiveCircle, 12f)
             sizeCircle = getDimension(R.styleable.PagerIndicator_sizeCircle, 8f)
             marginCircle = getDimension(R.styleable.PagerIndicator_marginCircle, 4f)
             recycle()
@@ -85,8 +99,8 @@ class PagerIndicator @JvmOverloads constructor(
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        val width = dp(sizeCircle) * count + dp(marginCircle) * (count - 1)
-        val height = dp(sizeCircle)
+        val width = dp(sizeActiveCircle) * count + dp(marginCircle) * (count - 1)
+        val height = dp(sizeActiveCircle)
         setMeasuredDimension(width.toInt(), height.toInt())
     }
 
@@ -95,12 +109,23 @@ class PagerIndicator @JvmOverloads constructor(
         for (i in 0..count) {
             val colorActive = argbEvaluator.evaluate(progress, activeColor, disabledColor) as Int
             val colorDisabled = argbEvaluator.evaluate(progress, disabledColor, activeColor) as Int
+            val sizeActive = (dp(sizeActiveCircle) - dp(sizeCircle)) * (1f - progress) + dp(sizeCircle)
+            val sizeDisabled = (dp(sizeActiveCircle) - dp(sizeCircle)) * progress + dp(sizeCircle)
             paint.color = when {
                 i == active -> colorActive
                 i - 1 == active -> colorDisabled
                 else -> disabledColor
             }
-            canvas.drawCircle(dp(sizeCircle) / 2 + i * (dp(sizeCircle) + dp(marginCircle)), height.toFloat() / 2, height.toFloat() / 2, paint)
+            canvas.drawCircle(
+                dp(sizeActiveCircle) / 2 + i * (dp(sizeActiveCircle) + dp(marginCircle)),
+                height.toFloat() / 2,
+                when {
+                    i == active -> sizeActive / 2
+                    i - 1 == active -> sizeDisabled / 2
+                    else -> dp(sizeCircle) / 2
+                },
+                paint
+            )
         }
     }
 
