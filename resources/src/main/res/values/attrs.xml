@@ -3,4 +3,11 @@
     <attr name="colorText" format="color"/>
     <attr name="colorTextBold" format="color"/>
     <attr name="colorDivider" format="color"/>
+    
+    <declare-styleable name="PagerIndicator">
+        <attr name="activeColor" format="color"/>
+        <attr name="disabledColor" format="color"/>
+        <attr name="sizeCircle" format="dimension"/>
+        <attr name="marginCircle" format="dimension"/>
+    </declare-styleable>
 </resources>

@@ -15,7 +15,7 @@ import com.booleanull.core_ui.adapter.GenericItemDiff
 import com.booleanull.core_ui.adapter.OnItemClickListener
 import com.booleanull.core_ui.base.BaseFragment
 import com.booleanull.core_ui.dp
-import com.booleanull.core_ui.getColor
+import com.booleanull.core_ui.getAttributeColor
 import com.booleanull.core_ui.helper.RecyclerDivider
 import com.booleanull.feature_home.data.Application
 import com.booleanull.feature_home_ui.R
@@ -75,7 +75,7 @@ class HomeFragment : BaseFragment() {
                 dp(68),
                 0,
                 1,
-                requireContext().getColor(
+                requireContext().getAttributeColor(
                     R.attr.colorDivider,
                     ContextCompat.getColor(
                         requireContext(),

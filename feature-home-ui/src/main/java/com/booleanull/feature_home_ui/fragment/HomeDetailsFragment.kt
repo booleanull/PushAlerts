@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import com.booleanull.core_ui.adapter.GenericAdapter
 import com.booleanull.core_ui.adapter.GenericItemDiff
 import com.booleanull.core_ui.base.BaseFragment
-import com.booleanull.core_ui.getColor
+import com.booleanull.core_ui.getAttributeColor
 import com.booleanull.core_ui.helper.DismissItemTouchHelper
 import com.booleanull.core_ui.helper.RecyclerDivider
 import com.booleanull.core_ui.setChecked
@@ -79,7 +79,7 @@ class HomeDetailsFragment : BaseFragment() {
     private val filterItemDecoration by lazy {
         RecyclerDivider(
             line = RecyclerDivider.Line(
-                0, 0, 1, requireContext().getColor(
+                0, 0, 1, requireContext().getAttributeColor(
                     R.attr.colorDivider,
                     ContextCompat.getColor(
                         requireContext(),

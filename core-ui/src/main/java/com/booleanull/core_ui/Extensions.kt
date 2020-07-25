@@ -1,6 +1,7 @@
 package com.booleanull.core_ui
 
 import android.content.Context
+import android.graphics.Color
 import android.view.View
 import android.widget.CompoundButton
 import android.widget.Switch
@@ -25,7 +26,7 @@ fun Fragment.dp(value: Int): Int {
     return view?.dp(value) ?: value
 }
 
-fun Context.getColor(attribute: Int, @ColorInt defColor: Int): Int {
+fun Context.getAttributeColor(attribute: Int, @ColorInt defColor: Int = Color.RED): Int {
     return theme.obtainStyledAttributes(intArrayOf(attribute)).let { typedArray ->
         try {
             typedArray.getColor(typedArray.getIndex(0), defColor)
