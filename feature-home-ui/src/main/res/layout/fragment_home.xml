@@ -64,7 +64,7 @@
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:padding="4dp"
                         app:srcCompat="@drawable/ic_search"
-                        android:tint="?attr/colorPrimary"/>
+                        android:tint="?attr/colorTextBold"/>
 
                     <ProgressBar
                         android:id="@+id/searchProgressBar"

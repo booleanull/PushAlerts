@@ -13,6 +13,7 @@ import org.koin.android.ext.android.inject
 import ru.terrakok.cicerone.NavigatorHolder
 
 class MainFragment : BaseFragment() {
+
     private val navigatorHolder: NavigatorHolder by inject()
     private val configuration: Configuration by inject()
 
@@ -31,17 +32,23 @@ class MainFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (childFragmentManager.fragments.isEmpty()) {
-            if (configuration.isLaunchedFirst) {
-                router.navigateChain(
-                    HomeScreen(),
-                    0,
-                    0,
-                    R.anim.move_enter,
-                    R.anim.move_exit,
-                    OnboardingScreen()
-                )
-            } else {
-                router.replace(HomeScreen())
+            when {
+                arguments?.getString("Route") == "Alarm" -> {
+                    router.replace(AlarmScreen())
+                }
+                configuration.isLaunchedFirst -> {
+                    router.navigateChain(
+                        HomeScreen(),
+                        0,
+                        0,
+                        R.anim.move_enter,
+                        R.anim.move_exit,
+                        OnboardingScreen()
+                    )
+                }
+                else -> {
+                    router.replace(HomeScreen())
+                }
             }
         }
     }

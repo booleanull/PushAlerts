@@ -7,6 +7,7 @@
     <declare-styleable name="PagerIndicator">
         <attr name="activeColor" format="color"/>
         <attr name="disabledColor" format="color"/>
+        <attr name="sizeActiveCircle" format="dimension"/>
         <attr name="sizeCircle" format="dimension"/>
         <attr name="marginCircle" format="dimension"/>
     </declare-styleable>

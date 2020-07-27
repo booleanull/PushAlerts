@@ -27,7 +27,6 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    implementation project(":resources")
     implementation project(":core")
     implementation project(":core-ui")
     implementation project(":feature-onboarding")
