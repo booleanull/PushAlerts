@@ -5,14 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.booleanull.core_ui.base.BaseViewModel
 import com.booleanull.feature_home.data.Application
-import com.booleanull.feature_home.interactor.GetApplicationList
+import com.booleanull.feature_home.interactor.GetApplicationListUseCase
 import com.booleanull.feature_home.interactor.SearchApplicationList
 
 class HomeViewModel(
     private val context: Context,
-    private val getApplicationList: GetApplicationList,
+    private val getApplicationListUseCase: GetApplicationListUseCase,
     private val searchApplicationList: SearchApplicationList
-) : BaseViewModel(getApplicationList, searchApplicationList) {
+) : BaseViewModel(getApplicationListUseCase, searchApplicationList) {
 
     private val applicationListInternal = MutableLiveData<List<Application>>()
     val applicationList: LiveData<List<Application>>
@@ -41,10 +41,10 @@ class HomeViewModel(
         isSearch = false
         loadingInternal.value = true
         applicationNotFoundInternal.value = false
-        getApplicationList.invoke(
-            params = GetApplicationList.Params(
+        getApplicationListUseCase.invoke(
+            params = GetApplicationListUseCase.Params(
                 context,
-                GetApplicationList.SortType(GetApplicationList.SortType.SORT_NAME)
+                GetApplicationListUseCase.SortType(GetApplicationListUseCase.SortType.SORT_NAME)
             ), onResult = {
                 loadingInternal.value = false
                 applicationListInternal.value = it
@@ -59,7 +59,7 @@ class HomeViewModel(
             params = SearchApplicationList.Params(
                 context,
                 query,
-                SearchApplicationList.SortType(GetApplicationList.SortType.SORT_NAME)
+                SearchApplicationList.SortType(GetApplicationListUseCase.SortType.SORT_NAME)
             ),
             onResult = {
                 searchLoadingInternal.value = false

@@ -7,8 +7,8 @@ import com.booleanull.core.interactor.BaseUseCase
 import com.booleanull.feature_home.data.AlarmWithFilter
 import com.booleanull.feature_home.data.toAlarmWithFilter
 
-class SearchAlarm(private val alarmRepository: AlarmGateway) :
-    BaseUseCase<Task<Exception, AlarmWithFilter>, SearchAlarm.Params>() {
+class SearchAlarmUseCase(private val alarmRepository: AlarmGateway) :
+    BaseUseCase<Task<Exception, AlarmWithFilter>, SearchAlarmUseCase.Params>() {
 
     override suspend fun run(params: Params?): Task<Exception, AlarmWithFilter> {
         checkNotNull(params)

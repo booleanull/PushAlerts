@@ -8,7 +8,7 @@ import com.booleanull.core.interactor.BaseUseCase
 import com.booleanull.feature_home.data.Application
 import com.booleanull.feature_home.data.toApplication
 
-class GetApplication(private val applicationRepository: ApplicationGateway): BaseUseCase<Task<Exception, Application>, GetApplication.Params>() {
+class GetApplicationUseCase(private val applicationRepository: ApplicationGateway): BaseUseCase<Task<Exception, Application>, GetApplicationUseCase.Params>() {
 
     override suspend fun run(params: Params?): Task<Exception, Application> {
         checkNotNull(params)

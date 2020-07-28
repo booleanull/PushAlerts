@@ -14,15 +14,15 @@ import com.booleanull.feature_home.interactor.*
 class HomeDetailsViewModel(
     private val packageName: String,
     private val context: Context,
-    private val getApplication: GetApplication,
-    private val searchAlarm: SearchAlarm,
-    private val insertAlarm: InsertAlarm,
-    private val removeFilter: RemoveFilter
+    private val getApplicationUseCase: GetApplicationUseCase,
+    private val searchAlarmUseCase: SearchAlarmUseCase,
+    private val insertAlarmUseCase: InsertAlarmUseCase,
+    private val removeFilterUseCase: RemoveFilterUseCase
 ) : BaseViewModel(
-    getApplication,
-    searchAlarm,
-    insertAlarm,
-    removeFilter
+    getApplicationUseCase,
+    searchAlarmUseCase,
+    insertAlarmUseCase,
+    removeFilterUseCase
 ) {
 
     private val applicationInternal = MutableLiveData<Application>()
@@ -48,7 +48,7 @@ class HomeDetailsViewModel(
         get() = errorNotFoundInternal
 
     fun loadApplication() {
-        getApplication.invoke(params = GetApplication.Params(context, packageName), onResult = {
+        getApplicationUseCase.invoke(params = GetApplicationUseCase.Params(context, packageName), onResult = {
             it.fold({
                 applicationInternal.value = it
             }, {
@@ -58,7 +58,7 @@ class HomeDetailsViewModel(
     }
 
     fun searchApplicationAlarm() {
-        searchAlarm.invoke(SearchAlarm.Params(packageName), onResult = {
+        searchAlarmUseCase.invoke(SearchAlarmUseCase.Params(packageName), onResult = {
             it.fold({
                 alarmInternal.value = it
             })
@@ -86,10 +86,10 @@ class HomeDetailsViewModel(
     fun removeFilter(filter: String) {
         val item = alarmInternal.value!!.filters.firstOrNull { it.filter == filter } ?: return
         alarmInternal.value = alarmInternal.value!!.apply { filters.remove(item) }
-        removeFilter.invoke(params = RemoveFilter.Params(item))
+        removeFilterUseCase.invoke(params = RemoveFilterUseCase.Params(item))
     }
 
     private fun insertAlarm() {
-        insertAlarm.invoke(params = InsertAlarm.Params(alarmInternal.value!!))
+        insertAlarmUseCase.invoke(params = InsertAlarmUseCase.Params(alarmInternal.value!!))
     }
 }

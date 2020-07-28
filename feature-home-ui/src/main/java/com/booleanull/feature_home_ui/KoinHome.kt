@@ -8,12 +8,12 @@ import org.koin.dsl.module
 
 val homeModule = module {
 
-    factory { GetApplicationList(get()) }
+    factory { GetApplicationListUseCase(get()) }
     factory { SearchApplicationList(get()) }
-    factory { GetApplication(get()) }
-    factory { SearchAlarm(get()) }
-    factory { InsertAlarm(get()) }
-    factory { RemoveFilter(get()) }
+    factory { GetApplicationUseCase(get()) }
+    factory { SearchAlarmUseCase(get()) }
+    factory { InsertAlarmUseCase(get()) }
+    factory { RemoveFilterUseCase(get()) }
 
     viewModel {
         HomeViewModel(
