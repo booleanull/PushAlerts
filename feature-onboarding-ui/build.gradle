@@ -3,14 +3,14 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "29.0.3"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -32,16 +32,17 @@ dependencies {
     implementation project(":feature-onboarding")
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    
-    implementation 'ru.terrakok.cicerone:cicerone:5.0.0'
+    implementation "androidx.core:core-ktx:${rootProject.ext.libraries.core}"
+    implementation "androidx.appcompat:appcompat:${rootProject.ext.libraries.appcompat}"
+    implementation "com.google.android.material:material:${rootProject.ext.libraries.material}"
 
-    implementation "org.koin:koin-android:2.1.5"
-    implementation "org.koin:koin-androidx-scope:2.1.5"
-    implementation "org.koin:koin-androidx-viewmodel:2.1.5"
+    implementation "ru.terrakok.cicerone:cicerone:${rootProject.ext.libraries.cicerone}"
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation "org.koin:koin-android:${rootProject.ext.libraries.koin}"
+    implementation "org.koin:koin-androidx-scope:${rootProject.ext.libraries.koin}"
+    implementation "org.koin:koin-androidx-viewmodel:${rootProject.ext.libraries.koin}"
+
+    testImplementation "junit:junit:${rootProject.ext.libraries.junit}"
+    androidTestImplementation "androidx.test.ext:junit:${rootProject.ext.libraries.junit_android}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${rootProject.ext.libraries.expresso}"
 }
