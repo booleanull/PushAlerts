@@ -1,12 +1,12 @@
 package com.booleanull.pushalert
 
 import androidx.room.Room
-import com.booleanull.repositories.ApplicationDatabase
 import com.booleanull.core.Configuration
 import com.booleanull.core.gateway.AlarmGateway
 import com.booleanull.core.gateway.ApplicationGateway
 import com.booleanull.core_ui.base.BaseRouter
 import com.booleanull.core_ui.handler.NavigationDeepLinkHandler
+import com.booleanull.database.ApplicationDatabase
 import com.booleanull.repositories.AlarmRepository
 import com.booleanull.repositories.ApplicationRepository
 import org.koin.dsl.module

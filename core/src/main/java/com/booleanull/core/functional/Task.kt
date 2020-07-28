@@ -1,5 +1,6 @@
 package com.booleanull.core.functional
 
+@Suppress("UNCHECKED_CAST")
 sealed class Task<out F, out S> {
 
     data class Success<out S>(val success: S) : Task<Nothing, S>()

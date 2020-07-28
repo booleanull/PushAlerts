@@ -1,4 +1,4 @@
-package com.booleanull.repositories.dao
+package com.booleanull.database.dao
 
 import androidx.room.*
 import com.booleanull.core.dto.AlarmDTO

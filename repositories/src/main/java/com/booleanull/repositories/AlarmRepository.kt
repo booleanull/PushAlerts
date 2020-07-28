@@ -4,6 +4,7 @@ import com.booleanull.core.dto.AlarmWithFilterDTO
 import com.booleanull.core.dto.FilterDTO
 import com.booleanull.core.functional.Task
 import com.booleanull.core.gateway.AlarmGateway
+import com.booleanull.database.ApplicationDatabase
 import java.lang.Exception
 import java.lang.IllegalArgumentException
 
