@@ -6,7 +6,7 @@ import com.booleanull.core.interactor.BaseUseCase
 import com.booleanull.feature_home.data.Application
 import com.booleanull.feature_home.data.toApplication
 
-class GetApplicationList(private val applicationRepository: ApplicationGateway): BaseUseCase<List<Application>, GetApplicationList.Params>() {
+class GetApplicationListUseCase(private val applicationRepository: ApplicationGateway): BaseUseCase<List<Application>, GetApplicationListUseCase.Params>() {
 
     override suspend fun run(params: Params?): List<Application> {
         checkNotNull(params)

@@ -16,10 +16,10 @@ class SearchApplicationList(private val applicationRepository: ApplicationGatewa
         val applications = applicationRepository.searchApplicationList(params.context, params.query)
             .map { it.map { it.toApplication() } }
         return when (params.sortType.value) {
-            GetApplicationList.SortType.SORT_NAME -> {
+            GetApplicationListUseCase.SortType.SORT_NAME -> {
                 applications.map { it.sortedBy { it.name } }
             }
-            GetApplicationList.SortType.SORT_PACKAGE -> {
+            GetApplicationListUseCase.SortType.SORT_PACKAGE -> {
                 applications.map { it.sortedBy { it.packageName } }
             }
             else -> {
