@@ -45,12 +45,10 @@ class NotificationListenerService : NotificationListenerService() {
     }
 
     private fun onPushIntercepted(sbn: StatusBarNotification, rankingMap: RankingMap?) {
-        startActivity(Intent().apply {
-            action = Intent.ACTION_MAIN
-            setClassName(packageName, "$packageName.MainActivity")
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            putExtra("Route", "Alarm")
-        })
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        intent.putExtra("deeplink", "AlarmFragment")
+        startActivity(intent)
     }
 
     override fun onDestroy() {

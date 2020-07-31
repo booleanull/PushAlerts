@@ -9,6 +9,7 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.annotation.ColorInt
 import androidx.annotation.Dimension
+import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
 import com.booleanull.core_ui.R
 import com.booleanull.core_ui.dp
@@ -84,11 +85,11 @@ class PagerIndicator @JvmOverloads constructor(
         context.obtainStyledAttributes(attrs, R.styleable.PagerIndicator, defStyleAttr, 0).apply {
             activeColor = getColor(
                 R.styleable.PagerIndicator_activeColor,
-                context.getAttributeColor(R.attr.colorPrimary)
+                context.getAttributeColor(R.attr.colorAccent)
             )
             disabledColor = getColor(
                 R.styleable.PagerIndicator_disabledColor,
-                context.getAttributeColor(R.attr.colorPrimaryDark)
+                ContextCompat.getColor(context, R.color.colorGraySecondary)
             )
             sizeActiveCircle = getDimension(R.styleable.PagerIndicator_sizeActiveCircle, 12f)
             sizeCircle = getDimension(R.styleable.PagerIndicator_sizeCircle, 8f)

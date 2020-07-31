@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="next">Продолжить</string>
+    <string name="take_permission">Разрешить</string>
+    <string name="error_permission">Вы не предоставили доступ к уведомлениям</string>
+    <string name="onboarding_description_first">Сервис для "громких" уведомлений.\nЗаводите будильник на получение Push-сообщений от приложений.</string>
+    <string name="onboarding_title_second">Откройте доступ сервису</string>
+    <string name="onboarding_description_second">Для работы сервиса необходимо предоставить возможность реагировать на Ваши Push-сообщения.</string>
+    <string name="onboarding_title_third">Оцените наше приложение</string>
+    <string name="onboarding_description_third">Оцените наше приложения в Play Market.</string>
+</resources>

@@ -1,22 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="?attr/colorPrimary">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:animateLayoutChanges="true"
+    android:orientation="vertical">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <com.booleanull.core_ui.widget.PagerIndicator
         android:id="@+id/pagerIndicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
-        android:layout_margin="32dp"
-        app:disabledColor="@color/colorGrayDark"
-        app:activeColor="?attr/colorAccent"/>
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/default_margin" />
 
-</FrameLayout>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/errorTextView"
+        style="@style/AppTheme.Text.Error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:text="@string/error_permission"
+        android:visibility="invisible"
+        tools:visibility="visible"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/nextButton"
+        style="@style/AppTheme.MaterialButton"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/material_button_height"
+        android:layout_gravity="bottom"
+        android:text="@string/take_permission" />
+
+</LinearLayout>

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Push Alert</string>
+    <string name="play_market_url">https://www.youtube.com/</string>
+    <string name="play_market">Play Market</string>
 </resources>

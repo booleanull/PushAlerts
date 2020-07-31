@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.booleanull.core.Configuration
 import com.booleanull.core_ui.base.BaseAppNavigator
 import com.booleanull.core_ui.base.BaseFragment
+import com.booleanull.core_ui.helper.SettingsListenerHelper
 import com.booleanull.feature_home_ui.screen.HomeScreen
 import com.booleanull.feature_onboarding_ui.screen.OnboardingScreen
 import org.koin.android.ext.android.inject
@@ -15,7 +15,8 @@ import ru.terrakok.cicerone.NavigatorHolder
 class MainFragment : BaseFragment() {
 
     private val navigatorHolder: NavigatorHolder by inject()
-    private val configuration: Configuration by inject()
+
+    private val notificationListenerHelper: SettingsListenerHelper by inject()
 
     private val navigator by lazy {
         BaseAppNavigator(requireContext(), requireActivity(), childFragmentManager, R.id.container)
@@ -31,18 +32,15 @@ class MainFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (childFragmentManager.fragments.isEmpty()) {
+        if (childFragmentManager.fragments.isEmpty() && arguments?.getString("deeplink") == null) {
             when {
-                arguments?.getString("Route") == "Alarm" -> {
-                    router.replace(AlarmScreen())
-                }
-                configuration.isLaunchedFirst -> {
+                !notificationListenerHelper.isSettingsEnabled() -> {
                     router.navigateChain(
                         HomeScreen(),
                         0,
                         0,
-                        R.anim.move_enter,
-                        R.anim.move_exit,
+                        R.anim.fade_enter,
+                        R.anim.fade_exit,
                         OnboardingScreen()
                     )
                 }
@@ -58,6 +56,10 @@ class MainFragment : BaseFragment() {
             return true
         }
         return false
+    }
+
+    fun onDeepLinkNavigate(deepLink: String) {
+        router.replace(router.resolve(deepLink))
     }
 
     override fun onResume() {

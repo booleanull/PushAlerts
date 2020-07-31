@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center"
-    android:orientation="vertical">
-
-    <ImageView
-        android:tint="@android:color/white"
-        android:padding="32dp"
-        android:src="@drawable/ic_add"
-        android:background="@drawable/circle"
-        android:layout_width="256dp"
-        android:layout_height="256dp" />
+    android:orientation="vertical"
+    android:padding="32dp">
 
     <TextView
-        android:layout_marginTop="32dp"
-        tools:text="@string/app_name"
-        android:id="@+id/descriptionTextView"
-        android:layout_width="wrap_content"
+        android:id="@+id/titleTextView"
+        style="@style/AppTheme.Text.Title.H4"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:gravity="center" />
+        android:gravity="center"
+        tools:text="@string/app_name" />
+
+    <TextView
+        android:id="@+id/descriptionTextView"
+        style="@style/AppTheme.Text.Description.H4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/default_margin"
+        android:gravity="center"
+        tools:text="@string/app_name" />
 
 </LinearLayout>

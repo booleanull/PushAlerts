@@ -11,6 +11,7 @@ class ApplicationNavigationDeepLinkHandler: NavigationDeepLinkHandler {
         return when(screen) {
             homeFragment -> HomeScreen()
             onboardingFragment -> OnboardingScreen()
+            alarmFragment -> AlarmScreen()
             else -> null
         }
     }
@@ -18,5 +19,6 @@ class ApplicationNavigationDeepLinkHandler: NavigationDeepLinkHandler {
     companion object {
         const val homeFragment = "HomeFragment"
         const val onboardingFragment = "OnboardingFragment"
+        const val alarmFragment = "AlarmFragment"
     }
 }

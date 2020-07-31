@@ -4,18 +4,63 @@
         <item name="colorPrimary">@color/colorWhite</item>
         <item name="colorPrimaryDark">@color/colorWhiteSecondary</item>
         <item name="colorAccent">@color/colorBlueGray</item>
+        <item name="colorError">@color/colorPinkRed</item>
         <item name="colorTextBold">@color/colorBlack</item>
         <item name="colorDivider">@color/colorGray</item>
-        <item name="android:statusBarColor">@color/colorWhiteSecondary</item>
+
+        <item name="android:statusBarColor">@color/colorWhite</item>
+        <item name="android:windowBackground">@color/colorWhite</item>
+        <item name="android:colorBackground">@color/colorWhite</item>
     </style>
 
-    <style name="AppTheme.Dark" parent="Theme.MaterialComponents.NoActionBar">
-        <item name="colorPrimary">@color/colorBlackSecondary</item>
-        <item name="colorPrimaryDark">@color/colorBlack</item>
-        <item name="colorAccent">@color/colorBlueGray</item>
-        <item name="colorTextBold">@color/colorWhite</item>
-        <item name="colorDivider">@color/colorGrayDark</item>
-        <item name="android:statusBarColor">@color/colorBlackSecondary</item>
+    <!-- Buttons -->
+    <style name="AppTheme.MaterialButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="cornerRadius">@dimen/default_radius</item>
+        <item name="backgroundTint">@color/colorBlueGray</item>
+        <item name="android:layout_marginStart">@dimen/default_margin</item>
+        <item name="android:layout_marginEnd">@dimen/default_margin</item>
+        <item name="android:layout_marginBottom">@dimen/default_margin</item>
+    </style>
+
+    <!-- Texts -->
+    <style name="AppTheme.Text"></style>
+
+    <!-- Texts Title -->
+    <style name="AppTheme.Text.Title">
+        <item name="android:textColor">?attr/colorTextBold</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.Text.Title.H3">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="AppTheme.Text.Title.H4">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="AppTheme.Text.Title.H5">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- Text Description -->
+    <style name="AppTheme.Text.Description"></style>
+
+    <style name="AppTheme.Text.Description.H3">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="AppTheme.Text.Description.H4">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="AppTheme.Text.Description.H5">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="AppTheme.Text.Error" parent="AppTheme.Text.Description.H5">
+        <item name="android:textColor">?attr/colorError</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <!-- Bottom Sheet -->
