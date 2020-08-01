@@ -7,6 +7,8 @@
         <item name="colorError">@color/colorPinkRed</item>
         <item name="colorTextBold">@color/colorBlack</item>
         <item name="colorDivider">@color/colorGray</item>
+        <item name="colorBackground">@color/colorWhite</item>
+        <item name="colorBackgroundVariant">@color/colorWhiteSecondary</item>
 
         <item name="android:statusBarColor">@color/colorWhite</item>
         <item name="android:windowBackground">@color/colorWhite</item>
@@ -17,6 +19,8 @@
     <style name="AppTheme.MaterialButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="cornerRadius">@dimen/default_radius</item>
         <item name="backgroundTint">@color/colorBlueGray</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="iconTint">@color/colorWhite</item>
         <item name="android:layout_marginStart">@dimen/default_margin</item>
         <item name="android:layout_marginEnd">@dimen/default_margin</item>
         <item name="android:layout_marginBottom">@dimen/default_margin</item>
@@ -78,6 +82,8 @@
         <item name="colorPrimary">@color/colorBlueGray</item>
         <item name="colorPrimaryDark">@color/colorBlueGray</item>
         <item name="colorAccent">@color/colorBlueGray</item>
+        <item name="colorBackground">@color/colorWhite</item>
+        <item name="colorTextBold">@color/colorBlack</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 </resources>

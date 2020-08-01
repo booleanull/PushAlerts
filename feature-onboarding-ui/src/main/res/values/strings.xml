@@ -2,10 +2,13 @@
 <resources>
     <string name="next">Продолжить</string>
     <string name="take_permission">Разрешить</string>
-    <string name="error_permission">Вы не предоставили доступ к уведомлениям</string>
     <string name="onboarding_description_first">Сервис для "громких" уведомлений.\nЗаводите будильник на получение Push-сообщений от приложений.</string>
     <string name="onboarding_title_second">Откройте доступ сервису</string>
-    <string name="onboarding_description_second">Для работы сервиса необходимо предоставить возможность реагировать на Ваши Push-сообщения.</string>
+    <string name="onboarding_description_second">Для работы сервиса необходимо предоставить возможность реагировать на Ваши Push-сообщения.\n\nВозможные проблемы.</string>
+    <string name="onboarding_description_second_link">Возможные проблемы</string>
     <string name="onboarding_title_third">Оцените наше приложение</string>
     <string name="onboarding_description_third">Оцените наше приложения в Play Market.</string>
+    <string name="onboarding_problems_description">Сервису для корректной работы может требоваться наличие и других разрешений, необходимых для конкретного девайса. Если при работе с сервисом у Вас необратываются уведомления напишите нам на почту booleanull@gmail.com.</string>
+    <string name="email" translatable="false">booleanull@gmail.com</string>
+    <string name="ChooseEmailSend">Выберите способ отправки</string>
 </resources>

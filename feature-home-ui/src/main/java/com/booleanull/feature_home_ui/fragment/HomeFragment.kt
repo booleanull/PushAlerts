@@ -107,7 +107,7 @@ class HomeFragment : BaseFragment() {
         recyclerView.adapter = applicationAdapter
         recyclerView.addItemDecoration(applicationRecyclerDivider)
 
-        searchImageView.setOnClickListener {
+        searchFrameLayout.setOnClickListener {
             if (viewModel.searchVisible.value == true && searchEditText.text.isNotEmpty()) {
                 searchEditText.setText("")
             } else {

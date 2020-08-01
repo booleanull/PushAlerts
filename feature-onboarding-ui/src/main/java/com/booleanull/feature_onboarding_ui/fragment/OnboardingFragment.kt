@@ -1,6 +1,6 @@
 package com.booleanull.feature_onboarding_ui.fragment
 
-import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,16 +8,18 @@ import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.viewpager.widget.ViewPager
 import com.booleanull.core_ui.base.BaseFragment
-import com.booleanull.core_ui.helper.SettingsListenerHelper
+import com.booleanull.core_ui.permission.PermissionBadStatus
+import com.booleanull.core_ui.permission.PermissionController
 import com.booleanull.core_ui.widget.setPagerIndicator
 import com.booleanull.feature_onboarding_ui.R
 import com.booleanull.feature_onboarding_ui.adapter.OnboardingAdapter
 import kotlinx.android.synthetic.main.fragment_onboarding.*
 import org.koin.android.ext.android.inject
 
+
 class OnboardingFragment : BaseFragment() {
 
-    private val notificationListenerHelper: SettingsListenerHelper by inject()
+    private val permissionController: PermissionController by inject()
 
     private var positionViewPager = 0
     private var positionOffsetViewPager = 0f
@@ -76,14 +78,28 @@ class OnboardingFragment : BaseFragment() {
             if (positionOffsetViewPager == 0f) {
                 when (positionViewPager) {
                     viewPager.adapter?.count?.minus(2) -> {
-                        startActivity(Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"))
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            if (!permissionController.getPermissionStatus().status) {
+                                permissionController.requestPermission().forEach { request ->
+                                    if (!request.permissionStatus.status) {
+                                        request.intent?.let {
+                                            startActivity(request.intent)
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                     viewPager.adapter?.count?.minus(1) -> {
-                        if (notificationListenerHelper.isSettingsEnabled()) {
-                            router.back()
-                        } else {
-                            errorTextView.isInvisible = false
-                        }
+                        permissionController.getPermissionStatus()
+                            .let { permissionResponse ->
+                                if (permissionResponse is PermissionBadStatus) {
+                                    errorTextView.text = permissionResponse.message
+                                    errorTextView.isInvisible = false
+                                } else {
+                                    router.back()
+                                }
+                            }
                     }
                 }
             }

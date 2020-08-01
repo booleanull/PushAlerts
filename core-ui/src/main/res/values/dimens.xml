@@ -3,5 +3,11 @@
     <dimen name="default_margin">16dp</dimen>
     <dimen name="default_radius">8dp</dimen>
 
+    <dimen name="small_margin">8dp</dimen>
+
     <dimen name="material_button_height">56dp</dimen>
+    <dimen name="icon_cell_size">36dp</dimen>
+    <dimen name="bottom_sheet_bottom_view_width">64dp</dimen>
+    <dimen name="bottom_sheet_bottom_space">64dp</dimen>
+    <dimen name="edit_text_padding">10dp</dimen>
 </resources>

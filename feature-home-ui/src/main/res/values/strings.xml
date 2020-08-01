@@ -11,5 +11,5 @@
     <string name="ErrorText">Упс! Что-то пошло не так, попробуйте снова</string>
     <string name="EnterFilter">Введите фильтр</string>
     <string name="Add">Добавить</string>
-    <string name="FilterDescription">Добавьте заголовок и содержимое уведомления. Укажите имя пользователя из нужного Вам приложения.</string>
+    <string name="FilterDescription">Добавьте заголовок или содержимое уведомления.\nНапример: Имя пользователя.</string>
 </resources>

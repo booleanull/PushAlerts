@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomSheet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorBackground"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/filterBottomSheetView"
+        android:layout_width="@dimen/bottom_sheet_bottom_view_width"
+        android:layout_height="4dp"
+        android:alpha="0.3"
+        android:background="@drawable/bottom_sheet_view"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/titleTextView"
+        style="@style/AppTheme.Text.Title.H3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:text="@string/onboarding_description_second_link" />
+
+    <TextView
+        android:id="@+id/descriptionTextView"
+        style="@style/AppTheme.Text.Description.H4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        tools:text="Description"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+</LinearLayout>
