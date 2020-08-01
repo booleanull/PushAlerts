@@ -6,7 +6,7 @@ import com.booleanull.core_ui.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-open class RoundedBottomSheetDialogFragment : BottomSheetDialogFragment() {
+abstract class RoundedBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     override fun getTheme(): Int =
         R.style.BottomSheetDialogTheme

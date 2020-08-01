@@ -2,4 +2,6 @@
     <string name="app_name">Push Alert</string>
     <string name="play_market_url">https://www.youtube.com/</string>
     <string name="play_market">Play Market</string>
+    <string name="notification_permission">Вы не предоставили доступ к уведомлениям</string>
+    <string name="alert_permission">Вы не предоставили доступ к оповещениям</string>
 </resources>

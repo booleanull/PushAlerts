@@ -1,3 +1,5 @@
+include ':feature-alarm'
+include ':feature-alarm-ui'
 include ':database'
 rootProject.name='PushAlert'
 include ':repositories'

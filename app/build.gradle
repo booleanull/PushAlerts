@@ -4,6 +4,14 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('/Users/vitaly/Untitled')
+            storePassword '350500'
+            keyAlias 'key0'
+            keyPassword '350500'
+        }
+    }
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
 
@@ -14,6 +22,7 @@ android {
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.release
     }
 
     buildTypes {
@@ -45,6 +54,8 @@ dependencies {
     implementation project(":core-ui")
     implementation project(":database")
     implementation project(":repositories")
+    implementation project(":feature-alarm")
+    implementation project(":feature-alarm-ui")
     implementation project(":feature-home")
     implementation project(":feature-home-ui")
     implementation project(":feature-onboarding-ui")

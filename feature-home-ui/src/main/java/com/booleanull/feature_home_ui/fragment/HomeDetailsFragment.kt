@@ -144,6 +144,7 @@ class HomeDetailsFragment : BaseFragment() {
         filterRecyclerView.addItemDecoration(filterItemDecoration)
         ItemTouchHelper(
             DismissItemTouchHelper(
+                ItemTouchHelper.END,
                 filterAdapter
             )
         ).attachToRecyclerView(filterRecyclerView)

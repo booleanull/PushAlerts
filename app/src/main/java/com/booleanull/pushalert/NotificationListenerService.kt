@@ -8,6 +8,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import org.koin.android.ext.android.inject
 
+
 class NotificationListenerService : NotificationListenerService() {
 
     private val searchAlarmUseCase: SearchAlarmUseCase by inject()
@@ -22,25 +23,27 @@ class NotificationListenerService : NotificationListenerService() {
     override fun onNotificationPosted(sbn: StatusBarNotification?, rankingMap: RankingMap?) {
         super.onNotificationPosted(sbn, rankingMap)
         sbn?.let {
-            searchAlarmUseCase.invoke(SearchAlarmUseCase.Params(sbn.packageName), onResult = { task ->
-                task.fold({ alarmWithFilter ->
-                    if (alarmWithFilter.alarm.isAlarm) {
-                        if (!alarmWithFilter.alarm.isFilter) {
-                            onPushIntercepted(sbn, rankingMap)
-                        } else {
-                            alarmWithFilter.filters.forEach {
-                                if ((sbn.notification.extras.getString("android.title")
-                                        ?: "").contains(it.filter)
-                                    || (sbn.notification.extras.getString("android.text")
-                                        ?: "").contains(it.filter)
-                                ) {
-                                    onPushIntercepted(sbn, rankingMap)
+            searchAlarmUseCase.invoke(
+                SearchAlarmUseCase.Params(sbn.packageName),
+                onResult = { task ->
+                    task.fold({ alarmWithFilter ->
+                        if (alarmWithFilter.alarm.isAlarm) {
+                            if (!alarmWithFilter.alarm.isFilter) {
+                                onPushIntercepted(sbn, rankingMap)
+                            } else {
+                                alarmWithFilter.filters.forEach {
+                                    if ((sbn.notification.extras.getString("android.title")
+                                            ?: "").contains(it.filter, true)
+                                        || (sbn.notification.extras.getString("android.text")
+                                            ?: "").contains(it.filter, true)
+                                    ) {
+                                        onPushIntercepted(sbn, rankingMap)
+                                    }
                                 }
                             }
                         }
-                    }
+                    })
                 })
-            })
         }
     }
 
