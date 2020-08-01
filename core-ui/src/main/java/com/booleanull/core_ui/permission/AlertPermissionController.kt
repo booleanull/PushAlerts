@@ -32,11 +32,11 @@ class AlertPermissionController(private val context: Context) : PermissionContro
         )
 
         val intent = Intent("miui.intent.action.APP_PERM_EDITOR")
+        intent.putExtra("extra_pkgname", context.packageName)
         intent.setClassName(
             "com.miui.securitycenter",
             "com.miui.permcenter.permissions.PermissionsEditorActivity"
         )
-        intent.putExtra("extra_pkgname", context.packageName)
         if (context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
                 .isNotEmpty()
         ) {

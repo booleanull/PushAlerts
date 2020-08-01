@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottomSheet"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="?attr/colorBackground"
     android:orientation="vertical">
 
@@ -14,9 +13,7 @@
         android:layout_height="4dp"
         android:alpha="0.3"
         android:background="@drawable/bottom_sheet_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_gravity="center_horizontal" />
 
     <TextView
         android:id="@+id/titleTextView"
@@ -24,8 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/default_margin"
-        app:layout_constraintTop_toBottomOf="@id/filterBottomSheetView"
-        tools:text="Title"/>
+        android:text="@string/onboarding_description_second_link" />
 
     <TextView
         android:id="@+id/descriptionTextView"
@@ -33,14 +29,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/default_margin"
-        app:layout_constraintTop_toBottomOf="@id/titleTextView"
         tools:text="Description"/>
 
     <View
-        android:id="@+id/dividerView"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/bottom_sheet_bottom_space"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@id/descriptionTextView" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+</LinearLayout>

@@ -82,7 +82,9 @@ class OnboardingFragment : BaseFragment() {
                             if (!permissionController.getPermissionStatus().status) {
                                 permissionController.requestPermission().forEach { request ->
                                     if (!request.permissionStatus.status) {
-                                        startActivity(request.intent)
+                                        request.intent?.let {
+                                            startActivity(request.intent)
+                                        }
                                     }
                                 }
                             }
