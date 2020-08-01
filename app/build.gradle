@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 
 android {
     signingConfigs {
-        release {
+        developer {
             storeFile file('/Users/vitaly/Untitled')
             storePassword '350500'
             keyAlias 'key0'
@@ -22,7 +22,7 @@ android {
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        signingConfig signingConfigs.release
+        signingConfig signingConfigs.developer
     }
 
     buildTypes {
