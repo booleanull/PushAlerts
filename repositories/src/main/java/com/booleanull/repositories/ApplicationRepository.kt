@@ -14,14 +14,14 @@ class ApplicationRepository : ApplicationGateway {
 
         val packages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA)
         return packages.filter {
-            var hasInternetPermission = false
+            /*var hasInternetPermission = false
             packageManager.getPackageInfo(it.packageName, PackageManager.GET_PERMISSIONS)
                 .requestedPermissions?.let { permissions ->
                 permissions.forEach { permission ->
                     if (permission == Manifest.permission.INTERNET) hasInternetPermission = true
                 }
-            }
-            packageManager.getLaunchIntentForPackage(it.packageName) != null && hasInternetPermission
+            }*/
+            packageManager.getLaunchIntentForPackage(it.packageName) != null /*&& hasInternetPermission*/
         }.map {
             ApplicationDTO(
                 packageManager.getApplicationLabel(it.applicationInfo).toString(),
