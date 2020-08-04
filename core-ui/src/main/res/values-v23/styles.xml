@@ -11,6 +11,7 @@
         <item name="colorBackground">@color/colorWhite</item>
         <item name="colorBackgroundVariant">@color/colorWhiteSecondary</item>
 
+        <item name="android:textColorSecondary">@color/colorBlack</item>
         <item name="android:statusBarColor">@color/colorWhite</item>
         <item name="android:windowBackground">@color/colorWhite</item>
         <item name="android:colorBackground">@color/colorWhite</item>

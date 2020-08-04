@@ -1,14 +1,9 @@
 package com.booleanull.feature_home_ui.fragment
 
 import android.os.Bundle
-import android.view.KeyEvent
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import androidx.core.content.ContextCompat
+import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import com.booleanull.core_ui.adapter.GenericAdapter
 import com.booleanull.core_ui.adapter.GenericItemDiff
@@ -30,43 +25,41 @@ class HomeFragment : BaseFragment() {
     private val viewModel: HomeViewModel by viewModel()
 
     private val applicationAdapter by lazy {
-            GenericAdapter(ApplicationViewHolderFactory()).apply {
-                setOnItemClickListener(object :
-                    OnItemClickListener<ApplicationViewHolderFactory.ApplicationItemClickData> {
-                    override fun onItemClick(item: ApplicationViewHolderFactory.ApplicationItemClickData) {
-                        router.navigateTo(
-                            HomeDetailsScreen(
-                                item.application.packageName
-                            ),
-                            item.view,
-                            item.application.packageName
-                        )
-                    }
-                })
-                setDiffUtil(object : GenericItemDiff<Application> {
-                    override fun areItemsTheSame(
-                        oldItems: List<Application>,
-                        newItems: List<Application>,
-                        oldItemPosition: Int,
-                        newItemPosition: Int
-                    ): Boolean {
-                        val old = oldItems[oldItemPosition]
-                        val new = newItems[newItemPosition]
-                        return old.packageName == new.packageName
-                    }
+        GenericAdapter(ApplicationViewHolderFactory()).apply {
+            setOnItemClickListener(object :
+                OnItemClickListener<ApplicationViewHolderFactory.ApplicationItemClickData> {
+                override fun onItemClick(item: ApplicationViewHolderFactory.ApplicationItemClickData) {
+                    router.navigateTo(
+                        HomeDetailsScreen(item.application.packageName),
+                        item.view,
+                        item.application.packageName
+                    )
+                }
+            })
+            setDiffUtil(object : GenericItemDiff<Application> {
+                override fun areItemsTheSame(
+                    oldItems: List<Application>,
+                    newItems: List<Application>,
+                    oldItemPosition: Int,
+                    newItemPosition: Int
+                ): Boolean {
+                    val old = oldItems[oldItemPosition]
+                    val new = newItems[newItemPosition]
+                    return old.packageName == new.packageName
+                }
 
-                    override fun areContentsTheSame(
-                        oldItems: List<Application>,
-                        newItems: List<Application>,
-                        oldItemPosition: Int,
-                        newItemPosition: Int
-                    ): Boolean {
-                        val old = oldItems[oldItemPosition]
-                        val new = newItems[newItemPosition]
-                        return old.name == new.name
-                    }
-                })
-            }
+                override fun areContentsTheSame(
+                    oldItems: List<Application>,
+                    newItems: List<Application>,
+                    oldItemPosition: Int,
+                    newItemPosition: Int
+                ): Boolean {
+                    val old = oldItems[oldItemPosition]
+                    val new = newItems[newItemPosition]
+                    return old.name == new.name
+                }
+            })
+        }
     }
 
     private val applicationRecyclerDivider by lazy {
@@ -75,15 +68,8 @@ class HomeFragment : BaseFragment() {
                 dp(68),
                 0,
                 dp(1),
-                requireContext().getAttributeColor(
-                    R.attr.colorDivider,
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.colorGray
-                    )
-                )
-            ),
-            hasFooter = true
+                requireContext().getAttributeColor(R.attr.colorDivider)
+            )
         )
     }
 
@@ -92,6 +78,7 @@ class HomeFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -105,24 +92,26 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+
         recyclerView.adapter = applicationAdapter
         recyclerView.addItemDecoration(applicationRecyclerDivider)
 
-        searchFrameLayout.setOnClickListener {
-            if (viewModel.searchVisible.value == true && searchEditText.text.isNotEmpty()) {
+        /*searchFrameLayout.setOnClickListener {
+            *//*if (viewModel.searchVisible.value == true && searchEditText.text.isNotEmpty()) {
                 searchEditText.setText("")
             } else {
                 viewModel.changeSearchVisible()
-            }
-        }
+            }*//*
+        }*/
 
-        searchEditText.addTextChangedListener {
+        /*searchEditText.addTextChangedListener {
             if (it.isNullOrBlank() && viewModel.isSearch) {
                 viewModel.loadApplications()
             }
-        }
+        }*/
 
-        searchEditText.setOnEditorActionListener { v, actionId, event ->
+        /*searchEditText.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH
                 || actionId == EditorInfo.IME_ACTION_DONE
                 || event.action == KeyEvent.ACTION_DOWN
@@ -133,7 +122,7 @@ class HomeFragment : BaseFragment() {
                 true
             }
             false
-        }
+        }*/
 
         viewModel.applicationList.observe(viewLifecycleOwner, Observer {
             applicationAdapter.dataList = it.toMutableList()
@@ -148,22 +137,33 @@ class HomeFragment : BaseFragment() {
         })
 
         viewModel.searchVisible.observe(viewLifecycleOwner, Observer {
-            titleTextView.isVisible = !it
+            /*titleTextView.isVisible = !it
             searchEditText.isVisible = it
             searchImageView.setImageDrawable(
                 ContextCompat.getDrawable(
                     requireContext(),
                     if (it) R.drawable.ic_close else R.drawable.ic_search
                 )
-            )
-            if (it) {
-                searchEditText.requestFocusFromTouch()
-            }
+            )*/
         })
 
         viewModel.searchLoading.observe(viewLifecycleOwner, Observer {
-            searchProgressBar.isVisible = it
-            searchImageView.isVisible = !it
+            //searchProgressBar.isVisible = it
+            //searchImageView.isVisible = !it
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.home_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.search -> {
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

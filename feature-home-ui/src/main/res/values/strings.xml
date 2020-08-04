@@ -12,4 +12,6 @@
     <string name="add">Добавить</string>
     <string name="filter_description">Добавьте заголовок или содержимое уведомления.\nНапример: Имя пользователя.</string>
     <string name="filter">Фильтрация</string>
+    <string name="search">Поиск</string>
+    <string name="settings">Настройки</string>
 </resources>

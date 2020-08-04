@@ -87,8 +87,7 @@ class HomeDetailsFragment : BaseFragment() {
                         R.color.colorGray
                     )
                 )
-            ),
-            hasHeader = true
+            )
         )
     }
 
