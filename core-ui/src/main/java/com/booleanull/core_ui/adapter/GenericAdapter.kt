@@ -36,15 +36,21 @@ open class GenericAdapter<T, R>(private val viewHolderFactory: ViewHolderFactory
     ): GenericViewHolder<T, R> =
         viewHolderFactory.create(parent, viewType)
 
-    final override fun getItemCount() = dataList.size
+    final override fun getItemCount() =
+        dataList.size
 
-    final override fun onBindViewHolder(holder: GenericViewHolder<T, R>, position: Int) =
+    final override fun onBindViewHolder(holder: GenericViewHolder<T, R>, position: Int) {
         holder.bind(dataList[position], onItemClickListener)
+    }
 
-    final override fun getItemViewType(position: Int) =
-        getItemViewType(position, dataList[position])
+    final override fun getItemViewType(position: Int): Int {
+        return getItemViewType(
+            position,
+            dataList[position]
+        )
+    }
 
-    open fun getItemViewType(position: Int, obj: T): Int = 0
+    open fun getItemViewType(position: Int, obj: T) = 0
 
     fun setOnItemClickListener(onItemClickListener: OnItemClickListener<R>) {
         this.onItemClickListener = onItemClickListener

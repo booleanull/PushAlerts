@@ -1,20 +1,16 @@
 package com.booleanull.feature_onboarding_ui.adapter
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.style.ClickableSpan
-import android.text.style.URLSpan
-import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import com.booleanull.core_ui.fragment.ProblemBottomSheetDialogFragment
+import com.booleanull.core_ui.getSpannableClick
+import com.booleanull.core_ui.getSpannableLink
 import com.booleanull.feature_onboarding_ui.R
 import com.booleanull.feature_onboarding_ui.data.OnboardingMessage
 import com.booleanull.feature_onboarding_ui.fragment.OnboardingItemFragment
-import com.booleanull.feature_onboarding_ui.fragment.ProblemBottomSheetDialogFragment
 
 class OnboardingAdapter(
     private val context: Context,
@@ -45,36 +41,27 @@ class OnboardingAdapter(
             )
             1 -> OnboardingMessage(
                 context.getString(R.string.onboarding_title_second),
-                SpannableString(context.getString(R.string.onboarding_description_second)).apply {
-                    val substring = context.getString(R.string.onboarding_description_second_link)
-                    setSpan(
-                        object : ClickableSpan() {
-                            override fun onClick(p0: View) {
-                                ProblemBottomSheetDialogFragment()
-                                    .also {
-                                        it.showNow(
-                                            fragmentManager,
-                                            ProblemBottomSheetDialogFragment::class.java.simpleName
-                                        )
-                                    }
-                            }
-                        },
-                        indexOf(substring),
-                        indexOf(substring) + substring.length,
-                        SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
-                    )
+                getSpannableClick(
+                    context.getString(R.string.onboarding_description_second),
+                    context.getString(R.string.problem_service)
+                ) {
+                    ProblemBottomSheetDialogFragment()
+                        .also {
+                            it.showNow(
+                                fragmentManager,
+                                ProblemBottomSheetDialogFragment::class.java.simpleName
+                            )
+                        }
                 }
             )
-            2 -> OnboardingMessage(context.getString(R.string.onboarding_title_third),
-                SpannableString(context.getString(R.string.onboarding_description_third)).apply {
-                    val substring = context.getString(R.string.play_market)
-                    setSpan(
-                        URLSpan(context.getString(R.string.play_market_url)),
-                        indexOf(substring),
-                        indexOf(substring) + substring.length,
-                        SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
-                    )
-                })
+            2 -> OnboardingMessage(
+                context.getString(R.string.mark_app),
+                getSpannableLink(
+                    context.getString(R.string.mark_app_playmarket),
+                    context.getString(R.string.play_market),
+                    context.getString(R.string.play_market_url)
+                )
+            )
             else -> throw IllegalArgumentException("Onboarding message with index was not found.")
         }
     }

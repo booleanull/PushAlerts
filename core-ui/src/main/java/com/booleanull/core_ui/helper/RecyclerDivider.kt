@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 
 class RecyclerDivider(
     private val margin: Int = 0,
-    private val line: Line
+    private val line: Line,
+    private val hasHeader: Boolean = false,
+    private val hasFooter: Boolean = false
 ) :
     RecyclerView.ItemDecoration() {
 
@@ -36,11 +38,17 @@ class RecyclerDivider(
         super.onDraw(c, parent, state)
         c.save()
 
-        for (i in 0 until parent.childCount - 1) {
+        for (i in (if (hasHeader) 1 else 0) until parent.childCount - 1 - if (hasFooter) 1 else 0) {
             val child = parent.getChildAt(i)
             val width = child.measuredWidth.toFloat()
             val height = child.y + child.measuredHeight - line.height + margin
-            c.drawRect(line.left.toFloat(), height, width + line.right.toFloat(), height + line.height, paint)
+            c.drawRect(
+                line.left.toFloat(),
+                height,
+                width + line.right.toFloat(),
+                height + line.height,
+                paint
+            )
         }
 
         c.restore()

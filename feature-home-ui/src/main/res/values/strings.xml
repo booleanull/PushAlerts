@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ApplicationNotFound">Приложения не найдены</string>
-    <string name="FilterNotFound">Фильтры не найдены</string>
-    <string name="TurnOnAlarm">Включить будильник</string>
-    <string name="TurnOnFilter">Включить фильтрацию</string>
-    <string name="MainSection">Основное</string>
-    <string name="OptionalSection">Дополнительное</string>
-    <string name="AddNewFilter">Добавление нового фильтра</string>
-    <string name="RemoveFilter">Фильтр \"%1$s\" был удален</string>
-    <string name="ErrorText">Упс! Что-то пошло не так, попробуйте снова</string>
-    <string name="EnterFilter">Введите фильтр</string>
-    <string name="Add">Добавить</string>
-    <string name="FilterDescription">Добавьте заголовок или содержимое уведомления.\nНапример: Имя пользователя.</string>
+    <string name="application_not_found">Приложения не найдены</string>
+    <string name="turn_on_alarm">Включить будильник</string>
+    <string name="turn_on_filter">Включить фильтрацию</string>
+    <string name="main_section">Основное</string>
+    <string name="optional_section">Дополнительное</string>
+    <string name="add_new_filter">Добавление нового фильтра</string>
+    <string name="remove_filter">Фильтр \"%1$s\" был удален</string>
+    <string name="simple_error_text">Упс! Что-то пошло не так, попробуйте снова</string>
+    <string name="enter_filter">Введите фильтр</string>
+    <string name="add">Добавить</string>
+    <string name="filter_description">Добавьте заголовок или содержимое уведомления.\nНапример: Имя пользователя.</string>
+    <string name="filter">Фильтрация</string>
 </resources>

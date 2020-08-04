@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin"
-            android:text="@string/AddNewFilter"
+            android:text="@string/add_new_filter"
             app:layout_constraintTop_toBottomOf="@id/filterBottomSheetView" />
 
         <EditText
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin"
             android:background="@drawable/custom_edittext_selector"
-            android:hint="@string/EnterFilter"
+            android:hint="@string/enter_filter"
             android:inputType="text|textNoSuggestions"
             android:paddingStart="@dimen/default_margin"
             android:paddingTop="@dimen/edit_text_padding"
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin"
-            android:text="@string/FilterDescription"
+            android:text="@string/filter_description"
             app:layout_constraintTop_toBottomOf="@id/filterEditText" />
 
         <View
@@ -63,7 +63,7 @@
             style="@style/AppTheme.MaterialButton"
             android:layout_width="match_parent"
             android:layout_height="@dimen/material_button_height"
-            android:text="@string/Add"
+            android:text="@string/add"
             app:icon="@drawable/ic_add"
             app:iconGravity="textStart"
             app:layout_constraintTop_toBottomOf="@id/dividerView" />

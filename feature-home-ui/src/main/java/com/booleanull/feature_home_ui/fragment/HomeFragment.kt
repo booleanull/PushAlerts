@@ -30,43 +30,43 @@ class HomeFragment : BaseFragment() {
     private val viewModel: HomeViewModel by viewModel()
 
     private val applicationAdapter by lazy {
-        GenericAdapter(ApplicationViewHolderFactory()).apply {
-            setOnItemClickListener(object :
-                OnItemClickListener<ApplicationViewHolderFactory.ApplicationItemClickData> {
-                override fun onItemClick(item: ApplicationViewHolderFactory.ApplicationItemClickData) {
-                    router.navigateTo(
-                        HomeDetailsScreen(
+            GenericAdapter(ApplicationViewHolderFactory()).apply {
+                setOnItemClickListener(object :
+                    OnItemClickListener<ApplicationViewHolderFactory.ApplicationItemClickData> {
+                    override fun onItemClick(item: ApplicationViewHolderFactory.ApplicationItemClickData) {
+                        router.navigateTo(
+                            HomeDetailsScreen(
+                                item.application.packageName
+                            ),
+                            item.view,
                             item.application.packageName
-                        ),
-                        item.view,
-                        item.application.packageName
-                    )
-                }
-            })
-            setDiffUtil(object : GenericItemDiff<Application> {
-                override fun areItemsTheSame(
-                    oldItems: List<Application>,
-                    newItems: List<Application>,
-                    oldItemPosition: Int,
-                    newItemPosition: Int
-                ): Boolean {
-                    val old = oldItems[oldItemPosition]
-                    val new = newItems[newItemPosition]
-                    return old.packageName == new.packageName
-                }
+                        )
+                    }
+                })
+                setDiffUtil(object : GenericItemDiff<Application> {
+                    override fun areItemsTheSame(
+                        oldItems: List<Application>,
+                        newItems: List<Application>,
+                        oldItemPosition: Int,
+                        newItemPosition: Int
+                    ): Boolean {
+                        val old = oldItems[oldItemPosition]
+                        val new = newItems[newItemPosition]
+                        return old.packageName == new.packageName
+                    }
 
-                override fun areContentsTheSame(
-                    oldItems: List<Application>,
-                    newItems: List<Application>,
-                    oldItemPosition: Int,
-                    newItemPosition: Int
-                ): Boolean {
-                    val old = oldItems[oldItemPosition]
-                    val new = newItems[newItemPosition]
-                    return old.name == new.name
-                }
-            })
-        }
+                    override fun areContentsTheSame(
+                        oldItems: List<Application>,
+                        newItems: List<Application>,
+                        oldItemPosition: Int,
+                        newItemPosition: Int
+                    ): Boolean {
+                        val old = oldItems[oldItemPosition]
+                        val new = newItems[newItemPosition]
+                        return old.name == new.name
+                    }
+                })
+            }
     }
 
     private val applicationRecyclerDivider by lazy {
@@ -74,7 +74,7 @@ class HomeFragment : BaseFragment() {
             line = RecyclerDivider.Line(
                 dp(68),
                 0,
-                1,
+                dp(1),
                 requireContext().getAttributeColor(
                     R.attr.colorDivider,
                     ContextCompat.getColor(
@@ -82,7 +82,8 @@ class HomeFragment : BaseFragment() {
                         R.color.colorGray
                     )
                 )
-            )
+            ),
+            hasFooter = true
         )
     }
 
