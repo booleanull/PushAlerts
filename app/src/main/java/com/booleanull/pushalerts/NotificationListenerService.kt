@@ -1,4 +1,4 @@
-package com.booleanull.pushalert
+package com.booleanull.pushalerts
 
 import android.content.Intent
 import android.service.notification.NotificationListenerService

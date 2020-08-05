@@ -1,7 +1,7 @@
 include ':feature-alarm'
 include ':feature-alarm-ui'
 include ':database'
-rootProject.name='PushAlert'
+rootProject.name='PushAlerts'
 include ':repositories'
 include ':feature-onboarding-ui'
 include ':feature-onboarding'

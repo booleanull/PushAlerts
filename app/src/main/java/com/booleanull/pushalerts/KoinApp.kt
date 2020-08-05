@@ -1,4 +1,4 @@
-package com.booleanull.pushalert
+package com.booleanull.pushalerts
 
 import androidx.room.Room
 import com.booleanull.core.gateway.AlarmGateway

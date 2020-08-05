@@ -6,19 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.booleanull.core_ui.base.BaseFragment
+import com.booleanull.core_ui.fragment.ProblemBottomSheetDialogFragment
+import com.booleanull.core_ui.setSpannableClick
+import com.booleanull.core_ui.setSpannableLink
 import com.booleanull.feature_onboarding_ui.R
-import com.booleanull.feature_onboarding_ui.data.OnboardingMessage
 import kotlinx.android.synthetic.main.fragment_onboarding_item.*
 
 class OnboardingItemFragment : BaseFragment() {
 
-    private lateinit var onboardingMessage: OnboardingMessage
+    private var position: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.getParcelable<OnboardingMessage>("message")?.let { message ->
-            onboardingMessage = message
-        } ?: throw IllegalStateException("Required value was null.")
+        arguments?.let { bundle ->
+            position = bundle.getInt("position")
+        }
     }
 
     override fun onCreateView(
@@ -32,8 +34,29 @@ class OnboardingItemFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        titleTextView.text = onboardingMessage.title
-        descriptionTextView.text = onboardingMessage.description
-        descriptionTextView.movementMethod = LinkMovementMethod.getInstance()
+        when (position) {
+            0 -> {
+                titleTextView.text = requireContext().getString(R.string.app_name)
+                descriptionTextView.text =
+                    requireContext().getString(R.string.onboarding_description_first)
+            }
+            1 -> {
+                titleTextView.text = requireContext().getString(R.string.onboarding_title_second)
+                descriptionTextView.setSpannableClick(
+                    requireContext().getString(R.string.onboarding_description_second),
+                    requireContext().getString(R.string.problem_service)
+                ) {
+                    ProblemBottomSheetDialogFragment().showNow(childFragmentManager, null)
+                }
+            }
+            2 -> {
+                titleTextView.text = requireContext().getString(R.string.mark_app)
+                descriptionTextView.setSpannableLink(
+                    requireContext().getString(R.string.mark_app_playmarket),
+                    requireContext().getString(R.string.play_market),
+                    requireContext().getString(R.string.play_market_url)
+                )
+            }
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.booleanull.pushalert
+package com.booleanull.pushalerts
 
 import android.os.Bundle
 import android.view.LayoutInflater
