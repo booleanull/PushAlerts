@@ -37,33 +37,6 @@ class ApplicationViewHolderFactory :
                     }
                 }
             }
-
-            /*override fun bindFooter() {
-                super.bindFooter()
-                with(itemView) {
-                    appTextView.text =
-                        context.getString(R.string.app_name_version, BuildConfig.VERSION_NAME)
-
-                    markTextView.setSpannableLink(
-                        context.getString(R.string.mark_app),
-                        context.getString(R.string.mark_app),
-                        context.getString(R.string.play_market_url)
-                    )
-
-                    problemTextView.setSpannableClick(
-                        context.getString(R.string.problem_service),
-                        context.getString(R.string.problem_service)
-                    ) {
-                        ProblemBottomSheetDialogFragment()
-                            .also {
-                                it.showNow(
-                                    fragmentManager,
-                                    ProblemBottomSheetDialogFragment::class.java.simpleName
-                                )
-                            }
-                    }
-                }*/
-            //}
         }
 
     data class ApplicationItemClickData(val application: Application, val view: View)

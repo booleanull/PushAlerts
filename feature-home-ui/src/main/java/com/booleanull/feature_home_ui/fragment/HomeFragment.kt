@@ -2,6 +2,7 @@ package com.booleanull.feature_home_ui.fragment
 
 import android.os.Bundle
 import android.view.*
+import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
@@ -65,9 +66,9 @@ class HomeFragment : BaseFragment() {
     private val applicationRecyclerDivider by lazy {
         RecyclerDivider(
             line = RecyclerDivider.Line(
-                dp(68),
-                0,
-                dp(1),
+                dp(68f),
+                0f,
+                dp(0.5f),
                 requireContext().getAttributeColor(R.attr.colorDivider)
             )
         )
@@ -97,32 +98,31 @@ class HomeFragment : BaseFragment() {
         recyclerView.adapter = applicationAdapter
         recyclerView.addItemDecoration(applicationRecyclerDivider)
 
-        /*searchFrameLayout.setOnClickListener {
-            *//*if (viewModel.searchVisible.value == true && searchEditText.text.isNotEmpty()) {
-                searchEditText.setText("")
-            } else {
-                viewModel.changeSearchVisible()
-            }*//*
-        }*/
+        closeImageView.setOnClickListener {
+            searchView.isVisible = false
+            searchEditText.setText("")
+            hideKeyboard(searchEditText)
+            viewModel.loadApplications()
+        }
 
-        /*searchEditText.addTextChangedListener {
-            if (it.isNullOrBlank() && viewModel.isSearch) {
-                viewModel.loadApplications()
-            }
-        }*/
+        searchImageView.setOnClickListener {
+            viewModel.searchApplication(searchEditText.text.toString())
+        }
 
-        /*searchEditText.setOnEditorActionListener { v, actionId, event ->
+        searchEditText.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH
                 || actionId == EditorInfo.IME_ACTION_DONE
                 || event.action == KeyEvent.ACTION_DOWN
-                && event.keyCode == KeyEvent.KEYCODE_ENTER
+                && event?.keyCode == KeyEvent.KEYCODE_ENTER
             ) {
-                if (!searchEditText.text.isNullOrBlank())
+                if (!searchEditText.text.isNullOrBlank()) {
                     viewModel.searchApplication(searchEditText.text.toString())
+                    hideKeyboard(searchEditText)
+                }
                 true
             }
             false
-        }*/
+        }
 
         viewModel.applicationList.observe(viewLifecycleOwner, Observer {
             applicationAdapter.dataList = it.toMutableList()
@@ -135,22 +135,6 @@ class HomeFragment : BaseFragment() {
         viewModel.applicationNotFound.observe(viewLifecycleOwner, Observer {
             emptyTextView.isVisible = it
         })
-
-        viewModel.searchVisible.observe(viewLifecycleOwner, Observer {
-            /*titleTextView.isVisible = !it
-            searchEditText.isVisible = it
-            searchImageView.setImageDrawable(
-                ContextCompat.getDrawable(
-                    requireContext(),
-                    if (it) R.drawable.ic_close else R.drawable.ic_search
-                )
-            )*/
-        })
-
-        viewModel.searchLoading.observe(viewLifecycleOwner, Observer {
-            //searchProgressBar.isVisible = it
-            //searchImageView.isVisible = !it
-        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -161,6 +145,8 @@ class HomeFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.search -> {
+                searchView.isVisible = true
+                showKeyboard(searchEditText)
                 true
             }
             R.id.settings -> {

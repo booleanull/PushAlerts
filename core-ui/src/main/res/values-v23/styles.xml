@@ -19,5 +19,7 @@
 
         <item name="bottomSheetDialogTheme">@style/BottomSheetDialogTheme</item>
         <item name="bottomSheetStyle">@style/BottomSheetDialogTheme</item>
+
+        <item name="android:windowSoftInputMode">adjustNothing</item>
     </style>
 </resources>

@@ -26,19 +26,7 @@ class HomeViewModel(
     val applicationNotFound: LiveData<Boolean>
         get() = applicationNotFoundInternal
 
-    private val searchVisibleInternal = MutableLiveData<Boolean>(false)
-    val searchVisible: LiveData<Boolean>
-        get() = searchVisibleInternal
-
-    private val searchLoadingInternal = MutableLiveData<Boolean>()
-    val searchLoading: LiveData<Boolean>
-        get() = searchLoadingInternal
-
-    var isSearch = false
-        private set
-
     fun loadApplications() {
-        isSearch = false
         loadingInternal.value = true
         applicationNotFoundInternal.value = false
         getApplicationListUseCase.invoke(
@@ -52,8 +40,7 @@ class HomeViewModel(
     }
 
     fun searchApplication(query: String) {
-        isSearch = true
-        searchLoadingInternal.value = true
+        loadingInternal.value = true
         applicationNotFoundInternal.value = false
         searchApplicationList.invoke(
             params = SearchApplicationList.Params(
@@ -62,7 +49,7 @@ class HomeViewModel(
                 SearchApplicationList.SortType(GetApplicationListUseCase.SortType.SORT_NAME)
             ),
             onResult = {
-                searchLoadingInternal.value = false
+                loadingInternal.value = false
                 it.fold({
                     applicationListInternal.value = it
                 }, {
@@ -70,13 +57,5 @@ class HomeViewModel(
                     applicationNotFoundInternal.value = true
                 })
             })
-    }
-
-    fun changeSearchVisible(status: Boolean? = null) {
-        if (status == null) {
-            searchVisibleInternal.value = !searchVisibleInternal.value!!
-        } else {
-            searchVisibleInternal.value = status
-        }
     }
 }

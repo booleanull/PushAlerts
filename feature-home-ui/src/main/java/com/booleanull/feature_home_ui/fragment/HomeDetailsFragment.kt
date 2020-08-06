@@ -80,7 +80,7 @@ class HomeDetailsFragment : BaseFragment() {
     private val filterItemDecoration by lazy {
         RecyclerDivider(
             line = RecyclerDivider.Line(
-                0, 0, dp(1), requireContext().getAttributeColor(
+                0f, 0f, dp(0.5f), requireContext().getAttributeColor(
                     R.attr.colorDivider,
                     ContextCompat.getColor(
                         requireContext(),
