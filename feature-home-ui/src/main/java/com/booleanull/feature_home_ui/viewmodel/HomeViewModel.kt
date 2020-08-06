@@ -26,7 +26,10 @@ class HomeViewModel(
     val applicationNotFound: LiveData<Boolean>
         get() = applicationNotFoundInternal
 
+    var isSearch = false
+
     fun loadApplications() {
+        isSearch = false
         loadingInternal.value = true
         applicationNotFoundInternal.value = false
         getApplicationListUseCase.invoke(
@@ -40,6 +43,7 @@ class HomeViewModel(
     }
 
     fun searchApplication(query: String) {
+        isSearch = true
         loadingInternal.value = true
         applicationNotFoundInternal.value = false
         searchApplicationList.invoke(

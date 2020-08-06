@@ -17,6 +17,7 @@ import com.booleanull.feature_home.data.Application
 import com.booleanull.feature_home_ui.R
 import com.booleanull.feature_home_ui.adapter.ApplicationViewHolderFactory
 import com.booleanull.feature_home_ui.screen.HomeDetailsScreen
+import com.booleanull.feature_home_ui.screen.SettingsScreen
 import com.booleanull.feature_home_ui.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -85,9 +86,12 @@ class HomeFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (savedInstanceState == null) {
-            viewModel.loadApplications()
-        }
+        viewModel.loadApplications()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        searchView.isVisible = viewModel.isSearch
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -150,6 +154,7 @@ class HomeFragment : BaseFragment() {
                 true
             }
             R.id.settings -> {
+                router.navigateTo(SettingsScreen(), android.R.anim.slide_in_left, android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                 true
             }
             else -> super.onOptionsItemSelected(item)

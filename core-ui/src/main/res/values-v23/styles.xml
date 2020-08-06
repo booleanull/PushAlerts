@@ -20,6 +20,11 @@
         <item name="bottomSheetDialogTheme">@style/BottomSheetDialogTheme</item>
         <item name="bottomSheetStyle">@style/BottomSheetDialogTheme</item>
 
+        <item name="android:alertDialogTheme">@style/AppTheme.Dialog</item>
+        <item name="alertDialogTheme">@style/AppTheme.Dialog</item>
+        <item name="android:dialogTheme">@style/AppTheme.Dialog</item>
+        <item name="dialogTheme">@style/AppTheme.Dialog</item>
+
         <item name="android:windowSoftInputMode">adjustNothing</item>
     </style>
 </resources>

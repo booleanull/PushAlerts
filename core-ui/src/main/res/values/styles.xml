@@ -18,6 +18,11 @@
         <item name="bottomSheetDialogTheme">@style/BottomSheetDialogTheme</item>
         <item name="bottomSheetStyle">@style/BottomSheetDialogTheme</item>
 
+        <item name="android:alertDialogTheme">@style/AppTheme.Dialog</item>
+        <item name="alertDialogTheme">@style/AppTheme.Dialog</item>
+        <item name="android:dialogTheme">@style/AppTheme.Dialog</item>
+        <item name="dialogTheme">@style/AppTheme.Dialog</item>
+
         <item name="android:windowSoftInputMode">adjustNothing</item>
     </style>
 
@@ -95,7 +100,17 @@
 
     <!-- Dialog -->
     <style name="AppTheme.Dialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="colorPrimary">@color/colorBlueGray</item>
+        <item name="colorPrimaryDark">@color/colorBlueGray</item>
+        <item name="colorAccent">@color/colorBlueGray</item>
+    </style>
 
+    <style name="AppTheme.Dialog.NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/colorBlueGray</item>
+    </style>
+
+    <style name="AppTheme.Dialog.PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/colorBlueGray</item>
     </style>
 
     <style name="AppTheme.Dialog.Full">
