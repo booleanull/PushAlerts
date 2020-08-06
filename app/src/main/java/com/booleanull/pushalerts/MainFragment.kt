@@ -1,12 +1,12 @@
-package com.booleanull.pushalert
+package com.booleanull.pushalerts
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.booleanull.core.permission.PermissionController
 import com.booleanull.core_ui.base.BaseAppNavigator
 import com.booleanull.core_ui.base.BaseFragment
-import com.booleanull.core_ui.permission.PermissionController
 import com.booleanull.feature_home_ui.screen.HomeScreen
 import com.booleanull.feature_onboarding_ui.screen.OnboardingScreen
 import org.koin.android.ext.android.inject

@@ -1,4 +1,4 @@
-package com.booleanull.core_ui.permission
+package com.booleanull.core.permission
 
 interface PermissionController {
 

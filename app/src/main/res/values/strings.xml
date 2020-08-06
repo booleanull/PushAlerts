@@ -1,5 +1,3 @@
 <resources>
-    <string name="app_name">Push Alert</string>
-    <string name="service_enabled">Сервис включен.</string>
-    <string name="tab_to_turn_off">Нажмите, чтобы выключить сервис.</string>
+    <string name="app_name">Push Alerts</string>
 </resources>

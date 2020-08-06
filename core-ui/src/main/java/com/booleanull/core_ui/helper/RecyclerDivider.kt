@@ -6,7 +6,7 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-class RecyclerDivider(
+open class RecyclerDivider(
     private val margin: Int = 0,
     private val line: Line
 ) :
@@ -26,7 +26,7 @@ class RecyclerDivider(
     ) {
         super.getItemOffsets(outRect, view, parent, state)
 
-        outRect.bottom = margin + line.height
+        outRect.bottom = margin
         outRect.top = margin
         outRect.left = margin
         outRect.right = margin
@@ -40,16 +40,22 @@ class RecyclerDivider(
             val child = parent.getChildAt(i)
             val width = child.measuredWidth.toFloat()
             val height = child.y + child.measuredHeight - line.height + margin
-            c.drawRect(line.left.toFloat(), height, width + line.right.toFloat(), height + line.height, paint)
+            c.drawRect(
+                line.left,
+                height,
+                width + line.right,
+                height + line.height,
+                paint
+            )
         }
 
         c.restore()
     }
 
     data class Line(
-        val left: Int,
-        val right: Int,
-        val height: Int,
+        val left: Float,
+        val right: Float,
+        val height: Float,
         val color: Int
     )
 }

@@ -10,9 +10,15 @@
         <item name="colorBackground">@color/colorWhite</item>
         <item name="colorBackgroundVariant">@color/colorWhiteSecondary</item>
 
+        <item name="android:textColorSecondary">@color/colorBlack</item>
         <item name="android:statusBarColor">@color/colorWhite</item>
         <item name="android:windowBackground">@color/colorWhite</item>
         <item name="android:colorBackground">@color/colorWhite</item>
+
+        <item name="bottomSheetDialogTheme">@style/BottomSheetDialogTheme</item>
+        <item name="bottomSheetStyle">@style/BottomSheetDialogTheme</item>
+
+        <item name="android:windowSoftInputMode">adjustNothing</item>
     </style>
 
     <!-- Buttons -->
@@ -85,5 +91,28 @@
         <item name="colorBackground">@color/colorWhite</item>
         <item name="colorTextBold">@color/colorBlack</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <!-- Dialog -->
+    <style name="AppTheme.Dialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+
+    </style>
+
+    <style name="AppTheme.Dialog.Full">
+        <item name="colorPrimary">@color/colorWhite</item>
+        <item name="colorPrimaryDark">@color/colorWhiteSecondary</item>
+        <item name="colorAccent">@color/colorBlueGray</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:windowAnimationStyle">@style/AppTheme.Dialog.Full.Animation</item>
+    </style>
+
+    <style name="AppTheme.Dialog.Full.Animation">
+        <item name="android:windowEnterAnimation">@anim/explode_enter</item>
+        <item name="android:windowExitAnimation">@anim/explode_exit</item>
     </style>
 </resources>

@@ -8,11 +8,18 @@
         <item name="colorError">@color/colorPinkRed</item>
         <item name="colorTextBold">@color/colorBlack</item>
         <item name="colorDivider">@color/colorGray</item>
+        <item name="colorBackground">@color/colorWhite</item>
         <item name="colorBackgroundVariant">@color/colorWhiteSecondary</item>
 
+        <item name="android:textColorSecondary">@color/colorBlack</item>
         <item name="android:statusBarColor">@color/colorWhite</item>
         <item name="android:windowBackground">@color/colorWhite</item>
         <item name="android:colorBackground">@color/colorWhite</item>
         <item name="android:windowLightStatusBar">true</item>
+
+        <item name="bottomSheetDialogTheme">@style/BottomSheetDialogTheme</item>
+        <item name="bottomSheetStyle">@style/BottomSheetDialogTheme</item>
+
+        <item name="android:windowSoftInputMode">adjustNothing</item>
     </style>
 </resources>

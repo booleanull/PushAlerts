@@ -1,14 +1,10 @@
 package com.booleanull.feature_home_ui.fragment
 
 import android.os.Bundle
-import android.view.KeyEvent
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.inputmethod.EditorInfo
-import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import com.booleanull.core_ui.adapter.GenericAdapter
 import com.booleanull.core_ui.adapter.GenericItemDiff
@@ -35,9 +31,7 @@ class HomeFragment : BaseFragment() {
                 OnItemClickListener<ApplicationViewHolderFactory.ApplicationItemClickData> {
                 override fun onItemClick(item: ApplicationViewHolderFactory.ApplicationItemClickData) {
                     router.navigateTo(
-                        HomeDetailsScreen(
-                            item.application.packageName
-                        ),
+                        HomeDetailsScreen(item.application.packageName),
                         item.view,
                         item.application.packageName
                     )
@@ -72,16 +66,10 @@ class HomeFragment : BaseFragment() {
     private val applicationRecyclerDivider by lazy {
         RecyclerDivider(
             line = RecyclerDivider.Line(
-                dp(68),
-                0,
-                1,
-                requireContext().getAttributeColor(
-                    R.attr.colorDivider,
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.colorGray
-                    )
-                )
+                dp(68f),
+                0f,
+                dp(0.5f),
+                requireContext().getAttributeColor(R.attr.colorDivider)
             )
         )
     }
@@ -91,6 +79,7 @@ class HomeFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -104,31 +93,32 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+
         recyclerView.adapter = applicationAdapter
         recyclerView.addItemDecoration(applicationRecyclerDivider)
 
-        searchFrameLayout.setOnClickListener {
-            if (viewModel.searchVisible.value == true && searchEditText.text.isNotEmpty()) {
-                searchEditText.setText("")
-            } else {
-                viewModel.changeSearchVisible()
-            }
+        closeImageView.setOnClickListener {
+            searchView.isVisible = false
+            searchEditText.setText("")
+            hideKeyboard(searchEditText)
+            viewModel.loadApplications()
         }
 
-        searchEditText.addTextChangedListener {
-            if (it.isNullOrBlank() && viewModel.isSearch) {
-                viewModel.loadApplications()
-            }
+        searchImageView.setOnClickListener {
+            viewModel.searchApplication(searchEditText.text.toString())
         }
 
         searchEditText.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH
                 || actionId == EditorInfo.IME_ACTION_DONE
                 || event.action == KeyEvent.ACTION_DOWN
-                && event.keyCode == KeyEvent.KEYCODE_ENTER
+                && event?.keyCode == KeyEvent.KEYCODE_ENTER
             ) {
-                if (!searchEditText.text.isNullOrBlank())
+                if (!searchEditText.text.isNullOrBlank()) {
                     viewModel.searchApplication(searchEditText.text.toString())
+                    hideKeyboard(searchEditText)
+                }
                 true
             }
             false
@@ -145,24 +135,24 @@ class HomeFragment : BaseFragment() {
         viewModel.applicationNotFound.observe(viewLifecycleOwner, Observer {
             emptyTextView.isVisible = it
         })
+    }
 
-        viewModel.searchVisible.observe(viewLifecycleOwner, Observer {
-            titleTextView.isVisible = !it
-            searchEditText.isVisible = it
-            searchImageView.setImageDrawable(
-                ContextCompat.getDrawable(
-                    requireContext(),
-                    if (it) R.drawable.ic_close else R.drawable.ic_search
-                )
-            )
-            if (it) {
-                searchEditText.requestFocusFromTouch()
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_home, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.search -> {
+                searchView.isVisible = true
+                showKeyboard(searchEditText)
+                true
             }
-        })
-
-        viewModel.searchLoading.observe(viewLifecycleOwner, Observer {
-            searchProgressBar.isVisible = it
-            searchImageView.isVisible = !it
-        })
+            R.id.settings -> {
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import com.booleanull.core_ui.adapter.GenericAdapter
 import com.booleanull.core_ui.adapter.GenericItemDiff
 import com.booleanull.core_ui.base.BaseFragment
+import com.booleanull.core_ui.dp
 import com.booleanull.core_ui.getAttributeColor
 import com.booleanull.core_ui.helper.DismissItemTouchHelper
 import com.booleanull.core_ui.helper.RecyclerDivider
@@ -34,52 +35,52 @@ class HomeDetailsFragment : BaseFragment() {
     private lateinit var viewModel: HomeDetailsViewModel
 
     private val filterAdapter by lazy {
-        GenericAdapter(FilterViewHolderFactory()).apply {
-            setOnItemDismissListener(object : DismissItemTouchHelper.OnItemDismissListener {
-                override fun onItemDismiss(position: Int) {
-                    val item = this@apply.dataList[position]
-                    viewModel.removeFilter(item)
-                    Snackbar.make(
-                        requireParentFragment().requireView(),
-                        getString(R.string.RemoveFilter, item),
-                        Snackbar.LENGTH_SHORT
-                    )
-                        .setAction(android.R.string.cancel) {
-                            viewModel.addFilter(item)
-                        }
-                        .show()
-                }
-            })
-            setDiffUtil(object : GenericItemDiff<String> {
-                override fun areItemsTheSame(
-                    oldItems: List<String>,
-                    newItems: List<String>,
-                    oldItemPosition: Int,
-                    newItemPosition: Int
-                ): Boolean {
-                    val old = oldItems[oldItemPosition]
-                    val new = newItems[newItemPosition]
-                    return old == new
-                }
+            GenericAdapter(FilterViewHolderFactory()).apply {
+                setOnItemDismissListener(object : DismissItemTouchHelper.OnItemDismissListener {
+                    override fun onItemDismiss(position: Int) {
+                        val item = this@apply.dataList[position]
+                        viewModel.removeFilter(item)
+                        Snackbar.make(
+                            requireParentFragment().requireView(),
+                            getString(R.string.remove_filter, item),
+                            Snackbar.LENGTH_SHORT
+                        )
+                            .setAction(android.R.string.cancel) {
+                                viewModel.addFilter(item)
+                            }
+                            .show()
+                    }
+                })
+                setDiffUtil(object : GenericItemDiff<String> {
+                    override fun areItemsTheSame(
+                        oldItems: List<String>,
+                        newItems: List<String>,
+                        oldItemPosition: Int,
+                        newItemPosition: Int
+                    ): Boolean {
+                        val old = oldItems[oldItemPosition]
+                        val new = newItems[newItemPosition]
+                        return old == new
+                    }
 
-                override fun areContentsTheSame(
-                    oldItems: List<String>,
-                    newItems: List<String>,
-                    oldItemPosition: Int,
-                    newItemPosition: Int
-                ): Boolean {
-                    val old = oldItems[oldItemPosition]
-                    val new = newItems[newItemPosition]
-                    return old == new
-                }
-            })
-        }
+                    override fun areContentsTheSame(
+                        oldItems: List<String>,
+                        newItems: List<String>,
+                        oldItemPosition: Int,
+                        newItemPosition: Int
+                    ): Boolean {
+                        val old = oldItems[oldItemPosition]
+                        val new = newItems[newItemPosition]
+                        return old == new
+                    }
+                })
+            }
     }
 
     private val filterItemDecoration by lazy {
         RecyclerDivider(
             line = RecyclerDivider.Line(
-                0, 0, 1, requireContext().getAttributeColor(
+                0f, 0f, dp(0.5f), requireContext().getAttributeColor(
                     R.attr.colorDivider,
                     ContextCompat.getColor(
                         requireContext(),
@@ -187,7 +188,7 @@ class HomeDetailsFragment : BaseFragment() {
         viewModel.errorNotFound.observe(viewLifecycleOwner, Observer {
             Snackbar.make(
                 requireParentFragment().requireView(),
-                getString(R.string.ErrorText),
+                getString(R.string.simple_error_text),
                 Snackbar.LENGTH_SHORT
             )
                 .show()

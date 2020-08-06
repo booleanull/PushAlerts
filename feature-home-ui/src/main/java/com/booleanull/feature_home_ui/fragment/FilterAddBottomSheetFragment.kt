@@ -1,17 +1,16 @@
 package com.booleanull.feature_home_ui.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import com.booleanull.core_ui.base.RoundedBottomSheetDialogFragment
 import com.booleanull.feature_home_ui.R
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.fragment_filter_add_bottom_sheet.*
 
-class FilterAddBottomSheetFragment : RoundedBottomSheetDialogFragment() {
+class FilterAddBottomSheetFragment : BottomSheetDialogFragment() {
 
     interface Delegate {
         fun onFinished(filter: String)

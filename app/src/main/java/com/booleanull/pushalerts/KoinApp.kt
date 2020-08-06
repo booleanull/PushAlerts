@@ -1,12 +1,12 @@
-package com.booleanull.pushalert
+package com.booleanull.pushalerts
 
 import androidx.room.Room
 import com.booleanull.core.gateway.AlarmGateway
 import com.booleanull.core.gateway.ApplicationGateway
+import com.booleanull.core.permission.AllPermissionController
+import com.booleanull.core.permission.PermissionController
 import com.booleanull.core_ui.base.BaseRouter
 import com.booleanull.core_ui.handler.NavigationDeepLinkHandler
-import com.booleanull.core_ui.permission.AllPermissionController
-import com.booleanull.core_ui.permission.PermissionController
 import com.booleanull.database.ApplicationDatabase
 import com.booleanull.repositories.AlarmRepository
 import com.booleanull.repositories.ApplicationRepository

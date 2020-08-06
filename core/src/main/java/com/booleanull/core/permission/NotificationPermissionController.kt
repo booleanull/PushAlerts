@@ -1,4 +1,4 @@
-package com.booleanull.core_ui.permission
+package com.booleanull.core.permission
 
 import android.content.Context
 import android.content.Intent
@@ -6,7 +6,7 @@ import android.os.Build
 import android.provider.Settings
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationManagerCompat
-import com.booleanull.core_ui.R
+import com.booleanull.core.R
 
 class NotificationPermissionController(private val context: Context) : PermissionController {
 

@@ -10,11 +10,13 @@ import com.booleanull.feature_home.data.Application
 import com.booleanull.feature_home_ui.R
 import kotlinx.android.synthetic.main.cell_application.view.*
 
-class ApplicationViewHolderFactory : ViewHolderFactory<Application, ApplicationViewHolderFactory.ApplicationItemClickData> {
+class ApplicationViewHolderFactory :
+    ViewHolderFactory<Application, ApplicationViewHolderFactory.ApplicationItemClickData> {
 
     override fun create(parent: ViewGroup, viewType: Int) =
         object : GenericViewHolder<Application, ApplicationItemClickData>(
-            LayoutInflater.from(parent.context).inflate(R.layout.cell_application, parent, false)
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.cell_application, parent, false)
         ) {
             override fun bind(
                 item: Application,
@@ -26,7 +28,12 @@ class ApplicationViewHolderFactory : ViewHolderFactory<Application, ApplicationV
                     iconImageView.setImageDrawable(item.icon)
                     iconImageView.transitionName = item.packageName
                     setOnClickListener {
-                        onItemClickListener?.onItemClick(ApplicationItemClickData(item, iconImageView))
+                        onItemClickListener?.onItemClick(
+                            ApplicationItemClickData(
+                                item,
+                                iconImageView
+                            )
+                        )
                     }
                 }
             }

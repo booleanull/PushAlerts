@@ -10,7 +10,10 @@ import kotlinx.android.synthetic.main.cell_filter.view.*
 
 class FilterViewHolderFactory : ViewHolderFactory<String, Unit> {
     override fun create(parent: ViewGroup, viewType: Int): GenericViewHolder<String, Unit> =
-        object : GenericViewHolder<String, Unit>(LayoutInflater.from(parent.context).inflate(R.layout.cell_filter, parent, false)) {
+        object : GenericViewHolder<String, Unit>(
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.cell_filter, parent, false)
+        ) {
             override fun bind(item: String, onItemClickListener: OnItemClickListener<Unit>?) {
                 with(itemView) {
                     textView.text = item

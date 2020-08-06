@@ -1,4 +1,4 @@
-package com.booleanull.core_ui.permission
+package com.booleanull.core.permission
 
 open class PermissionStatus(val status: Boolean)
 

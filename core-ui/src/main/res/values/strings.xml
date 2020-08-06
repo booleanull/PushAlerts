@@ -1,7 +1,12 @@
 <resources>
-    <string name="app_name">Push Alert</string>
+    <string name="app_name">Push Alerts</string>
+    <string name="app_name_version">Push Alerts %1$s</string>
     <string name="play_market_url">https://www.youtube.com/</string>
     <string name="play_market">Play Market</string>
-    <string name="notification_permission">Вы не предоставили доступ к уведомлениям</string>
-    <string name="alert_permission">Вы не предоставили доступ к оповещениям</string>
+    <string name="email" translatable="false">booleanull@gmail.com</string>
+    <string name="choose_email_send">Выберите способ отправки</string>
+    <string name="problem_service">Возможные проблемы</string>
+    <string name="problem_service_description">Сервису для корректной работы может требоваться наличие некоторых системных разрешений, необходимых для конкретного девайса. Если при работе с сервисом у Вас необратываются уведомления напишите нам на почту booleanull@gmail.com.</string>
+    <string name="mark_app">Оцените наше приложение</string>
+    <string name="mark_app_playmarket">Оцените наше приложения в Play Market.</string>
 </resources>

@@ -7,9 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.viewpager.widget.ViewPager
+import com.booleanull.core.permission.PermissionBadStatus
+import com.booleanull.core.permission.PermissionController
 import com.booleanull.core_ui.base.BaseFragment
-import com.booleanull.core_ui.permission.PermissionBadStatus
-import com.booleanull.core_ui.permission.PermissionController
+import com.booleanull.core_ui.fragment.ProblemBottomSheetDialogFragment
 import com.booleanull.core_ui.widget.setPagerIndicator
 import com.booleanull.feature_onboarding_ui.R
 import com.booleanull.feature_onboarding_ui.adapter.OnboardingAdapter
@@ -20,6 +21,10 @@ import org.koin.android.ext.android.inject
 class OnboardingFragment : BaseFragment() {
 
     private val permissionController: PermissionController by inject()
+
+    private val onboardingAdapter by lazy {
+        OnboardingAdapter(childFragmentManager)
+    }
 
     private var positionViewPager = 0
     private var positionOffsetViewPager = 0f
@@ -70,7 +75,7 @@ class OnboardingFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewPager.adapter = OnboardingAdapter(requireContext(), childFragmentManager)
+        viewPager.adapter = onboardingAdapter
         (viewPager as ViewPager).setPagerIndicator(pagerIndicator)
         viewPager.addOnPageChangeListener(buttonPageChangeListener)
 

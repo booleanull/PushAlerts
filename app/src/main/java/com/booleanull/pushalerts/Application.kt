@@ -1,4 +1,4 @@
-package com.booleanull.pushalert
+package com.booleanull.pushalerts
 
 import android.app.Application
 import com.booleanull.feature_home_ui.homeModule
