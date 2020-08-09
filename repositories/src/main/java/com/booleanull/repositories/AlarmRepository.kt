@@ -27,4 +27,8 @@ class AlarmRepository(private val applicationDatabase: ApplicationDatabase) :
     override suspend fun removeFilter(filterDTO: FilterDTO) {
         applicationDatabase.alarmDao().remove(filterDTO)
     }
+
+    override suspend fun clear() {
+        applicationDatabase.alarmDao().clear()
+    }
 }

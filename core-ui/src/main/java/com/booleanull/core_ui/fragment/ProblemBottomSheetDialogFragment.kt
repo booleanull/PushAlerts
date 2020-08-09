@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ShareCompat
 import com.booleanull.core_ui.R
-import com.booleanull.core_ui.base.FullRoundedBottomSheetDialogFragment
+import com.booleanull.core_ui.base.RoundedBottomSheetDialogFragment
 import com.booleanull.core_ui.setSpannableClick
 import kotlinx.android.synthetic.main.fragment_problem_bottom_sheet_dialog.*
 
-class ProblemBottomSheetDialogFragment : FullRoundedBottomSheetDialogFragment() {
+class ProblemBottomSheetDialogFragment : RoundedBottomSheetDialogFragment(128) {
 
     override fun onCreateView(
         inflater: LayoutInflater,

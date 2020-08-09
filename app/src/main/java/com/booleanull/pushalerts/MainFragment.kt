@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.booleanull.core.permission.PermissionController
 import com.booleanull.core_ui.base.BaseAppNavigator
 import com.booleanull.core_ui.base.BaseFragment
+import com.booleanull.feature_alarm_ui.fragment.AlarmFragment
 import com.booleanull.feature_home_ui.screen.HomeScreen
 import com.booleanull.feature_onboarding_ui.screen.OnboardingScreen
 import org.koin.android.ext.android.inject
@@ -39,8 +40,8 @@ class MainFragment : BaseFragment() {
                         HomeScreen(),
                         0,
                         0,
-                        R.anim.fade_enter,
-                        R.anim.fade_exit,
+                        android.R.anim.slide_in_left,
+                        android.R.anim.slide_out_right,
                         OnboardingScreen()
                     )
                 }
@@ -59,7 +60,22 @@ class MainFragment : BaseFragment() {
     }
 
     fun onDeepLinkNavigate(deepLink: String) {
-        router.replace(router.resolve(deepLink))
+        if (childFragmentManager.fragments.lastOrNull() is AlarmFragment) {
+            router.replace(router.resolve(deepLink))
+        } else {
+            if (childFragmentManager.fragments.isEmpty()) {
+                router.navigateChain(
+                    HomeScreen(),
+                    0,
+                    0,
+                    android.R.anim.slide_in_left,
+                    android.R.anim.slide_out_right,
+                    router.resolve(deepLink)
+                )
+            } else {
+                router.navigateTo(router.resolve(deepLink))
+            }
+        }
     }
 
     override fun onResume() {

@@ -108,7 +108,9 @@ class HomeFragment : BaseFragment() {
             searchView.isVisible = false
             searchEditText.setText("")
             hideKeyboard(searchEditText)
-            viewModel.loadApplications()
+            if (viewModel.isSearch) {
+                viewModel.loadApplications()
+            }
         }
 
         searchImageView.setOnClickListener {

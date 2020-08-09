@@ -12,4 +12,6 @@ interface AlarmGateway {
     suspend fun insertAlarm(alarmWithFilterDTO: AlarmWithFilterDTO)
 
     suspend fun removeFilter(filterDTO: FilterDTO)
+
+    suspend fun clear()
 }

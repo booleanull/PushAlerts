@@ -27,4 +27,7 @@ interface AlarmDao {
 
     @Delete
     suspend fun remove(filterDTO: FilterDTO)
+
+    @Query("DELETE from alarm")
+    suspend fun clear()
 }

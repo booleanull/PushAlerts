@@ -3,10 +3,10 @@
     <color name="colorBlueGray">#546e7a</color>
     <color name="colorGray">#E0E0E0</color>
     <color name="colorGraySecondary">#C0C0C0</color>
-    <color name="colorGrayDark">#1F1F1F</color>
+    <color name="colorGrayDark">#3F3F3F</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorWhiteSecondary">#f8f8f8</color>
     <color name="colorBlack">#000000</color>
-    <color name="colorBlackSecondary">#0E0E0E</color>
+    <color name="colorBlackSecondary">#ff212121</color>
     <color name="colorPinkRed">#E53935</color>
 </resources>

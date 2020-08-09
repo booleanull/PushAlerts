@@ -12,14 +12,14 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-abstract class FullRoundedBottomSheetDialogFragment : BottomSheetDialogFragment() {
+abstract class RoundedBottomSheetDialogFragment(private val margin: Int) : BottomSheetDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return BottomSheetDialog(requireContext()).apply {
             setOnShowListener {
                 val container = (findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout).apply {
                     layoutParams = (layoutParams as CoordinatorLayout.LayoutParams).apply {
-                        setMargins(0, dp(128), 0, 0)
+                        setMargins(0, dp(margin), 0, 0)
                     }
                 }
                 BottomSheetBehavior.from(container).apply {

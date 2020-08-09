@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:theme="@style/AppTheme">
+    android:background="?attr/colorBackgroundVariant"
+    tools:theme="@style/AppTheme.Dark">
 
     <com.booleanull.core_ui.widget.PulseView
         android:id="@+id/pulseView"

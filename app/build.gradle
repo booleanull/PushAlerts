@@ -65,6 +65,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:${rootProject.ext.libraries.appcompat}"
     implementation "com.google.android.material:material:${rootProject.ext.libraries.material}"
     implementation "androidx.constraintlayout:constraintlayout:${rootProject.ext.libraries.constraintlayout}"
+    implementation "androidx.preference:preference:${rootProject.ext.libraries.preferences}"
 
     implementation "ru.terrakok.cicerone:cicerone:${rootProject.ext.libraries.cicerone}"
 
