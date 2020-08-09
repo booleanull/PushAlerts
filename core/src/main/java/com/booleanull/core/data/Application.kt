@@ -1,4 +1,4 @@
-package com.booleanull.feature_home.data
+package com.booleanull.core.data
 
 import android.graphics.drawable.Drawable
 import com.booleanull.core.dto.ApplicationDTO

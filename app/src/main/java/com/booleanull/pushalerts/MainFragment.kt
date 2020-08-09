@@ -59,11 +59,7 @@ class MainFragment : BaseFragment() {
     }
 
     fun onDeepLinkNavigate(deepLink: String) {
-        if (childFragmentManager.fragments.isEmpty()) {
-            router.replace(router.resolve(deepLink))
-        } else {
-            router.navigateTo(router.resolve(deepLink))
-        }
+        router.replace(router.resolve(deepLink))
     }
 
     override fun onResume() {

@@ -3,11 +3,12 @@ package com.booleanull.feature_home_ui.viewmodel
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.booleanull.core.data.Application
+import com.booleanull.core.interactor.GetApplicationUseCase
 import com.booleanull.core_ui.base.BaseViewModel
 import com.booleanull.core_ui.helper.SingleLiveEvent
 import com.booleanull.feature_home.data.Alarm
 import com.booleanull.feature_home.data.AlarmWithFilter
-import com.booleanull.feature_home.data.Application
 import com.booleanull.feature_home.data.Filter
 import com.booleanull.feature_home.interactor.*
 

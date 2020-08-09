@@ -3,10 +3,10 @@ package com.booleanull.feature_home_ui.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.booleanull.core.data.Application
 import com.booleanull.core_ui.adapter.GenericViewHolder
 import com.booleanull.core_ui.adapter.OnItemClickListener
 import com.booleanull.core_ui.adapter.ViewHolderFactory
-import com.booleanull.feature_home.data.Application
 import com.booleanull.feature_home_ui.R
 import kotlinx.android.synthetic.main.cell_application.view.*
 

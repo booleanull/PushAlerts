@@ -1,10 +1,10 @@
 package com.booleanull.feature_home.interactor
 
 import android.content.Context
+import com.booleanull.core.data.Application
+import com.booleanull.core.data.toApplication
 import com.booleanull.core.gateway.ApplicationGateway
 import com.booleanull.core.interactor.BaseUseCase
-import com.booleanull.feature_home.data.Application
-import com.booleanull.feature_home.data.toApplication
 
 class GetApplicationListUseCase(private val applicationRepository: ApplicationGateway): BaseUseCase<List<Application>, GetApplicationListUseCase.Params>() {
 

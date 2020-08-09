@@ -6,6 +6,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
+import com.booleanull.core.data.Application
 import com.booleanull.core_ui.adapter.GenericAdapter
 import com.booleanull.core_ui.adapter.GenericItemDiff
 import com.booleanull.core_ui.adapter.OnItemClickListener
@@ -13,7 +14,6 @@ import com.booleanull.core_ui.base.BaseFragment
 import com.booleanull.core_ui.dp
 import com.booleanull.core_ui.getAttributeColor
 import com.booleanull.core_ui.helper.RecyclerDivider
-import com.booleanull.feature_home.data.Application
 import com.booleanull.feature_home_ui.R
 import com.booleanull.feature_home_ui.adapter.ApplicationViewHolderFactory
 import com.booleanull.feature_home_ui.screen.HomeDetailsScreen
@@ -86,7 +86,9 @@ class HomeFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.loadApplications()
+        if (savedInstanceState == null) {
+            viewModel.loadApplications()
+        }
     }
 
     override fun onStart() {
@@ -154,7 +156,13 @@ class HomeFragment : BaseFragment() {
                 true
             }
             R.id.settings -> {
-                router.navigateTo(SettingsScreen(), android.R.anim.slide_in_left, android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                router.navigateTo(
+                    SettingsScreen(),
+                    android.R.anim.slide_in_left,
+                    android.R.anim.slide_out_right,
+                    android.R.anim.slide_in_left,
+                    android.R.anim.slide_out_right
+                )
                 true
             }
             else -> super.onOptionsItemSelected(item)

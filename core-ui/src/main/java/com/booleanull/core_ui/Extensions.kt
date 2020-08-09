@@ -6,6 +6,7 @@ import android.text.SpannableString
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.URLSpan
+import android.view.MotionEvent
 import android.view.View
 import android.widget.CompoundButton
 import android.widget.Switch
@@ -47,7 +48,7 @@ fun Switch.setChecked(status: Boolean, changeListener: CompoundButton.OnCheckedC
     setOnCheckedChangeListener(changeListener)
 }
 
-fun getSpannableClick(string: String, substring: String, onClick: (v: View) -> Unit) : CharSequence {
+fun getSpannableClick(string: String, substring: String, onClick: (v: View) -> Unit): CharSequence {
     return SpannableString(string).apply {
         setSpan(
             object : ClickableSpan() {
@@ -67,7 +68,7 @@ fun TextView.setSpannableClick(string: String, substring: String, onClick: (v: V
     movementMethod = LinkMovementMethod.getInstance()
 }
 
-fun getSpannableLink(string: String, substring: String, link: String) : CharSequence {
+fun getSpannableLink(string: String, substring: String, link: String): CharSequence {
     return SpannableString(string).apply {
         setSpan(
             URLSpan(link),
@@ -81,4 +82,24 @@ fun getSpannableLink(string: String, substring: String, link: String) : CharSequ
 fun TextView.setSpannableLink(string: String, substring: String, link: String) {
     text = getSpannableLink(string, substring, link)
     movementMethod = LinkMovementMethod.getInstance()
+}
+
+fun View.setOnLongClickListener(
+    duration: Long,
+    listenerStart: (() -> Unit)? = null,
+    listenerEnd: (() -> Unit)? = null,
+    listenerCancel: (() -> Unit)? = null
+) {
+    setOnTouchListener(object : View.OnTouchListener {
+        override fun onTouch(view: View?, motionEvent: MotionEvent?): Boolean {
+            if (motionEvent?.action == MotionEvent.ACTION_DOWN) {
+                listenerStart?.invoke()
+                handler.postDelayed({ listenerEnd?.invoke() }, duration)
+            } else if (motionEvent?.action == MotionEvent.ACTION_UP) {
+                handler.removeCallbacksAndMessages(null)
+                listenerCancel?.invoke()
+            }
+            return true
+        }
+    })
 }

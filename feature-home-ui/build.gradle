@@ -47,13 +47,13 @@ dependencies {
 
     implementation "androidx.constraintlayout:constraintlayout:${rootProject.ext.libraries.constraintlayout}"
     implementation "androidx.recyclerview:recyclerview:${rootProject.ext.libraries.recyclerview}"
+    implementation "androidx.preference:preference:${rootProject.ext.libraries.preferences}"
 
     implementation "ru.terrakok.cicerone:cicerone:${rootProject.ext.libraries.cicerone}"
 
     implementation "org.koin:koin-android:${rootProject.ext.libraries.koin}"
     implementation "org.koin:koin-androidx-scope:${rootProject.ext.libraries.koin}"
     implementation "org.koin:koin-androidx-viewmodel:${rootProject.ext.libraries.koin}"
-    implementation 'androidx.preference:preference:1.1.0'
 
     testImplementation "junit:junit:${rootProject.ext.libraries.junit}"
     androidTestImplementation "androidx.test.ext:junit:${rootProject.ext.libraries.junit_android}"
