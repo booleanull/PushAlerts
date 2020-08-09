@@ -12,7 +12,7 @@ class SearchAlarmUseCase(private val alarmRepository: AlarmGateway) :
 
     override suspend fun run(params: Params?): Task<Exception, AlarmWithFilter> {
         checkNotNull(params)
-        return alarmRepository.searchAlarm(params.packageName).map { it.toAlarmWithFilter().apply { filters.sortedBy { it.filter } } }
+        return alarmRepository.searchAlarm(params.packageName).map { it.toAlarmWithFilter() }
     }
 
     data class Params(
