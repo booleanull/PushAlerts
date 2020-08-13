@@ -14,7 +14,7 @@ class OnboardingAdapter(
     override fun getItem(position: Int): Fragment {
         return OnboardingItemFragment().apply {
             arguments = Bundle().apply {
-                putInt("position", position)
+                putInt(POSITION, position)
             }
         }
     }
@@ -24,7 +24,7 @@ class OnboardingAdapter(
     }
 
     companion object {
-
+        const val POSITION = "position"
         const val ONBOARDING_COUNT = 3
     }
 }

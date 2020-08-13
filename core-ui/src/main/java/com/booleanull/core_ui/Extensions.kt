@@ -90,16 +90,14 @@ fun View.setOnLongClickListener(
     listenerEnd: (() -> Unit)? = null,
     listenerCancel: (() -> Unit)? = null
 ) {
-    setOnTouchListener(object : View.OnTouchListener {
-        override fun onTouch(view: View?, motionEvent: MotionEvent?): Boolean {
-            if (motionEvent?.action == MotionEvent.ACTION_DOWN) {
-                listenerStart?.invoke()
-                handler.postDelayed({ listenerEnd?.invoke() }, duration)
-            } else if (motionEvent?.action == MotionEvent.ACTION_UP) {
-                handler.removeCallbacksAndMessages(null)
-                listenerCancel?.invoke()
-            }
-            return true
+    setOnTouchListener { view, motionEvent ->
+        if (motionEvent?.action == MotionEvent.ACTION_DOWN) {
+            listenerStart?.invoke()
+            handler.postDelayed({ listenerEnd?.invoke() }, duration)
+        } else if (motionEvent?.action == MotionEvent.ACTION_UP) {
+            handler.removeCallbacksAndMessages(null)
+            listenerCancel?.invoke()
         }
-    })
+        true
+    }
 }

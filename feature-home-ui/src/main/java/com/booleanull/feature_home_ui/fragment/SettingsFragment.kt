@@ -9,6 +9,8 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.booleanull.core_ui.fragment.ProblemBottomSheetDialogFragment
+import com.booleanull.core_ui.handler.NavigationDeepLinkHandler
+import com.booleanull.core_ui.helper.ThemeManager
 import com.booleanull.feature_home_ui.R
 import com.booleanull.feature_home_ui.viewmodel.SettingsViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -44,12 +46,20 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
 
+        findPreference<SwitchPreferenceCompat>("theme")?.isChecked =
+            ThemeManager.getCurrentTheme(requireContext()) == ThemeManager.THEME_DARK
         findPreference<SwitchPreferenceCompat>("theme")?.setOnPreferenceChangeListener { preference, newValue ->
             val intent = requireActivity().intent
-            intent.putExtra("deeplink", "SettingsFragment")
+            intent.putExtra(
+                NavigationDeepLinkHandler.DEEP_LINK,
+                NavigationDeepLinkHandler.SETTINGS_FRAGMENT
+            )
             requireActivity().finish()
             requireActivity().startActivity(intent)
-            requireActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+            requireActivity().overridePendingTransition(
+                android.R.anim.fade_in,
+                android.R.anim.fade_out
+            )
             true
         }
     }

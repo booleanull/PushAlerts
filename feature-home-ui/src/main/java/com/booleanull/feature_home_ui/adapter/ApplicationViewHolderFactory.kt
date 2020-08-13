@@ -3,7 +3,7 @@ package com.booleanull.feature_home_ui.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.booleanull.core.data.Application
+import com.booleanull.core.entity.Application
 import com.booleanull.core_ui.adapter.GenericViewHolder
 import com.booleanull.core_ui.adapter.OnItemClickListener
 import com.booleanull.core_ui.adapter.ViewHolderFactory

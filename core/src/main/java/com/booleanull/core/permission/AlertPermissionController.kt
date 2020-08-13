@@ -37,6 +37,7 @@ class AlertPermissionController(private val context: Context) : PermissionContro
             "com.miui.securitycenter",
             "com.miui.permcenter.permissions.PermissionsEditorActivity"
         )
+
         if (context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
                 .isNotEmpty()
         ) {

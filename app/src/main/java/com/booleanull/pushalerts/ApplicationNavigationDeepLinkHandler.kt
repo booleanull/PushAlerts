@@ -11,18 +11,11 @@ class ApplicationNavigationDeepLinkHandler : NavigationDeepLinkHandler {
 
     override fun resolveScreen(screen: String): BaseScreen? {
         return when (screen) {
-            homeFragment -> HomeScreen()
-            settingsFragment -> SettingsScreen()
-            onboardingFragment -> OnboardingScreen()
-            alarmFragment -> AlarmScreen()
+            NavigationDeepLinkHandler.HOME_FRAGMENT -> HomeScreen()
+            NavigationDeepLinkHandler.SETTINGS_FRAGMENT -> SettingsScreen()
+            NavigationDeepLinkHandler.ONBOARDING_FRAGMENT -> OnboardingScreen()
+            NavigationDeepLinkHandler.ALARM_FRAGMENT -> AlarmScreen()
             else -> null
         }
-    }
-
-    companion object {
-        const val homeFragment = "HomeFragment"
-        const val settingsFragment = "SettingsFragment"
-        const val onboardingFragment = "OnboardingFragment"
-        const val alarmFragment = "AlarmFragment"
     }
 }

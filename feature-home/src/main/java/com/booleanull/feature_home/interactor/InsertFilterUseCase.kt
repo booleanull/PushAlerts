@@ -4,12 +4,12 @@ import com.booleanull.core.entity.Filter
 import com.booleanull.core.interactor.BaseUseCase
 import com.booleanull.core.repository.AlarmRepository
 
-class RemoveFilterUseCase(private val alarmRepository: AlarmRepository) :
-    BaseUseCase<Unit, RemoveFilterUseCase.Params>() {
+class InsertFilterUseCase(private val alarmRepository: AlarmRepository) :
+    BaseUseCase<Unit, InsertFilterUseCase.Params>() {
 
     override suspend fun run(params: Params?) {
         checkNotNull(params)
-        alarmRepository.removeFilter(params.filter)
+        alarmRepository.insertFilter(params.filter)
     }
 
     data class Params(

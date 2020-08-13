@@ -13,6 +13,7 @@ val homeModule = module {
     factory { SearchApplicationList(get()) }
     factory { SearchAlarmUseCase(get()) }
     factory { InsertAlarmUseCase(get()) }
+    factory { InsertFilterUseCase(get()) }
     factory { RemoveFilterUseCase(get()) }
     factory { ClearUseCase(get()) }
 
@@ -26,6 +27,7 @@ val homeModule = module {
     viewModel { (packageName: String) ->
         HomeDetailsViewModel(
             packageName,
+            get(),
             get(),
             get(),
             get(),

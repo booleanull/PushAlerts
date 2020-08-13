@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import com.booleanull.core.permission.PermissionController
 import com.booleanull.core_ui.base.BaseAppNavigator
 import com.booleanull.core_ui.base.BaseFragment
+import com.booleanull.core_ui.handler.NavigationDeepLinkHandler
+import com.booleanull.core_ui.handler.ScreenDeepLinkHandler
 import com.booleanull.feature_alarm_ui.fragment.AlarmFragment
 import com.booleanull.feature_home_ui.screen.HomeScreen
 import com.booleanull.feature_onboarding_ui.screen.OnboardingScreen
@@ -33,21 +35,21 @@ class MainFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (childFragmentManager.fragments.isEmpty() && arguments?.getString("deeplink") == null) {
-            when {
-                !permissionController.getPermissionStatus().status -> {
-                    router.navigateChain(
-                        HomeScreen(),
-                        0,
-                        0,
-                        android.R.anim.slide_in_left,
-                        android.R.anim.slide_out_right,
-                        OnboardingScreen()
-                    )
-                }
-                else -> {
-                    router.replace(HomeScreen())
-                }
+        if (childFragmentManager.fragments.isEmpty() && arguments?.getString(
+                NavigationDeepLinkHandler.DEEP_LINK
+            ) == null
+        ) {
+            if (!permissionController.getPermissionStatus().status) {
+                router.navigateChain(
+                    HomeScreen(),
+                    0,
+                    0,
+                    android.R.anim.fade_in,
+                    android.R.anim.fade_out,
+                    OnboardingScreen()
+                )
+            } else {
+                router.replace(HomeScreen())
             }
         }
     }
@@ -64,14 +66,12 @@ class MainFragment : BaseFragment() {
             router.replace(router.resolve(deepLink))
         } else {
             if (childFragmentManager.fragments.isEmpty()) {
-                router.navigateChain(
-                    HomeScreen(),
-                    0,
-                    0,
-                    android.R.anim.slide_in_left,
-                    android.R.anim.slide_out_right,
-                    router.resolve(deepLink)
-                )
+                val screen = router.resolve(deepLink)
+                if (screen is ScreenDeepLinkHandler) {
+                    screen.resolve(router)
+                } else {
+                    router.replace(router.resolve(deepLink))
+                }
             } else {
                 router.navigateTo(router.resolve(deepLink))
             }
@@ -86,5 +86,9 @@ class MainFragment : BaseFragment() {
     override fun onPause() {
         navigatorHolder.removeNavigator()
         super.onPause()
+    }
+
+    companion object {
+        const val TAG = "main_fragment"
     }
 }

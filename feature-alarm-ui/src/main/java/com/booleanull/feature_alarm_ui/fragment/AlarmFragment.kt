@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.booleanull.core_ui.base.BaseFragment
+import com.booleanull.core_ui.handler.NavigationDeepLinkHandler
 import com.booleanull.core_ui.setOnLongClickListener
 import com.booleanull.feature_alarm_ui.R
 import com.booleanull.feature_alarm_ui.viewmodel.AlarmViewModel
@@ -23,6 +24,8 @@ class AlarmFragment : BaseFragment() {
 
     private lateinit var viewModel: AlarmViewModel
     private lateinit var ringtone: Ringtone
+
+    private val vibrationDuration = 200L
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,24 +39,27 @@ class AlarmFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
         viewModel = viewModel<AlarmViewModel> {
             parametersOf(
-                requireActivity().intent?.getStringExtra("packageName") ?: ""
+                requireActivity().intent?.getStringExtra(NavigationDeepLinkHandler.PACKAGE_NAME)
+                    ?: ""
             )
         }.value
+
+        if (savedInstanceState == null) {
+            viewModel.loadApplication()
+        }
 
         var alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
         if (alarmUri == null) {
             alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
         }
         ringtone = RingtoneManager.getRingtone(context, alarmUri)
-
-        if (savedInstanceState == null) {
-            viewModel.loadApplication()
-            ringtone.play()
-        }
+        ringtone.play()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        pulseView.start()
 
         alarmImageView.setOnLongClickListener(800,
             listenerStart = {
@@ -66,16 +72,16 @@ class AlarmFragment : BaseFragment() {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     vibrator.vibrate(
                         VibrationEffect.createOneShot(
-                            100,
+                            vibrationDuration,
                             VibrationEffect.DEFAULT_AMPLITUDE
                         )
                     )
                 } else {
-                    vibrator.vibrate(100)
+                    vibrator.vibrate(vibrationDuration)
                 }
 
                 ringtone.stop()
-                router.back()
+                onBack()
             },
             listenerCancel = {
                 pulseView.start()
@@ -87,12 +93,24 @@ class AlarmFragment : BaseFragment() {
         })
 
         viewModel.errorNotFound.observe(viewLifecycleOwner, Observer {
-            router.back()
+            onBack()
+        })
+
+        viewModel.finish.observe(viewLifecycleOwner, Observer {
+            onBack()
         })
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         ringtone.stop()
+    }
+
+    private fun onBack() {
+        if (parentFragmentManager.fragments.size > 1) {
+            router.back()
+        } else {
+            requireActivity().finish()
+        }
     }
 }

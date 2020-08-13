@@ -3,7 +3,7 @@ package com.booleanull.feature_home_ui.viewmodel
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.booleanull.core.data.Application
+import com.booleanull.core.entity.Application
 import com.booleanull.core_ui.base.BaseViewModel
 import com.booleanull.feature_home.interactor.GetApplicationListUseCase
 import com.booleanull.feature_home.interactor.SearchApplicationList

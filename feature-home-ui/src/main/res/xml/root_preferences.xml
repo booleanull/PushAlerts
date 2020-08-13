@@ -18,6 +18,10 @@
             app:key="theme"
             app:title="@string/dark_mode" />
 
+        <SwitchPreferenceCompat
+            app:key="alarm"
+            app:title="@string/disable_all" />
+
         <Preference
             app:key="clear"
             app:title="@string/clear" />

@@ -3,13 +3,13 @@ package com.booleanull.repositories
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
-import com.booleanull.core.dto.ApplicationDTO
-import com.booleanull.core.gateway.ApplicationGateway
+import com.booleanull.core.entity.Application
 import com.booleanull.core.functional.Task
+import com.booleanull.core.repository.ApplicationRepository
 
-class ApplicationRepository : ApplicationGateway {
+class ApplicationRepositoryImpl : ApplicationRepository {
 
-    override suspend fun getApplicationList(context: Context): List<ApplicationDTO> {
+    override suspend fun getApplicationList(context: Context): List<Application> {
         val packageManager = context.packageManager
 
         val packages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA)
@@ -17,13 +17,13 @@ class ApplicationRepository : ApplicationGateway {
             var hasInternetPermission = false
             packageManager.getPackageInfo(it.packageName, PackageManager.GET_PERMISSIONS)
                 .requestedPermissions?.let { permissions ->
-                permissions.forEach { permission ->
-                    if (permission == Manifest.permission.INTERNET) hasInternetPermission = true
+                    permissions.forEach { permission ->
+                        if (permission == Manifest.permission.INTERNET) hasInternetPermission = true
+                    }
                 }
-            }
             packageManager.getLaunchIntentForPackage(it.packageName) != null && hasInternetPermission
         }.map {
-            ApplicationDTO(
+            Application(
                 packageManager.getApplicationLabel(it.applicationInfo).toString(),
                 it.packageName,
                 packageManager.getActivityIcon(packageManager.getLaunchIntentForPackage(it.packageName)!!)
@@ -31,7 +31,10 @@ class ApplicationRepository : ApplicationGateway {
         }
     }
 
-    override suspend fun searchApplicationList(context: Context, query: String): Task<Exception, List<ApplicationDTO>> {
+    override suspend fun searchApplicationList(
+        context: Context,
+        query: String
+    ): Task<Exception, List<Application>> {
         val packageManager = context.packageManager
 
         val packages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA)
@@ -39,13 +42,13 @@ class ApplicationRepository : ApplicationGateway {
             var hasInternetPermission = false
             packageManager.getPackageInfo(it.packageName, PackageManager.GET_PERMISSIONS)
                 .requestedPermissions?.let { permissions ->
-                permissions.forEach { permission ->
-                    if (permission == Manifest.permission.INTERNET) hasInternetPermission = true
+                    permissions.forEach { permission ->
+                        if (permission == Manifest.permission.INTERNET) hasInternetPermission = true
+                    }
                 }
-            }
             packageManager.getLaunchIntentForPackage(it.packageName) != null && hasInternetPermission
         }.map {
-            ApplicationDTO(
+            Application(
                 packageManager.getApplicationLabel(it.applicationInfo).toString(),
                 it.packageName,
                 packageManager.getActivityIcon(packageManager.getLaunchIntentForPackage(it.packageName)!!)
@@ -64,7 +67,7 @@ class ApplicationRepository : ApplicationGateway {
     override suspend fun getApplication(
         context: Context,
         packageName: String
-    ): Task<java.lang.Exception, ApplicationDTO> {
+    ): Task<java.lang.Exception, Application> {
         val packageManager = context.packageManager
 
         val packages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA)
@@ -72,7 +75,7 @@ class ApplicationRepository : ApplicationGateway {
             it.packageName == packageName
         }?.let {
             return Task.Success(
-                ApplicationDTO(
+                Application(
                     packageManager.getApplicationLabel(it.applicationInfo).toString(),
                     it.packageName,
                     packageManager.getActivityIcon(packageManager.getLaunchIntentForPackage(it.packageName)!!)

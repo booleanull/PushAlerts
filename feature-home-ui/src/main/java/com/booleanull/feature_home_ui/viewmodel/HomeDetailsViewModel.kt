@@ -3,14 +3,17 @@ package com.booleanull.feature_home_ui.viewmodel
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.booleanull.core.data.Application
+import com.booleanull.core.entity.Alarm
+import com.booleanull.core.entity.AlarmWithFilter
+import com.booleanull.core.entity.Application
+import com.booleanull.core.entity.Filter
 import com.booleanull.core.interactor.GetApplicationUseCase
 import com.booleanull.core_ui.base.BaseViewModel
 import com.booleanull.core_ui.helper.SingleLiveEvent
-import com.booleanull.feature_home.data.Alarm
-import com.booleanull.feature_home.data.AlarmWithFilter
-import com.booleanull.feature_home.data.Filter
-import com.booleanull.feature_home.interactor.*
+import com.booleanull.feature_home.interactor.InsertAlarmUseCase
+import com.booleanull.feature_home.interactor.InsertFilterUseCase
+import com.booleanull.feature_home.interactor.RemoveFilterUseCase
+import com.booleanull.feature_home.interactor.SearchAlarmUseCase
 
 class HomeDetailsViewModel(
     private val packageName: String,
@@ -18,11 +21,13 @@ class HomeDetailsViewModel(
     private val getApplicationUseCase: GetApplicationUseCase,
     private val searchAlarmUseCase: SearchAlarmUseCase,
     private val insertAlarmUseCase: InsertAlarmUseCase,
+    private val insertFilterUseCase: InsertFilterUseCase,
     private val removeFilterUseCase: RemoveFilterUseCase
 ) : BaseViewModel(
     getApplicationUseCase,
     searchAlarmUseCase,
     insertAlarmUseCase,
+    insertFilterUseCase,
     removeFilterUseCase
 ) {
 
@@ -49,13 +54,15 @@ class HomeDetailsViewModel(
         get() = errorNotFoundInternal
 
     fun loadApplication() {
-        getApplicationUseCase.invoke(params = GetApplicationUseCase.Params(context, packageName), onResult = {
-            it.fold({
-                applicationInternal.value = it
-            }, {
-                errorNotFoundInternal.call()
+        getApplicationUseCase.invoke(
+            params = GetApplicationUseCase.Params(context, packageName),
+            onResult = {
+                it.fold({
+                    applicationInternal.value = it
+                }, {
+                    errorNotFoundInternal.call()
+                })
             })
-        })
     }
 
     fun searchApplicationAlarm() {
@@ -67,30 +74,46 @@ class HomeDetailsViewModel(
     }
 
     fun setAlarm(status: Boolean) {
-        alarmInternal.value = alarmInternal.value!!.apply { alarm.isAlarm = status }
-        insertAlarm()
+        alarmInternal.value = AlarmWithFilter(
+            Alarm(packageName, status, alarmInternal.value!!.alarm.isFilter),
+            alarmInternal.value!!.filters
+        )
+        insertAlarmUseCase.invoke(
+            params = InsertAlarmUseCase.Params(
+                alarmInternal.value!!
+            )
+        )
     }
 
     fun setFilter(status: Boolean) {
-        alarmInternal.value =
-            alarmInternal.value!!.apply { alarm.isFilter = status }
-        insertAlarm()
+        alarmInternal.value = AlarmWithFilter(
+            Alarm(packageName, alarmInternal.value!!.alarm.isAlarm, status),
+            alarmInternal.value!!.filters
+        )
+        insertAlarmUseCase.invoke(
+            params = InsertAlarmUseCase.Params(
+                alarmInternal.value!!
+            )
+        )
     }
 
     fun addFilter(filter: String) {
-        alarmInternal.value = alarmInternal.value!!.apply { filters.add(
-            Filter(packageName, filter)
-        ) }
-        insertAlarm()
+        val alarm = alarmInternal.value!!
+        val newFilter = Filter(packageName, filter)
+        val filters = alarm.filters.toMutableSet()
+        filters.add(newFilter)
+        alarmInternal.value =
+            AlarmWithFilter(Alarm(packageName, alarm.alarm.isAlarm, alarm.alarm.isFilter), filters)
+        insertFilterUseCase.invoke(params = InsertFilterUseCase.Params(newFilter))
     }
 
     fun removeFilter(filter: String) {
-        val item = alarmInternal.value!!.filters.firstOrNull { it.filter == filter } ?: return
-        alarmInternal.value = alarmInternal.value!!.apply { filters.remove(item) }
-        removeFilterUseCase.invoke(params = RemoveFilterUseCase.Params(item))
-    }
-
-    private fun insertAlarm() {
-        insertAlarmUseCase.invoke(params = InsertAlarmUseCase.Params(alarmInternal.value!!))
+        val alarm = alarmInternal.value!!
+        val removeFilter = Filter(packageName, filter)
+        val filters = alarm.filters.toMutableSet()
+        filters.remove(filters.find { it.filter == filter })
+        alarmInternal.value =
+            AlarmWithFilter(Alarm(packageName, alarm.alarm.isAlarm, alarm.alarm.isFilter), filters)
+        removeFilterUseCase.invoke(params = RemoveFilterUseCase.Params(removeFilter))
     }
 }

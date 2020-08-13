@@ -2,7 +2,7 @@ package com.booleanull.core.permission
 
 import android.content.Context
 
-class AllPermissionController(context: Context) : PermissionController {
+class DefaultPermissionController(context: Context) : PermissionController {
 
     private val permissionControllers =
         arrayOf(

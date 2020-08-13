@@ -1,7 +1,6 @@
 package com.booleanull.feature_onboarding_ui.fragment
 
 import android.os.Bundle
-import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +9,7 @@ import com.booleanull.core_ui.fragment.ProblemBottomSheetDialogFragment
 import com.booleanull.core_ui.setSpannableClick
 import com.booleanull.core_ui.setSpannableLink
 import com.booleanull.feature_onboarding_ui.R
+import com.booleanull.feature_onboarding_ui.adapter.OnboardingAdapter
 import kotlinx.android.synthetic.main.fragment_onboarding_item.*
 
 class OnboardingItemFragment : BaseFragment() {
@@ -19,7 +19,7 @@ class OnboardingItemFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let { bundle ->
-            position = bundle.getInt("position")
+            position = bundle.getInt(OnboardingAdapter.POSITION)
         }
     }
 

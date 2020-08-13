@@ -10,7 +10,7 @@ import android.os.Build
 class ChineAutoStartPermissionController(private val context: Context) : PermissionController {
 
     override fun getPermissionStatus(): PermissionStatus {
-        return PermissionStatus(true)
+        return PermissionOkStatus
     }
 
     override fun requestPermission(): List<PermissionIntent> {

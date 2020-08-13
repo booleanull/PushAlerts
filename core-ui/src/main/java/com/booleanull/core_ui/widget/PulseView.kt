@@ -9,6 +9,7 @@ import android.view.View
 import android.view.animation.Animation
 import com.booleanull.core_ui.R
 import com.booleanull.core_ui.getAttributeColor
+import kotlin.math.min
 
 class PulseView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -27,13 +28,12 @@ class PulseView @JvmOverloads constructor(
     private var offset = 0.0f
     private var offset2 = 0.0f
 
-    init {
-        start()
-    }
-
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        setMeasuredDimension(widthMeasureSpec, widthMeasureSpec)
+        setMeasuredDimension(
+            min(heightMeasureSpec, widthMeasureSpec),
+            min(heightMeasureSpec, widthMeasureSpec)
+        )
     }
 
     override fun onDraw(canvas: Canvas?) {

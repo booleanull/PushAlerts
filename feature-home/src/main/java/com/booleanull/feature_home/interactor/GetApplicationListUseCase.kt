@@ -1,17 +1,17 @@
 package com.booleanull.feature_home.interactor
 
 import android.content.Context
-import com.booleanull.core.data.Application
-import com.booleanull.core.data.toApplication
-import com.booleanull.core.gateway.ApplicationGateway
+import com.booleanull.core.entity.Application
 import com.booleanull.core.interactor.BaseUseCase
+import com.booleanull.core.repository.ApplicationRepository
 
-class GetApplicationListUseCase(private val applicationRepository: ApplicationGateway): BaseUseCase<List<Application>, GetApplicationListUseCase.Params>() {
+class GetApplicationListUseCase(private val applicationRepository: ApplicationRepository) :
+    BaseUseCase<List<Application>, GetApplicationListUseCase.Params>() {
 
     override suspend fun run(params: Params?): List<Application> {
         checkNotNull(params)
-        val applications = applicationRepository.getApplicationList(params.context).map { it.toApplication() }
-        return when(params.sortType.value) {
+        val applications = applicationRepository.getApplicationList(params.context)
+        return when (params.sortType.value) {
             SortType.SORT_NAME -> {
                 applications.sortedBy { it.name }
             }
