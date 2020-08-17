@@ -135,7 +135,7 @@
         <item name="colorBackgroundVariant">@color/colorWhite</item>
         <item name="colorTextBold">@color/colorBlack</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
     </style>
 
     <style name="AppTheme.Dark.BottomSheetDialogTheme" parent="AppTheme.Dark.BottomSheetDialog">
@@ -146,7 +146,7 @@
         <item name="colorBackgroundVariant">@color/colorBlack</item>
         <item name="colorTextBold">@color/colorWhite</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
     <!-- Dialog -->
