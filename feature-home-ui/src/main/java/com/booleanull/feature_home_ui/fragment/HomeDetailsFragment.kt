@@ -139,7 +139,7 @@ class HomeDetailsFragment : BaseFragment() {
             iconImageView.scaleY = max(1f - progress, 0.5f)
         })
 
-        iconImageView.transitionName = arguments?.getString("packageName") ?: ""
+        iconImageView.transitionName = arguments?.getString(PACKAGE_NAME) ?: ""
 
         filterRecyclerView.adapter = filterAdapter
         filterRecyclerView.addItemDecoration(filterItemDecoration)

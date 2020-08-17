@@ -150,10 +150,6 @@ class HomeFragment : BaseFragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onDestroyOptionsMenu() {
-        super.onDestroyOptionsMenu()
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.search -> {
