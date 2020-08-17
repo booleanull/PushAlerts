@@ -8,17 +8,21 @@ import androidx.lifecycle.Observer
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
+import com.booleanull.core.facade.SettingsFacade
+import com.booleanull.core.facade.ThemeFacade
 import com.booleanull.core_ui.fragment.ProblemBottomSheetDialogFragment
 import com.booleanull.core_ui.handler.NavigationDeepLinkHandler
-import com.booleanull.core_ui.helper.ThemeManager
 import com.booleanull.feature_home_ui.R
 import com.booleanull.feature_home_ui.viewmodel.SettingsViewModel
 import com.google.android.material.snackbar.Snackbar
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
     private val viewModel: SettingsViewModel by viewModel()
+
+    private val themeFacade: ThemeFacade by inject()
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
@@ -26,12 +30,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        findPreference<Preference>("problem")?.setOnPreferenceClickListener {
+        findPreference<Preference>(SettingsFacade.PREFERENCE_PROBLEM)?.setOnPreferenceClickListener {
             ProblemBottomSheetDialogFragment().showNow(childFragmentManager, null)
             true
         }
 
-        findPreference<Preference>("mark")?.setOnPreferenceClickListener {
+        findPreference<Preference>(SettingsFacade.PREFERENCE_MARK)?.setOnPreferenceClickListener {
             startActivity(
                 Intent(
                     Intent.ACTION_VIEW,
@@ -41,15 +45,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
 
-        findPreference<Preference>("clear")?.setOnPreferenceClickListener {
+        findPreference<Preference>(SettingsFacade.PREFERENCE_CLEAR)?.setOnPreferenceClickListener {
             viewModel.clear()
             true
         }
 
-        findPreference<SwitchPreferenceCompat>("theme")?.isChecked =
-            ThemeManager.getCurrentTheme(requireContext()) == ThemeManager.THEME_DARK
-        findPreference<SwitchPreferenceCompat>("theme")?.setOnPreferenceChangeListener { preference, newValue ->
+        findPreference<SwitchPreferenceCompat>(SettingsFacade.PREFERENCE_SWITCH_THEME)?.isChecked =
+            themeFacade.getCurrentTheme() == ThemeFacade.THEME_DARK
+        findPreference<SwitchPreferenceCompat>(SettingsFacade.PREFERENCE_SWITCH_THEME)?.setOnPreferenceChangeListener { preference, newValue ->
+            themeFacade.getCurrentTheme() == ThemeFacade.THEME_DARK
             val intent = requireActivity().intent
+            intent.flags = intent.flags and Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY.inv()
             intent.putExtra(
                 NavigationDeepLinkHandler.DEEP_LINK,
                 NavigationDeepLinkHandler.SETTINGS_FRAGMENT

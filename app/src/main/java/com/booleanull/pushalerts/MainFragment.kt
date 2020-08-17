@@ -18,12 +18,11 @@ import ru.terrakok.cicerone.NavigatorHolder
 class MainFragment : BaseFragment() {
 
     private val navigatorHolder: NavigatorHolder by inject()
-
-    private val permissionController: PermissionController by inject()
-
     private val navigator by lazy {
         BaseAppNavigator(requireContext(), requireActivity(), childFragmentManager, R.id.container)
     }
+
+    private val permissionController: PermissionController by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,7 +60,7 @@ class MainFragment : BaseFragment() {
         return false
     }
 
-    fun onDeepLinkNavigate(deepLink: String) {
+    internal fun onDeepLinkNavigate(deepLink: String) {
         if (childFragmentManager.fragments.lastOrNull() is AlarmFragment) {
             router.replace(router.resolve(deepLink))
         } else {

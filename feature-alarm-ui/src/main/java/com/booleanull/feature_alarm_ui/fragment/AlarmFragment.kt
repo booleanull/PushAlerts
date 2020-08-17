@@ -81,7 +81,7 @@ class AlarmFragment : BaseFragment() {
                 }
 
                 ringtone.stop()
-                onBack()
+                router.back()
             },
             listenerCancel = {
                 pulseView.start()
@@ -93,24 +93,16 @@ class AlarmFragment : BaseFragment() {
         })
 
         viewModel.errorNotFound.observe(viewLifecycleOwner, Observer {
-            onBack()
+            router.back()
         })
 
         viewModel.finish.observe(viewLifecycleOwner, Observer {
-            onBack()
+            router.back()
         })
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         ringtone.stop()
-    }
-
-    private fun onBack() {
-        if (parentFragmentManager.fragments.size > 1) {
-            router.back()
-        } else {
-            requireActivity().finish()
-        }
     }
 }

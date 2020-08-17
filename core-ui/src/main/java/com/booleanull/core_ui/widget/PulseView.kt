@@ -100,4 +100,10 @@ class PulseView @JvmOverloads constructor(
         animator?.start()
         animator2?.start()
     }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        animator?.cancel()
+        animator2?.cancel()
+    }
 }

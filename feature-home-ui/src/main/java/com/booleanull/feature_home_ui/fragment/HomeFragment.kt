@@ -133,7 +133,7 @@ class HomeFragment : BaseFragment() {
         }
 
         viewModel.applicationList.observe(viewLifecycleOwner, Observer {
-            applicationAdapter.dataList = it.toMutableList()
+            applicationAdapter.dataList = it
         })
 
         viewModel.loading.observe(viewLifecycleOwner, Observer {
@@ -148,6 +148,10 @@ class HomeFragment : BaseFragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_home, menu)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onDestroyOptionsMenu() {
+        super.onDestroyOptionsMenu()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -169,5 +173,10 @@ class HomeFragment : BaseFragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onDestroyView() {
+        (requireActivity() as AppCompatActivity).setSupportActionBar(null)
+        super.onDestroyView()
     }
 }

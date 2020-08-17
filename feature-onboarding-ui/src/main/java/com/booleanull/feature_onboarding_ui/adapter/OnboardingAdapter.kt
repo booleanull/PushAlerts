@@ -13,7 +13,7 @@ class OnboardingAdapter(
 
     override fun getItem(position: Int): Fragment {
         return OnboardingItemFragment().apply {
-            arguments = Bundle().apply {
+            arguments = Bundle(1).apply {
                 putInt(POSITION, position)
             }
         }

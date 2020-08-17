@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="next">Продолжить</string>
-    <string name="take_permission">Разрешить</string>
-    <string name="onboarding_description_first">Сервис для "громких" уведомлений.\nЗаводите будильник на получение Push-сообщений от приложений.</string>
-    <string name="onboarding_title_second">Откройте доступ сервису</string>
-    <string name="onboarding_description_second">Для работы сервиса необходимо предоставить возможность реагировать на Ваши Push-сообщения.\n\nВозможные проблемы.</string>
+    <string name="next">Next</string>
+    <string name="take_permission">Allow access</string>
+    <string name="onboarding_description_first">Service for "loud" notifications.\nSet an alarm to receive Push messages from apps.</string>
+    <string name="onboarding_title_second">Open access to the service</string>
+    <string name="onboarding_description_second">In order for the service to work, you must provide the ability to respond to your Push messages.\n\nPossible problems.</string>
 </resources>

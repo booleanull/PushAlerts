@@ -3,7 +3,7 @@ package com.booleanull.pushalerts
 import android.content.Intent
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
-import androidx.preference.PreferenceManager
+import com.booleanull.core.facade.SettingsFacade
 import com.booleanull.core_ui.handler.NavigationDeepLinkHandler
 import com.booleanull.feature_home.interactor.SearchAlarmUseCase
 import kotlinx.coroutines.CoroutineScope
@@ -14,6 +14,7 @@ import org.koin.android.ext.android.inject
 class NotificationListenerService : NotificationListenerService() {
 
     private val searchAlarmUseCase: SearchAlarmUseCase by inject()
+    private val settingsFacade: SettingsFacade by inject()
 
     private val supervisorJob = SupervisorJob()
     private val job = CoroutineScope(supervisorJob)
@@ -24,9 +25,7 @@ class NotificationListenerService : NotificationListenerService() {
 
     override fun onNotificationPosted(sbn: StatusBarNotification?, rankingMap: RankingMap?) {
         super.onNotificationPosted(sbn, rankingMap)
-        if (!PreferenceManager
-                .getDefaultSharedPreferences(applicationContext).getBoolean("alarm", false)
-        ) {
+        if (!settingsFacade.getAlarm()) {
             sbn?.let {
                 searchAlarmUseCase.invoke(
                     SearchAlarmUseCase.Params(sbn.packageName),

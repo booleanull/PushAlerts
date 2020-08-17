@@ -4,14 +4,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import com.booleanull.core.facade.ThemeFacade
 import com.booleanull.core_ui.base.BaseFragment
 import com.booleanull.core_ui.handler.NavigationDeepLinkHandler
-import com.booleanull.core_ui.helper.ThemeManager
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
 
+    private val themeFacade: ThemeFacade by inject()
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        ThemeManager.setCurrentTheme(this)
+        themeFacade.setCurrentTheme(this)
         window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
         window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
@@ -40,11 +43,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onHandlerIntent(intent: Intent?) {
-        intent?.extras?.getString(NavigationDeepLinkHandler.DEEP_LINK)?.let { deepLink ->
-            (supportFragmentManager.findFragmentByTag(MainFragment.TAG) as? MainFragment)?.let { fragment ->
-                fragment.arguments =
-                    Bundle().apply { putString(NavigationDeepLinkHandler.DEEP_LINK, deepLink) }
-                fragment.onDeepLinkNavigate(deepLink)
+        if ((getIntent().flags and Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0) {
+            intent?.extras?.getString(NavigationDeepLinkHandler.DEEP_LINK)?.let { deepLink ->
+                (supportFragmentManager.findFragmentByTag(MainFragment.TAG) as? MainFragment)?.let { fragment ->
+                    fragment.arguments =
+                        Bundle(1).apply { putString(NavigationDeepLinkHandler.DEEP_LINK, deepLink) }
+                    fragment.onDeepLinkNavigate(deepLink)
+                }
             }
         }
     }

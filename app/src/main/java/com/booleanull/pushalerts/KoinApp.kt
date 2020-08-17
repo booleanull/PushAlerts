@@ -1,6 +1,8 @@
 package com.booleanull.pushalerts
 
 import androidx.room.Room
+import com.booleanull.core.facade.SettingsFacade
+import com.booleanull.core.facade.ThemeFacade
 import com.booleanull.core.permission.DefaultPermissionController
 import com.booleanull.core.permission.PermissionController
 import com.booleanull.core.repository.AlarmRepository
@@ -27,6 +29,8 @@ val appModule = module {
     }
 
     single<PermissionController> { DefaultPermissionController(androidContext()) }
+    single<SettingsFacade> { SettingsFacadeImpl(androidContext()) }
+    single<ThemeFacade> { ThemeFacadeImpl(get()) }
 
     single<ApplicationRepository> { ApplicationRepositoryImpl() }
     single<AlarmRepository> { AlarmRepositoryImpl(get()) }

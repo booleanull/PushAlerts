@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Push Alerts</string>
+    <string name="choose_email_send">Выберите способ отправки</string>
+    <string name="problem_service">Возможные проблемы</string>
+    <string name="problem_service_description">Сервису для корректной работы может требоваться наличие некоторых системных разрешений, необходимых для конкретного девайса. Если при работе с сервисом у Вас необратываются уведомления напишите нам на почту booleanull@gmail.com.</string>
+    <string name="mark_app">Оцените наше приложение</string>
+    <string name="mark_app_playmarket">Оцените наше приложения в Play Market.</string>
+</resources>

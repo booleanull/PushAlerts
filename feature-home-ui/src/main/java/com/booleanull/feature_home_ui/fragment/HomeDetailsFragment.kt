@@ -113,7 +113,7 @@ class HomeDetailsFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
         viewModel = viewModel<HomeDetailsViewModel> {
             parametersOf(
-                arguments?.getString("packageName") ?: ""
+                arguments?.getString(PACKAGE_NAME) ?: ""
             )
         }.value
         if (savedInstanceState == null) {
@@ -182,7 +182,7 @@ class HomeDetailsFragment : BaseFragment() {
                 filterRecyclerView.alpha = if (it.isFilter) 1.0f else 0.5f
                 filterOverlapLayout.isVisible = !it.isFilter
             }
-            filterAdapter.dataList = it.filters.map { it.filter }.toMutableList()
+            filterAdapter.dataList = it.filters.map { it.filter }
         })
 
         viewModel.errorNotFound.observe(viewLifecycleOwner, Observer {
@@ -194,5 +194,17 @@ class HomeDetailsFragment : BaseFragment() {
                 .show()
             onBackPressed()
         })
+    }
+
+    companion object {
+        private const val PACKAGE_NAME = "package_name"
+
+        fun newInstance(packageName: String): HomeDetailsFragment {
+            return HomeDetailsFragment().apply {
+                arguments = Bundle(1).apply {
+                    putString(PACKAGE_NAME, packageName)
+                }
+            }
+        }
     }
 }

@@ -9,7 +9,7 @@ open class GenericAdapter<T, R>(private val viewHolderFactory: ViewHolderFactory
     RecyclerView.Adapter<GenericViewHolder<T, R>>(),
     DismissItemTouchHelper.OnItemDismissListener {
 
-    var dataList = mutableListOf<T>()
+    var dataList = listOf<T>()
         set(value) {
             diffUtil?.let { diffUtil ->
                 val diffResult =
