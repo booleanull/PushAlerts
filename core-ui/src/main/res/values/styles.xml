@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorWhite</item>
@@ -15,8 +15,6 @@
         <item name="android:windowBackground">@color/colorWhite</item>
         <item name="android:colorBackground">@color/colorWhite</item>
         <item name="android:navigationBarColor">@color/colorWhite</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
 
         <item name="bottomSheetDialogTheme">@style/AppTheme.BottomSheetDialogTheme</item>
         <item name="bottomSheetStyle">@style/AppTheme.BottomSheetDialogTheme</item>
@@ -44,8 +42,6 @@
         <item name="android:windowBackground">@color/colorBlack</item>
         <item name="android:colorBackground">@color/colorBlack</item>
         <item name="android:navigationBarColor">@color/colorBlack</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
 
         <item name="bottomSheetDialogTheme">@style/AppTheme.Dark.BottomSheetDialogTheme</item>
         <item name="bottomSheetStyle">@style/AppTheme.Dark.BottomSheetDialogTheme</item>
@@ -164,21 +160,9 @@
         <item name="android:textColor">@color/colorBlueGray</item>
     </style>
 
-    <style name="AppTheme.Dialog.Full">
-        <item name="colorPrimary">@color/colorWhite</item>
-        <item name="colorPrimaryDark">@color/colorWhiteSecondary</item>
+    <style name="AppTheme.Dark.Dialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="colorPrimary">@color/colorBlueGray</item>
+        <item name="colorPrimaryDark">@color/colorBlueGray</item>
         <item name="colorAccent">@color/colorBlueGray</item>
-        <item name="android:backgroundDimEnabled">false</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:padding">0dp</item>
-        <item name="android:windowIsFloating">false</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowCloseOnTouchOutside">false</item>
-        <item name="android:windowAnimationStyle">@style/AppTheme.Dialog.Full.Animation</item>
-    </style>
-
-    <style name="AppTheme.Dialog.Full.Animation">
-        <item name="android:windowEnterAnimation">@anim/explode_enter</item>
-        <item name="android:windowExitAnimation">@anim/explode_exit</item>
     </style>
 </resources>

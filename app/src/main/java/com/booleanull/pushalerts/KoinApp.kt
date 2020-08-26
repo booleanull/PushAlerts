@@ -3,11 +3,11 @@ package com.booleanull.pushalerts
 import androidx.room.Room
 import com.booleanull.core.facade.SettingsFacade
 import com.booleanull.core.facade.ThemeFacade
-import com.booleanull.core.permission.DefaultPermissionController
-import com.booleanull.core.permission.PermissionController
+import com.booleanull.core.permission.PermissionCompositeController
+import com.booleanull.core.permission.PermissionCompositeControllerImpl
 import com.booleanull.core.repository.AlarmRepository
 import com.booleanull.core.repository.ApplicationRepository
-import com.booleanull.core_ui.base.BaseRouter
+import com.booleanull.core_ui.base.Router
 import com.booleanull.core_ui.handler.NavigationDeepLinkHandler
 import com.booleanull.database.ApplicationDatabase
 import com.booleanull.repositories.AlarmRepositoryImpl
@@ -17,9 +17,9 @@ import org.koin.dsl.module
 import ru.terrakok.cicerone.Cicerone
 
 val appModule = module {
-    single { Cicerone.create(BaseRouter(get())) }
-    single { get<Cicerone<BaseRouter>>().router }
-    single { get<Cicerone<BaseRouter>>().navigatorHolder }
+    single { Cicerone.create(Router(get())) }
+    single { get<Cicerone<Router>>().router }
+    single { get<Cicerone<Router>>().navigatorHolder }
     single<NavigationDeepLinkHandler> { ApplicationNavigationDeepLinkHandler() }
 
     single {
@@ -28,10 +28,10 @@ val appModule = module {
             .build()
     }
 
-    single<PermissionController> { DefaultPermissionController(androidContext()) }
+    single<PermissionCompositeController> { PermissionCompositeControllerImpl(androidContext()) }
     single<SettingsFacade> { SettingsFacadeImpl(androidContext()) }
     single<ThemeFacade> { ThemeFacadeImpl(get()) }
 
-    single<ApplicationRepository> { ApplicationRepositoryImpl() }
+    single<ApplicationRepository> { ApplicationRepositoryImpl(androidContext().packageManager) }
     single<AlarmRepository> { AlarmRepositoryImpl(get()) }
 }

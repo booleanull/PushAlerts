@@ -4,8 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.booleanull.core.permission.PermissionController
-import com.booleanull.core_ui.base.BaseAppNavigator
+import com.booleanull.core.permission.PermissionCompositeController
+import com.booleanull.core.permission.PermissionStatus
+import com.booleanull.core_ui.base.AppNavigator
 import com.booleanull.core_ui.base.BaseFragment
 import com.booleanull.core_ui.handler.NavigationDeepLinkHandler
 import com.booleanull.core_ui.handler.ScreenDeepLinkHandler
@@ -19,10 +20,10 @@ class MainFragment : BaseFragment() {
 
     private val navigatorHolder: NavigatorHolder by inject()
     private val navigator by lazy {
-        BaseAppNavigator(requireContext(), requireActivity(), childFragmentManager, R.id.container)
+        AppNavigator(requireContext(), requireActivity(), childFragmentManager, R.id.container)
     }
 
-    private val permissionController: PermissionController by inject()
+    private val permissionCompositeController: PermissionCompositeController by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,7 +39,7 @@ class MainFragment : BaseFragment() {
                 NavigationDeepLinkHandler.DEEP_LINK
             ) == null
         ) {
-            if (!permissionController.getPermissionStatus().status) {
+            if (permissionCompositeController.getPermissionStatus() is PermissionStatus.PermissionBadStatus) {
                 router.navigateChain(
                     HomeScreen(),
                     0,

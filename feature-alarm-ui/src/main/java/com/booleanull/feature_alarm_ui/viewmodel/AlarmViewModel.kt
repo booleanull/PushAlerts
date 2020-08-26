@@ -1,6 +1,5 @@
 package com.booleanull.feature_alarm_ui.viewmodel
 
-import android.content.Context
 import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +10,6 @@ import com.booleanull.core_ui.helper.SingleLiveEvent
 
 class AlarmViewModel(
     private val packageName: String,
-    private val context: Context,
     private val getApplicationUseCase: GetApplicationUseCase
 ) : BaseViewModel(getApplicationUseCase) {
 
@@ -42,7 +40,7 @@ class AlarmViewModel(
 
     fun loadApplication() {
         getApplicationUseCase.invoke(
-            params = GetApplicationUseCase.Params(context, packageName),
+            params = GetApplicationUseCase.Params(packageName),
             onResult = {
                 it.fold({
                     applicationInternal.value = it

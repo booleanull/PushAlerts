@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="notification_permission">Вы не предоставили доступ к уведомлениям</string>
-    <string name="alert_permission">Вы не предоставили доступ к оповещениям</string>
+    <string name="permission_notification_error">Вы не предоставили доступ к уведомлениям</string>
+    <string name="permission_alert_error">Вы не предоставили доступ к оповещениям</string>
 </resources>

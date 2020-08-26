@@ -1,0 +1,73 @@
+package com.booleanull.core_ui.fragment
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.CompoundButton
+import android.widget.Switch
+import androidx.core.view.isVisible
+import com.booleanull.core.permission.PermissionCompositeController
+import com.booleanull.core.permission.PermissionCompositeControllerImpl
+import com.booleanull.core.permission.PermissionStatus
+import com.booleanull.core_ui.R
+import com.booleanull.core_ui.base.RoundedBottomSheetDialogFragment
+import com.booleanull.core_ui.setChecked
+import kotlinx.android.synthetic.main.fragment_permission.*
+import org.koin.android.ext.android.inject
+
+class PermissionFragment : RoundedBottomSheetDialogFragment(128) {
+
+    private val permissionCompositeController: PermissionCompositeController by inject()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_permission, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        autoStartButton.isVisible =
+            permissionCompositeController.getPermissionStatus(PermissionCompositeControllerImpl.PERMISSION_CHINE) !is PermissionStatus.PermissionNoneStatus
+
+        alertSwitch.setOnCheckedChangeListener { _, _ ->
+            callPermission(PermissionCompositeControllerImpl.PERMISSION_ALERT)
+        }
+        notificationSwitch.setOnCheckedChangeListener { _, _ ->
+            callPermission(PermissionCompositeControllerImpl.PERMISSION_NOTIFICATION)
+        }
+        autoStartButton.setOnClickListener {
+            callPermission(PermissionCompositeControllerImpl.PERMISSION_CHINE)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateSwitch(alertSwitch, PermissionCompositeControllerImpl.PERMISSION_ALERT)
+        updateSwitch(notificationSwitch, PermissionCompositeControllerImpl.PERMISSION_NOTIFICATION)
+    }
+
+    private fun callPermission(permissionId: Int) {
+        permissionCompositeController.requestPermission(permissionId).forEach {
+            startActivity(it.intent)
+        }
+    }
+
+    private fun updateSwitch(switch: Switch, permissionId: Int) {
+        when (permissionCompositeController.getPermissionStatus(permissionId)) {
+            is PermissionStatus.PermissionBadStatus -> switch.setChecked(
+                false,
+                CompoundButton.OnCheckedChangeListener { compoundButton, b ->
+                    callPermission(permissionId)
+                })
+            is PermissionStatus.PermissionOkStatus -> switch.setChecked(
+                true,
+                CompoundButton.OnCheckedChangeListener { compoundButton, b ->
+                    callPermission(permissionId)
+                })
+        }
+    }
+}

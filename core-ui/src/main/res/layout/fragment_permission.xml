@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomSheet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorBackground"
+    android:orientation="vertical"
+    tools:theme="@style/AppTheme">
+
+    <View
+        android:id="@+id/bottomSheetView"
+        android:layout_width="@dimen/bottom_sheet_bottom_view_width"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:alpha="0.3"
+        android:background="@drawable/bottom_sheet_view" />
+
+    <TextView
+        android:id="@+id/titleTextView"
+        style="@style/AppTheme.Text.Title.H3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:text="@string/take_permission" />
+
+    <Switch
+        android:id="@+id/alertSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/default_margin"
+        android:text="@string/permission_alert" />
+
+    <Switch
+        android:id="@+id/notificationSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/default_margin"
+        android:text="@string/permission_notification" />
+
+    <TextView
+        android:id="@+id/autoStartButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/default_margin"
+        android:text="@string/permission_autostart"
+        android:textColor="?attr/colorTextBold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+</LinearLayout>

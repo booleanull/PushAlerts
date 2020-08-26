@@ -9,7 +9,6 @@ import com.booleanull.core_ui.fragment.ProblemBottomSheetDialogFragment
 import com.booleanull.core_ui.setSpannableClick
 import com.booleanull.core_ui.setSpannableLink
 import com.booleanull.feature_onboarding_ui.R
-import com.booleanull.feature_onboarding_ui.adapter.OnboardingAdapter
 import kotlinx.android.synthetic.main.fragment_onboarding_item.*
 
 class OnboardingItemFragment : BaseFragment() {
@@ -19,7 +18,7 @@ class OnboardingItemFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let { bundle ->
-            position = bundle.getInt(OnboardingAdapter.POSITION)
+            position = bundle.getInt(POSITION)
         }
     }
 
@@ -56,6 +55,18 @@ class OnboardingItemFragment : BaseFragment() {
                     requireContext().getString(R.string.play_market),
                     requireContext().getString(R.string.play_market_url)
                 )
+            }
+        }
+    }
+
+    companion object {
+        private const val POSITION = "position"
+
+        fun newInstance(position: Int): OnboardingItemFragment {
+            return OnboardingItemFragment().apply {
+                arguments = Bundle(1).apply {
+                    putInt(POSITION, position)
+                }
             }
         }
     }

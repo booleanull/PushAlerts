@@ -9,7 +9,7 @@ import com.booleanull.core_ui.command.AnimateCommand
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
 
-class BaseAppNavigator(
+class AppNavigator(
     private val context: Context,
     fragmentActivity: FragmentActivity,
     fragmentManager: FragmentManager,

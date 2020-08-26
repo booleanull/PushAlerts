@@ -20,14 +20,12 @@ val homeModule = module {
     viewModel {
         HomeViewModel(
             get(),
-            get(),
             get()
         )
     }
     viewModel { (packageName: String) ->
         HomeDetailsViewModel(
             packageName,
-            get(),
             get(),
             get(),
             get(),

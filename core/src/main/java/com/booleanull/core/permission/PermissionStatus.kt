@@ -1,7 +1,16 @@
 package com.booleanull.core.permission
 
-open class PermissionStatus(val status: Boolean)
+sealed class PermissionStatus(val status: Int) {
 
-object PermissionOkStatus: PermissionStatus(true)
+    object PermissionOkStatus : PermissionStatus(STATUS_OK)
 
-data class PermissionBadStatus(val message: String): PermissionStatus(false)
+    data class PermissionBadStatus(val message: String) : PermissionStatus(STATUS_BAD)
+
+    object PermissionNoneStatus : PermissionStatus(STATUS_NONE)
+
+    companion object {
+        const val STATUS_OK = 0
+        const val STATUS_BAD = 1
+        const val STATUS_NONE = 2
+    }
+}

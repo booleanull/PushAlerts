@@ -9,9 +9,9 @@ import androidx.fragment.app.Fragment
 import com.booleanull.core_ui.handler.BackPressHandler
 import org.koin.android.ext.android.inject
 
-open class BaseFragment : Fragment(), BackPressHandler {
+abstract class BaseFragment : Fragment(), BackPressHandler {
 
-    val router: BaseRouter by inject()
+    val router: Router by inject()
 
     override fun onBackPressed(): Boolean {
         router.back()

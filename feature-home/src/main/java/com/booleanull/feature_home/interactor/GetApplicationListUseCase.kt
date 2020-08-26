@@ -1,16 +1,15 @@
 package com.booleanull.feature_home.interactor
 
-import android.content.Context
 import com.booleanull.core.entity.Application
-import com.booleanull.core.interactor.BaseUseCase
+import com.booleanull.core.interactor.CoroutineUseCase
 import com.booleanull.core.repository.ApplicationRepository
 
 class GetApplicationListUseCase(private val applicationRepository: ApplicationRepository) :
-    BaseUseCase<List<Application>, GetApplicationListUseCase.Params>() {
+    CoroutineUseCase<List<Application>, GetApplicationListUseCase.Params>() {
 
     override suspend fun run(params: Params?): List<Application> {
         checkNotNull(params)
-        val applications = applicationRepository.getApplicationList(params.context)
+        val applications = applicationRepository.getApplicationList()
         return when (params.sortType.value) {
             SortType.SORT_NAME -> {
                 applications.sortedBy { it.name }
@@ -25,7 +24,6 @@ class GetApplicationListUseCase(private val applicationRepository: ApplicationRe
     }
 
     data class Params(
-        val context: Context,
         val sortType: SortType = SortType(SortType.SORT_NONE)
     )
 

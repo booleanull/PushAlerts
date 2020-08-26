@@ -6,4 +6,8 @@
     <string name="problem_service_description">Сервису для корректной работы может требоваться наличие некоторых системных разрешений, необходимых для конкретного девайса. Если при работе с сервисом у Вас необратываются уведомления напишите нам на почту booleanull@gmail.com.</string>
     <string name="mark_app">Оцените наше приложение</string>
     <string name="mark_app_playmarket">Оцените наше приложения в Play Market.</string>
+    <string name="take_permission">Разрешить</string>
+    <string name="permission_autostart">Доступ к автостарту</string>
+    <string name="permission_alert">Доступ к пробуждению</string>
+    <string name="permission_notification">Доступ к уведомлениям</string>
 </resources>

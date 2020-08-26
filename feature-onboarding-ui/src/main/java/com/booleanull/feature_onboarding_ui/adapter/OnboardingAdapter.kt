@@ -1,6 +1,5 @@
 package com.booleanull.feature_onboarding_ui.adapter
 
-import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
@@ -12,11 +11,7 @@ class OnboardingAdapter(
     FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getItem(position: Int): Fragment {
-        return OnboardingItemFragment().apply {
-            arguments = Bundle(1).apply {
-                putInt(POSITION, position)
-            }
-        }
+        return OnboardingItemFragment.newInstance(position)
     }
 
     override fun getCount(): Int {
@@ -24,7 +19,6 @@ class OnboardingAdapter(
     }
 
     companion object {
-        const val POSITION = "position"
         const val ONBOARDING_COUNT = 3
     }
 }

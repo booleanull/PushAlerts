@@ -8,13 +8,15 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationManagerCompat
 import com.booleanull.core.R
 
-class NotificationPermissionController(private val context: Context) : PermissionController {
+class PermissionNotificationController(private val context: Context) : PermissionController {
 
     override fun getPermissionStatus(): PermissionStatus {
-        return if(NotificationManagerCompat.getEnabledListenerPackages(context).contains(context.packageName)) {
-            PermissionOkStatus
+        return if (NotificationManagerCompat.getEnabledListenerPackages(context)
+                .contains(context.packageName)
+        ) {
+            PermissionStatus.PermissionOkStatus
         } else {
-            PermissionBadStatus(context.getString(R.string.notification_permission))
+            PermissionStatus.PermissionBadStatus(context.getString(R.string.permission_notification_error))
         }
     }
 

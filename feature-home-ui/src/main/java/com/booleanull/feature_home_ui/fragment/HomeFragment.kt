@@ -5,6 +5,7 @@ import android.view.*
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import com.booleanull.core.entity.Application
 import com.booleanull.core_ui.adapter.GenericAdapter
@@ -93,7 +94,12 @@ class HomeFragment : BaseFragment() {
 
     override fun onStart() {
         super.onStart()
-        searchView.isVisible = viewModel.isSearch
+        searchView.isVisible = viewModel.searchQuery.isNotBlank()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        hideKeyboard(searchEditText)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -108,7 +114,7 @@ class HomeFragment : BaseFragment() {
             searchView.isVisible = false
             searchEditText.setText("")
             hideKeyboard(searchEditText)
-            if (viewModel.isSearch) {
+            if (viewModel.searchQuery.isNotBlank()) {
                 viewModel.loadApplications()
             }
         }
@@ -130,6 +136,12 @@ class HomeFragment : BaseFragment() {
                 true
             }
             false
+        }
+
+        searchEditText.doAfterTextChanged {
+            if (viewModel.searchQuery != it.toString()) {
+                viewModel.searchApplication(searchEditText.text.toString())
+            }
         }
 
         viewModel.applicationList.observe(viewLifecycleOwner, Observer {

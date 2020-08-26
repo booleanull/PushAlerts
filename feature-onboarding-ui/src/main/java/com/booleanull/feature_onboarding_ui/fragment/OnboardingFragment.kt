@@ -1,16 +1,15 @@
 package com.booleanull.feature_onboarding_ui.fragment
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.viewpager.widget.ViewPager
-import com.booleanull.core.permission.PermissionBadStatus
-import com.booleanull.core.permission.PermissionController
+import com.booleanull.core.permission.PermissionCompositeController
+import com.booleanull.core.permission.PermissionStatus
 import com.booleanull.core_ui.base.BaseFragment
-import com.booleanull.core_ui.fragment.ProblemBottomSheetDialogFragment
+import com.booleanull.core_ui.fragment.PermissionFragment
 import com.booleanull.core_ui.widget.setPagerIndicator
 import com.booleanull.feature_onboarding_ui.R
 import com.booleanull.feature_onboarding_ui.adapter.OnboardingAdapter
@@ -20,7 +19,7 @@ import org.koin.android.ext.android.inject
 
 class OnboardingFragment : BaseFragment() {
 
-    private val permissionController: PermissionController by inject()
+    private val permissionCompositeController: PermissionCompositeController by inject()
 
     private val onboardingAdapter by lazy {
         OnboardingAdapter(childFragmentManager)
@@ -83,22 +82,12 @@ class OnboardingFragment : BaseFragment() {
             if (positionOffsetViewPager == 0f) {
                 when (positionViewPager) {
                     viewPager.adapter?.count?.minus(2) -> {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            if (!permissionController.getPermissionStatus().status) {
-                                permissionController.requestPermission().forEach { request ->
-                                    if (!request.permissionStatus.status) {
-                                        request.intent?.let {
-                                            startActivity(request.intent)
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        PermissionFragment().showNow(childFragmentManager, null)
                     }
                     viewPager.adapter?.count?.minus(1) -> {
-                        permissionController.getPermissionStatus()
+                        permissionCompositeController.getPermissionStatus()
                             .let { permissionResponse ->
-                                if (permissionResponse is PermissionBadStatus) {
+                                if (permissionResponse is PermissionStatus.PermissionBadStatus) {
                                     errorTextView.text = permissionResponse.message
                                     errorTextView.isInvisible = false
                                 } else {

@@ -1,8 +1,8 @@
 package com.booleanull.feature_home_ui.screen
 
 import androidx.fragment.app.Fragment
-import com.booleanull.core_ui.base.BaseRouter
 import com.booleanull.core_ui.base.BaseScreen
+import com.booleanull.core_ui.base.Router
 import com.booleanull.core_ui.handler.ScreenDeepLinkHandler
 import com.booleanull.feature_home_ui.fragment.SettingsHolderFragment
 
@@ -12,7 +12,7 @@ class SettingsScreen : BaseScreen(), ScreenDeepLinkHandler {
         return SettingsHolderFragment()
     }
 
-    override fun resolve(router: BaseRouter) {
+    override fun resolve(router: Router) {
         router.navigateChain(
             HomeScreen(),
             0,

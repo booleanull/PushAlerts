@@ -10,6 +10,7 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.booleanull.core.facade.SettingsFacade
 import com.booleanull.core.facade.ThemeFacade
+import com.booleanull.core_ui.fragment.PermissionFragment
 import com.booleanull.core_ui.fragment.ProblemBottomSheetDialogFragment
 import com.booleanull.core_ui.handler.NavigationDeepLinkHandler
 import com.booleanull.feature_home_ui.R
@@ -42,6 +43,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     Uri.parse(getString(R.string.play_market_url))
                 )
             )
+            true
+        }
+
+        findPreference<Preference>(SettingsFacade.PREFERENCE_PERMISSIONS)?.setOnPreferenceClickListener {
+            PermissionFragment().showNow(childFragmentManager, null)
             true
         }
 

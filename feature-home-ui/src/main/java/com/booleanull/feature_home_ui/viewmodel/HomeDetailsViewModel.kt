@@ -1,6 +1,5 @@
 package com.booleanull.feature_home_ui.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.booleanull.core.entity.Alarm
@@ -17,7 +16,6 @@ import com.booleanull.feature_home.interactor.SearchAlarmUseCase
 
 class HomeDetailsViewModel(
     private val packageName: String,
-    private val context: Context,
     private val getApplicationUseCase: GetApplicationUseCase,
     private val searchAlarmUseCase: SearchAlarmUseCase,
     private val insertAlarmUseCase: InsertAlarmUseCase,
@@ -39,8 +37,8 @@ class HomeDetailsViewModel(
         AlarmWithFilter(
             Alarm(
                 packageName,
-                isAlarm = false,
-                isFilter = false
+                hasAlarm = false,
+                hasFilter = false
             ),
             mutableSetOf()
         )
@@ -55,7 +53,7 @@ class HomeDetailsViewModel(
 
     fun loadApplication() {
         getApplicationUseCase.invoke(
-            params = GetApplicationUseCase.Params(context, packageName),
+            params = GetApplicationUseCase.Params(packageName),
             onResult = {
                 it.fold({
                     applicationInternal.value = it
@@ -75,7 +73,7 @@ class HomeDetailsViewModel(
 
     fun setAlarm(status: Boolean) {
         alarmInternal.value = AlarmWithFilter(
-            Alarm(packageName, status, alarmInternal.value!!.alarm.isFilter),
+            Alarm(packageName, status, alarmInternal.value!!.alarm.hasFilter),
             alarmInternal.value!!.filters
         )
         insertAlarmUseCase.invoke(
@@ -87,7 +85,7 @@ class HomeDetailsViewModel(
 
     fun setFilter(status: Boolean) {
         alarmInternal.value = AlarmWithFilter(
-            Alarm(packageName, alarmInternal.value!!.alarm.isAlarm, status),
+            Alarm(packageName, alarmInternal.value!!.alarm.hasAlarm, status),
             alarmInternal.value!!.filters
         )
         insertAlarmUseCase.invoke(
@@ -103,7 +101,10 @@ class HomeDetailsViewModel(
         val filters = alarm.filters.toMutableSet()
         filters.add(newFilter)
         alarmInternal.value =
-            AlarmWithFilter(Alarm(packageName, alarm.alarm.isAlarm, alarm.alarm.isFilter), filters)
+            AlarmWithFilter(
+                Alarm(packageName, alarm.alarm.hasAlarm, alarm.alarm.hasFilter),
+                filters
+            )
         insertFilterUseCase.invoke(params = InsertFilterUseCase.Params(newFilter))
     }
 
@@ -113,7 +114,10 @@ class HomeDetailsViewModel(
         val filters = alarm.filters.toMutableSet()
         filters.remove(filters.find { it.filter == filter })
         alarmInternal.value =
-            AlarmWithFilter(Alarm(packageName, alarm.alarm.isAlarm, alarm.alarm.isFilter), filters)
+            AlarmWithFilter(
+                Alarm(packageName, alarm.alarm.hasAlarm, alarm.alarm.hasFilter),
+                filters
+            )
         removeFilterUseCase.invoke(params = RemoveFilterUseCase.Params(removeFilter))
     }
 }

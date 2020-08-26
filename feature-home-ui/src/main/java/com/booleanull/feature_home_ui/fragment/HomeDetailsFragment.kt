@@ -150,7 +150,7 @@ class HomeDetailsFragment : BaseFragment() {
             )
         ).attachToRecyclerView(filterRecyclerView)
 
-        fab.setOnClickListener {
+        filterAddButton.setOnClickListener {
             FilterAddBottomSheetFragment()
                 .apply {
                     delegate = object : FilterAddBottomSheetFragment.Delegate {
@@ -173,14 +173,14 @@ class HomeDetailsFragment : BaseFragment() {
 
         viewModel.alarm.observe(viewLifecycleOwner, Observer {
             it.alarm.let {
-                alarmSwitch.setChecked(it.isAlarm, alarmSwitchOnCheckedChangeListener)
-                filterSwitch.setChecked(it.isFilter, filterSwitchOnCheckedChangeListener)
+                alarmSwitch.setChecked(it.hasAlarm, alarmSwitchOnCheckedChangeListener)
+                filterSwitch.setChecked(it.hasFilter, filterSwitchOnCheckedChangeListener)
 
-                optionalLayout.isInvisible = !it.isAlarm
-                fab.isInvisible = !(it.isAlarm && it.isFilter)
+                optionalLayout.isInvisible = !it.hasAlarm
 
-                filterRecyclerView.alpha = if (it.isFilter) 1.0f else 0.5f
-                filterOverlapLayout.isVisible = !it.isFilter
+                filterAddButton.alpha = if (it.hasFilter) 1.0f else 0.5f
+                filterRecyclerView.alpha = if (it.hasFilter) 1.0f else 0.5f
+                filterOverlapLayout.isVisible = !it.hasFilter
             }
             filterAdapter.dataList = it.filters.map { it.filter }
         })

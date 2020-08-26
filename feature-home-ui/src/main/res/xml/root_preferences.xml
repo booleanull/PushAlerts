@@ -14,6 +14,10 @@
 
     <PreferenceCategory app:title="@string/app">
 
+        <Preference
+            app:key="permissions"
+            app:title="@string/permissions" />
+
         <SwitchPreferenceCompat
             app:key="theme"
             app:title="@string/dark_mode" />

@@ -20,4 +20,6 @@
     <string name="dark_mode">Dark theme</string>
     <string name="alarm_clear">The alarm clocks were cleared</string>
     <string name="disable_all">Disable all</string>
+    <string name="permissions">Permissions</string>
+    <string name="add_filter">Add filter</string>
 </resources>

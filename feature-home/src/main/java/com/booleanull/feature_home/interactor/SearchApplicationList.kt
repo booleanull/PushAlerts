@@ -1,18 +1,17 @@
 package com.booleanull.feature_home.interactor
 
-import android.content.Context
 import com.booleanull.core.entity.Application
 import com.booleanull.core.functional.Task
 import com.booleanull.core.functional.map
-import com.booleanull.core.interactor.BaseUseCase
+import com.booleanull.core.interactor.CoroutineUseCase
 import com.booleanull.core.repository.ApplicationRepository
 
 class SearchApplicationList(private val applicationRepository: ApplicationRepository) :
-    BaseUseCase<Task<Exception, List<Application>>, SearchApplicationList.Params>() {
+    CoroutineUseCase<Task<Exception, List<Application>>, SearchApplicationList.Params>() {
 
     override suspend fun run(params: Params?): Task<Exception, List<Application>> {
         checkNotNull(params)
-        val applications = applicationRepository.searchApplicationList(params.context, params.query)
+        val applications = applicationRepository.searchApplicationList(params.query)
         return when (params.sortType.value) {
             GetApplicationListUseCase.SortType.SORT_NAME -> {
                 applications.map { it.sortedBy { it.name } }
@@ -27,7 +26,6 @@ class SearchApplicationList(private val applicationRepository: ApplicationReposi
     }
 
     data class Params(
-        val context: Context,
         val query: String,
         val sortType: SortType = SortType(SortType.SORT_NONE)
     )

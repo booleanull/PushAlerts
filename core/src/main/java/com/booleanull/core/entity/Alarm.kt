@@ -9,6 +9,6 @@ data class Alarm(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "packageName")
     val packageName: String,
-    val isAlarm: Boolean,
-    val isFilter: Boolean
+    val hasAlarm: Boolean,
+    val hasFilter: Boolean
 )

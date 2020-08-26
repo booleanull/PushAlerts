@@ -1,6 +1,7 @@
 package com.booleanull.pushalerts
 
 import android.content.Intent
+import android.os.CountDownTimer
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import com.booleanull.core.facade.SettingsFacade
@@ -19,6 +20,9 @@ class NotificationListenerService : NotificationListenerService() {
     private val supervisorJob = SupervisorJob()
     private val job = CoroutineScope(supervisorJob)
 
+    private var timer: CountDownTimer? = null
+    private var blockAlarm = false
+
     init {
         searchAlarmUseCase.join(job)
     }
@@ -31,8 +35,8 @@ class NotificationListenerService : NotificationListenerService() {
                     SearchAlarmUseCase.Params(sbn.packageName),
                     onResult = { task ->
                         task.fold({ alarmWithFilter ->
-                            if (alarmWithFilter.alarm.isAlarm) {
-                                if (!alarmWithFilter.alarm.isFilter) {
+                            if (alarmWithFilter.alarm.hasAlarm) {
+                                if (!alarmWithFilter.alarm.hasFilter) {
                                     onPushIntercepted(sbn, rankingMap)
                                 } else {
                                     alarmWithFilter.filters.forEach {
@@ -53,18 +57,29 @@ class NotificationListenerService : NotificationListenerService() {
     }
 
     private fun onPushIntercepted(sbn: StatusBarNotification, rankingMap: RankingMap?) {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        intent.putExtra(
-            NavigationDeepLinkHandler.DEEP_LINK,
-            NavigationDeepLinkHandler.ALARM_FRAGMENT
-        )
-        intent.putExtra(NavigationDeepLinkHandler.PACKAGE_NAME, sbn.packageName)
-        startActivity(intent)
+        if (!blockAlarm) {
+            blockAlarm = true
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            intent.putExtra(
+                NavigationDeepLinkHandler.DEEP_LINK,
+                NavigationDeepLinkHandler.ALARM_FRAGMENT
+            )
+            intent.putExtra(NavigationDeepLinkHandler.PACKAGE_NAME, sbn.packageName)
+            startActivity(intent)
+            timer = object : CountDownTimer(30000L, 1000L) {
+                override fun onFinish() {
+                    blockAlarm = false
+                }
+
+                override fun onTick(p0: Long) = Unit
+            }.start()
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        timer?.cancel()
         supervisorJob.cancel()
     }
 }

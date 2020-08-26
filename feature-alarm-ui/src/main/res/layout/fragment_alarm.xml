@@ -36,6 +36,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        style="@style/AppTheme.Text.Title.H4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/press_alarm"
+        app:layout_constraintBottom_toTopOf="@id/iconImageView"
+        app:layout_constraintTop_toBottomOf="@id/alarmImageView" />
+
     <ImageView
         android:id="@+id/iconImageView"
         android:layout_width="@dimen/icon_cell_size"

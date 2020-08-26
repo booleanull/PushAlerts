@@ -20,4 +20,6 @@
     <string name="dark_mode">Темная тема</string>
     <string name="alarm_clear">Будильники были очищены</string>
     <string name="disable_all">Отключить все</string>
+    <string name="permissions">Разрешения</string>
+    <string name="add_filter">Добавить фильтр</string>
 </resources>
