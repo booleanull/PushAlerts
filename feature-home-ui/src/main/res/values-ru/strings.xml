@@ -10,7 +10,7 @@
     <string name="simple_error_text">Упс! Что-то пошло не так, попробуйте снова</string>
     <string name="enter_filter">Введите фильтр</string>
     <string name="add">Добавить</string>
-    <string name="filter_description">Добавьте заголовок или содержимое уведомления.\nНапример: Имя пользователя.</string>
+    <string name="filter_description">Добавьте заголовок или содержимое уведомления.\nНапример: имя пользователя.</string>
     <string name="filter">Фильтрация</string>
     <string name="search">Поиск</string>
     <string name="settings">Настройки</string>

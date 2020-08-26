@@ -1,10 +1,10 @@
-package com.booleanull.repositories
+package org.booleanull.repositories
 
 import android.Manifest
 import android.content.pm.PackageManager
-import com.booleanull.core.entity.Application
-import com.booleanull.core.functional.Task
-import com.booleanull.core.repository.ApplicationRepository
+import org.booleanull.core.entity.Application
+import org.booleanull.core.functional.Task
+import org.booleanull.core.repository.ApplicationRepository
 
 class ApplicationRepositoryImpl(private val packageManager: PackageManager) :
     ApplicationRepository {

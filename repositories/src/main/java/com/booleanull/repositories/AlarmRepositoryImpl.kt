@@ -1,10 +1,10 @@
-package com.booleanull.repositories
+package org.booleanull.repositories
 
-import com.booleanull.core.entity.AlarmWithFilter
-import com.booleanull.core.entity.Filter
-import com.booleanull.core.functional.Task
-import com.booleanull.core.repository.AlarmRepository
-import com.booleanull.database.ApplicationDatabase
+import org.booleanull.core.entity.AlarmWithFilter
+import org.booleanull.core.entity.Filter
+import org.booleanull.core.functional.Task
+import org.booleanull.core.repository.AlarmRepository
+import org.booleanull.database.ApplicationDatabase
 
 class AlarmRepositoryImpl(private val applicationDatabase: ApplicationDatabase) : AlarmRepository {
 

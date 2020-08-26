@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.booleanull.pushalerts">
+    package="org.booleanull.pushalerts">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.booleanull.pushalerts.MainActivity"
+            android:name="org.booleanull.pushalerts.MainActivity"
             android:launchMode="singleTop"
             android:showOnLockScreen="true">
             <intent-filter>
@@ -27,7 +27,7 @@
         </activity>
 
         <service
-            android:name="com.booleanull.pushalerts.NotificationListenerService"
+            android:name="org.booleanull.pushalerts.NotificationListenerService"
             android:foregroundServiceType="dataSync"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
