@@ -2,6 +2,7 @@ package org.booleanull.core.permission
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.provider.Settings
 import androidx.annotation.RequiresApi
@@ -11,7 +12,11 @@ class PermissionAlertController(private val context: Context) : PermissionContro
 
     override fun getPermissionStatus(): PermissionStatus {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (Settings.canDrawOverlays(context)) {
+            if (context.packageManager.queryIntentActivities(
+                    requestPermission()[0].intent!!,
+                    PackageManager.MATCH_DEFAULT_ONLY
+                ).isNotEmpty() && Settings.canDrawOverlays(context)
+            ) {
                 PermissionStatus.PermissionOkStatus
             } else {
                 PermissionStatus.PermissionBadStatus(context.getString(R.string.permission_alert_error))
