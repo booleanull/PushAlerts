@@ -13,7 +13,7 @@ class PermissionAlertController(private val context: Context) : PermissionContro
     override fun getPermissionStatus(): PermissionStatus {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (context.packageManager.queryIntentActivities(
-                    requestPermission()[0].intent!!,
+                    getIntent(),
                     PackageManager.MATCH_DEFAULT_ONLY
                 ).isNotEmpty() && Settings.canDrawOverlays(context)
             ) {
@@ -31,8 +31,13 @@ class PermissionAlertController(private val context: Context) : PermissionContro
         return mutableListOf(
             PermissionIntent(
                 getPermissionStatus(),
-                Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
+                getIntent()
             )
         )
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun getIntent(): Intent {
+        return Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
     }
 }

@@ -4,13 +4,13 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Observer
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.google.android.material.snackbar.Snackbar
 import org.booleanull.core.facade.SettingsFacade
 import org.booleanull.core.facade.ThemeFacade
+import org.booleanull.core_ui.base.Router
 import org.booleanull.core_ui.fragment.PermissionFragment
 import org.booleanull.core_ui.fragment.ProblemBottomSheetDialogFragment
 import org.booleanull.core_ui.handler.NavigationDeepLinkHandler
@@ -22,6 +22,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SettingsFragment : PreferenceFragmentCompat() {
 
     private val viewModel: SettingsViewModel by viewModel()
+
+    private val router: Router by inject()
 
     private val themeFacade: ThemeFacade by inject()
 
@@ -47,7 +49,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
 
         findPreference<Preference>(SettingsFacade.PREFERENCE_PERMISSIONS)?.setOnPreferenceClickListener {
-            PermissionFragment().showNow(childFragmentManager, null)
+            PermissionFragment().apply {
+                onCheckDisabledListener = PermissionFragment.OnCheckDisabledListener {
+                    this@apply.dismiss()
+                    router.navigateTo(router.resolve(NavigationDeepLinkHandler.ONBOARDING_FRAGMENT))
+                }
+            }.also {
+                it.showNow(childFragmentManager, null)
+            }
             true
         }
 
@@ -58,8 +67,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         findPreference<SwitchPreferenceCompat>(SettingsFacade.PREFERENCE_SWITCH_THEME)?.isChecked =
             themeFacade.getCurrentTheme() == ThemeFacade.THEME_DARK
-        findPreference<SwitchPreferenceCompat>(SettingsFacade.PREFERENCE_SWITCH_THEME)?.setOnPreferenceChangeListener { preference, newValue ->
-            themeFacade.getCurrentTheme() == ThemeFacade.THEME_DARK
+        findPreference<SwitchPreferenceCompat>(SettingsFacade.PREFERENCE_SWITCH_THEME)?.setOnPreferenceChangeListener { _, _ ->
             val intent = requireActivity().intent
             intent.flags = intent.flags and Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY.inv()
             intent.putExtra(
@@ -78,7 +86,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.complete.observe(viewLifecycleOwner, Observer {
+        viewModel.complete.observe(viewLifecycleOwner, {
             Snackbar.make(view, getString(R.string.alarm_clear), Snackbar.LENGTH_SHORT).show()
         })
     }

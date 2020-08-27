@@ -1,12 +1,12 @@
 package org.booleanull.core.permission
 
-sealed class PermissionStatus(val status: Int) {
+sealed class PermissionStatus {
 
-    object PermissionOkStatus : PermissionStatus(STATUS_OK)
+    object PermissionOkStatus : PermissionStatus()
 
-    data class PermissionBadStatus(val message: String) : PermissionStatus(STATUS_BAD)
+    data class PermissionBadStatus(val message: String) : PermissionStatus()
 
-    object PermissionNoneStatus : PermissionStatus(STATUS_NONE)
+    object PermissionNoneStatus : PermissionStatus()
 
     companion object {
         const val STATUS_OK = 0

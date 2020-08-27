@@ -6,7 +6,6 @@ import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
-import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.booleanull.core.entity.Application
 import org.booleanull.core_ui.adapter.GenericAdapter
@@ -144,15 +143,15 @@ class HomeFragment : BaseFragment() {
             }
         }
 
-        viewModel.applicationList.observe(viewLifecycleOwner, Observer {
+        viewModel.applicationList.observe(viewLifecycleOwner, {
             applicationAdapter.dataList = it
         })
 
-        viewModel.loading.observe(viewLifecycleOwner, Observer {
+        viewModel.loading.observe(viewLifecycleOwner, {
             progressBar.isVisible = it
         })
 
-        viewModel.applicationNotFound.observe(viewLifecycleOwner, Observer {
+        viewModel.applicationNotFound.observe(viewLifecycleOwner, {
             emptyTextView.isVisible = it
         })
     }

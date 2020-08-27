@@ -54,9 +54,9 @@ class HomeDetailsViewModel(
     fun loadApplication() {
         getApplicationUseCase.invoke(
             params = GetApplicationUseCase.Params(packageName),
-            onResult = {
-                it.fold({
-                    applicationInternal.value = it
+            onResult = { task ->
+                task.fold({ application ->
+                    applicationInternal.value = application
                 }, {
                     errorNotFoundInternal.call()
                 })
@@ -64,9 +64,9 @@ class HomeDetailsViewModel(
     }
 
     fun searchApplicationAlarm() {
-        searchAlarmUseCase.invoke(SearchAlarmUseCase.Params(packageName), onResult = {
-            it.fold({
-                alarmInternal.value = it
+        searchAlarmUseCase.invoke(SearchAlarmUseCase.Params(packageName), onResult = { task ->
+            task.fold({ alarmWithFilter ->
+                alarmInternal.value = alarmWithFilter
             })
         })
     }

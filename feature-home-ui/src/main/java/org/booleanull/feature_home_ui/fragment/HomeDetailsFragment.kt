@@ -8,7 +8,6 @@ import android.widget.CompoundButton
 import androidx.core.content.ContextCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
@@ -165,27 +164,27 @@ class HomeDetailsFragment : BaseFragment() {
 
         filterOverlapLayout.setOnClickListener { }
 
-        viewModel.application.observe(viewLifecycleOwner, Observer {
+        viewModel.application.observe(viewLifecycleOwner, {
             iconImageView.setImageDrawable(it.icon)
             titleTextView.text = it.name
             descriptionTextView.text = it.packageName
         })
 
-        viewModel.alarm.observe(viewLifecycleOwner, Observer {
-            it.alarm.let {
-                alarmSwitch.setChecked(it.hasAlarm, alarmSwitchOnCheckedChangeListener)
-                filterSwitch.setChecked(it.hasFilter, filterSwitchOnCheckedChangeListener)
+        viewModel.alarm.observe(viewLifecycleOwner, { alarmWithFilter ->
+            alarmWithFilter.alarm.let { alarm ->
+                alarmSwitch.setChecked(alarm.hasAlarm, alarmSwitchOnCheckedChangeListener)
+                filterSwitch.setChecked(alarm.hasFilter, filterSwitchOnCheckedChangeListener)
 
-                optionalLayout.isInvisible = !it.hasAlarm
+                optionalLayout.isInvisible = !alarm.hasAlarm
 
-                filterAddButton.alpha = if (it.hasFilter) 1.0f else 0.5f
-                filterRecyclerView.alpha = if (it.hasFilter) 1.0f else 0.5f
-                filterOverlapLayout.isVisible = !it.hasFilter
+                filterAddButton.alpha = if (alarm.hasFilter) 1.0f else 0.5f
+                filterRecyclerView.alpha = if (alarm.hasFilter) 1.0f else 0.5f
+                filterOverlapLayout.isVisible = !alarm.hasFilter
             }
-            filterAdapter.dataList = it.filters.map { it.filter }
+            filterAdapter.dataList = alarmWithFilter.filters.map { it.filter }
         })
 
-        viewModel.errorNotFound.observe(viewLifecycleOwner, Observer {
+        viewModel.errorNotFound.observe(viewLifecycleOwner, {
             Snackbar.make(
                 requireParentFragment().requireView(),
                 getString(R.string.simple_error_text),

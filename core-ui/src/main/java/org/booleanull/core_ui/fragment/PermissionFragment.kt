@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import android.widget.Switch
 import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.fragment_permission.*
@@ -17,6 +16,12 @@ import org.booleanull.core_ui.setChecked
 import org.koin.android.ext.android.inject
 
 class PermissionFragment : RoundedBottomSheetDialogFragment(128) {
+
+    fun interface OnCheckDisabledListener {
+        fun checkDisabled()
+    }
+
+    var onCheckDisabledListener: OnCheckDisabledListener? = null
 
     private val permissionCompositeController: PermissionCompositeController by inject()
 
@@ -58,16 +63,23 @@ class PermissionFragment : RoundedBottomSheetDialogFragment(128) {
 
     private fun updateSwitch(switch: Switch, permissionId: Int) {
         when (permissionCompositeController.getPermissionStatus(permissionId)) {
-            is PermissionStatus.PermissionBadStatus -> switch.setChecked(
-                false,
-                CompoundButton.OnCheckedChangeListener { compoundButton, b ->
+            is PermissionStatus.PermissionBadStatus -> {
+                switch.setChecked(
+                    false
+                ) { _, _ ->
                     callPermission(permissionId)
-                })
-            is PermissionStatus.PermissionOkStatus -> switch.setChecked(
-                true,
-                CompoundButton.OnCheckedChangeListener { compoundButton, b ->
+                }
+                view?.handler?.post {
+                    onCheckDisabledListener?.checkDisabled()
+                }
+            }
+            is PermissionStatus.PermissionOkStatus -> {
+                switch.setChecked(
+                    true
+                ) { _, _ ->
                     callPermission(permissionId)
-                })
+                }
+            }
         }
     }
 }

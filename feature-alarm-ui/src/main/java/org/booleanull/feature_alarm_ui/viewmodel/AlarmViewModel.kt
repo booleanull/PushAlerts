@@ -41,9 +41,9 @@ class AlarmViewModel(
     fun loadApplication() {
         getApplicationUseCase.invoke(
             params = GetApplicationUseCase.Params(packageName),
-            onResult = {
-                it.fold({
-                    applicationInternal.value = it
+            onResult = { task ->
+                task.fold({ application ->
+                    applicationInternal.value = application
                 }, {
                     errorNotFoundInternal.call()
                 })

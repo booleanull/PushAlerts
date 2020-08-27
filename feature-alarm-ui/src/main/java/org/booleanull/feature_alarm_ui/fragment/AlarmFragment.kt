@@ -10,7 +10,6 @@ import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.fragment_alarm.*
 import org.booleanull.core_ui.base.BaseFragment
 import org.booleanull.core_ui.handler.NavigationDeepLinkHandler
@@ -87,16 +86,16 @@ class AlarmFragment : BaseFragment() {
                 pulseView.start()
             })
 
-        viewModel.application.observe(viewLifecycleOwner, Observer {
+        viewModel.application.observe(viewLifecycleOwner, {
             iconImageView.setImageDrawable(it.icon)
             applicationTextView.text = it.name
         })
 
-        viewModel.errorNotFound.observe(viewLifecycleOwner, Observer {
+        viewModel.errorNotFound.observe(viewLifecycleOwner, {
             router.back()
         })
 
-        viewModel.finish.observe(viewLifecycleOwner, Observer {
+        viewModel.finish.observe(viewLifecycleOwner, {
             router.back()
         })
     }

@@ -55,10 +55,10 @@ class HomeViewModel(
                         query,
                         SearchApplicationList.SortType(GetApplicationListUseCase.SortType.SORT_NAME)
                     ),
-                    onResult = {
+                    onResult = { task ->
                         loadingInternal.value = false
-                        it.fold({
-                            applicationListInternal.value = it
+                        task.fold({ list ->
+                            applicationListInternal.value = list
                         }, {
                             applicationListInternal.value = emptyList()
                             applicationNotFoundInternal.value = true
