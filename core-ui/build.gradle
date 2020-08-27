@@ -43,6 +43,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:${rootProject.ext.libraries.appcompat}"
     implementation "com.google.android.material:material:${rootProject.ext.libraries.material}"
     implementation "androidx.recyclerview:recyclerview:${rootProject.ext.libraries.recyclerview}"
+    implementation "androidx.preference:preference:${rootProject.ext.libraries.preferences}"
 
     implementation "ru.terrakok.cicerone:cicerone:${rootProject.ext.libraries.cicerone}"
 

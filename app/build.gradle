@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     signingConfigs {
@@ -16,7 +18,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.booleanull.pushalerts"
+        applicationId "org.booleanull.pushalerts"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
@@ -63,8 +65,13 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.core:core-ktx:${rootProject.ext.libraries.core}"
     implementation "androidx.appcompat:appcompat:${rootProject.ext.libraries.appcompat}"
+
+    implementation "com.google.firebase:firebase-crashlytics:${rootProject.ext.libraries.crashlytics}"
+    implementation "com.google.firebase:firebase-analytics:${rootProject.ext.libraries.analytics}"
+
     implementation "com.google.android.material:material:${rootProject.ext.libraries.material}"
     implementation "androidx.constraintlayout:constraintlayout:${rootProject.ext.libraries.constraintlayout}"
+    implementation "androidx.preference:preference:${rootProject.ext.libraries.preferences}"
 
     implementation "ru.terrakok.cicerone:cicerone:${rootProject.ext.libraries.cicerone}"
 

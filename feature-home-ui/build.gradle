@@ -47,6 +47,7 @@ dependencies {
 
     implementation "androidx.constraintlayout:constraintlayout:${rootProject.ext.libraries.constraintlayout}"
     implementation "androidx.recyclerview:recyclerview:${rootProject.ext.libraries.recyclerview}"
+    implementation "androidx.preference:preference:${rootProject.ext.libraries.preferences}"
 
     implementation "ru.terrakok.cicerone:cicerone:${rootProject.ext.libraries.cicerone}"
 

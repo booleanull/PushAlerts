@@ -1,2 +1,1 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.booleanull.feature_home" />
+<manifest package="org.booleanull.feature_home" />

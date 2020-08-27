@@ -11,9 +11,9 @@
         android:id="@+id/filterBottomSheetView"
         android:layout_width="@dimen/bottom_sheet_bottom_view_width"
         android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
         android:alpha="0.3"
-        android:background="@drawable/bottom_sheet_view"
-        android:layout_gravity="center_horizontal" />
+        android:background="@drawable/bottom_sheet_view" />
 
     <TextView
         android:id="@+id/titleTextView"
@@ -29,10 +29,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/default_margin"
-        tools:text="Description"/>
+        tools:text="Description" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 </LinearLayout>

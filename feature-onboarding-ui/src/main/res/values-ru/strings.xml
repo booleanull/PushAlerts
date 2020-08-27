@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="next">Продолжить</string>
+    <string name="onboarding_description_first">Сервис для "громких" уведомлений.\nЗаводите будильник на получение Push-сообщений от приложений.</string>
+    <string name="onboarding_title_second">Откройте доступ сервису</string>
+    <string name="onboarding_description_second">Для работы сервиса необходимо предоставить возможность реагировать на Ваши Push-сообщения.\n\nВозможные проблемы.</string>
+    <string name="take_permission">Разрешить</string>
+</resources>

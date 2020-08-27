@@ -9,16 +9,50 @@
         <item name="colorTextBold">@color/colorBlack</item>
         <item name="colorDivider">@color/colorGray</item>
         <item name="colorBackground">@color/colorWhite</item>
-        <item name="colorBackgroundVariant">@color/colorWhiteSecondary</item>
+        <item name="colorBackgroundVariant">@color/colorWhite</item>
 
         <item name="android:textColorSecondary">@color/colorBlack</item>
         <item name="android:statusBarColor">@color/colorWhite</item>
         <item name="android:windowBackground">@color/colorWhite</item>
         <item name="android:colorBackground">@color/colorWhite</item>
+        <item name="android:navigationBarColor">@color/colorWhite</item>
         <item name="android:windowLightStatusBar">true</item>
 
-        <item name="bottomSheetDialogTheme">@style/BottomSheetDialogTheme</item>
-        <item name="bottomSheetStyle">@style/BottomSheetDialogTheme</item>
+        <item name="bottomSheetDialogTheme">@style/AppTheme.BottomSheetDialogTheme</item>
+        <item name="bottomSheetStyle">@style/AppTheme.BottomSheetDialogTheme</item>
+
+        <item name="android:alertDialogTheme">@style/AppTheme.Dialog</item>
+        <item name="alertDialogTheme">@style/AppTheme.Dialog</item>
+        <item name="android:dialogTheme">@style/AppTheme.Dialog</item>
+        <item name="dialogTheme">@style/AppTheme.Dialog</item>
+
+        <item name="android:windowSoftInputMode">adjustNothing</item>
+    </style>
+
+    <style name="AppTheme.Dark" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/colorBlack</item>
+        <item name="colorPrimaryDark">@color/colorBlackSecondary</item>
+        <item name="colorAccent">@color/colorBlueGray</item>
+        <item name="colorError">@color/colorPinkRed</item>
+        <item name="colorTextBold">@color/colorWhite</item>
+        <item name="colorDivider">@color/colorGrayDark</item>
+        <item name="colorBackground">@color/colorBlack</item>
+        <item name="colorBackgroundVariant">@color/colorBlackSecondary</item>
+
+        <item name="android:textColorSecondary">@color/colorWhite</item>
+        <item name="android:statusBarColor">@color/colorBlackSecondary</item>
+        <item name="android:windowBackground">@color/colorBlack</item>
+        <item name="android:colorBackground">@color/colorBlack</item>
+        <item name="android:navigationBarColor">@color/colorBlack</item>
+        <item name="android:windowLightStatusBar">false</item>
+
+        <item name="bottomSheetDialogTheme">@style/AppTheme.Dark.BottomSheetDialogTheme</item>
+        <item name="bottomSheetStyle">@style/AppTheme.Dark.BottomSheetDialogTheme</item>
+
+        <item name="android:alertDialogTheme">@style/AppTheme.Dialog</item>
+        <item name="alertDialogTheme">@style/AppTheme.Dialog</item>
+        <item name="android:dialogTheme">@style/AppTheme.Dialog</item>
+        <item name="dialogTheme">@style/AppTheme.Dialog</item>
 
         <item name="android:windowSoftInputMode">adjustNothing</item>
     </style>

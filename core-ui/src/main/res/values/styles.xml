@@ -8,15 +8,48 @@
         <item name="colorTextBold">@color/colorBlack</item>
         <item name="colorDivider">@color/colorGray</item>
         <item name="colorBackground">@color/colorWhite</item>
-        <item name="colorBackgroundVariant">@color/colorWhiteSecondary</item>
+        <item name="colorBackgroundVariant">@color/colorWhite</item>
 
         <item name="android:textColorSecondary">@color/colorBlack</item>
         <item name="android:statusBarColor">@color/colorWhite</item>
         <item name="android:windowBackground">@color/colorWhite</item>
         <item name="android:colorBackground">@color/colorWhite</item>
+        <item name="android:navigationBarColor">@color/colorWhite</item>
 
-        <item name="bottomSheetDialogTheme">@style/BottomSheetDialogTheme</item>
-        <item name="bottomSheetStyle">@style/BottomSheetDialogTheme</item>
+        <item name="bottomSheetDialogTheme">@style/AppTheme.BottomSheetDialogTheme</item>
+        <item name="bottomSheetStyle">@style/AppTheme.BottomSheetDialogTheme</item>
+
+        <item name="android:alertDialogTheme">@style/AppTheme.Dialog</item>
+        <item name="alertDialogTheme">@style/AppTheme.Dialog</item>
+        <item name="android:dialogTheme">@style/AppTheme.Dialog</item>
+        <item name="dialogTheme">@style/AppTheme.Dialog</item>
+
+        <item name="android:windowSoftInputMode">adjustNothing</item>
+    </style>
+
+    <style name="AppTheme.Dark" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/colorBlack</item>
+        <item name="colorPrimaryDark">@color/colorBlackSecondary</item>
+        <item name="colorAccent">@color/colorBlueGray</item>
+        <item name="colorError">@color/colorPinkRed</item>
+        <item name="colorTextBold">@color/colorWhite</item>
+        <item name="colorDivider">@color/colorGrayDark</item>
+        <item name="colorBackground">@color/colorBlack</item>
+        <item name="colorBackgroundVariant">@color/colorBlackSecondary</item>
+
+        <item name="android:textColorSecondary">@color/colorWhite</item>
+        <item name="android:statusBarColor">@color/colorBlackSecondary</item>
+        <item name="android:windowBackground">@color/colorBlack</item>
+        <item name="android:colorBackground">@color/colorBlack</item>
+        <item name="android:navigationBarColor">@color/colorBlack</item>
+
+        <item name="bottomSheetDialogTheme">@style/AppTheme.Dark.BottomSheetDialogTheme</item>
+        <item name="bottomSheetStyle">@style/AppTheme.Dark.BottomSheetDialogTheme</item>
+
+        <item name="android:alertDialogTheme">@style/AppTheme.Dialog</item>
+        <item name="alertDialogTheme">@style/AppTheme.Dialog</item>
+        <item name="android:dialogTheme">@style/AppTheme.Dialog</item>
+        <item name="dialogTheme">@style/AppTheme.Dialog</item>
 
         <item name="android:windowSoftInputMode">adjustNothing</item>
     </style>
@@ -33,7 +66,7 @@
     </style>
 
     <!-- Texts -->
-    <style name="AppTheme.Text"></style>
+    <style name="AppTheme.Text" />
 
     <!-- Texts Title -->
     <style name="AppTheme.Text.Title">
@@ -54,7 +87,7 @@
     </style>
 
     <!-- Text Description -->
-    <style name="AppTheme.Text.Description"></style>
+    <style name="AppTheme.Text.Description" />
 
     <style name="AppTheme.Text.Description.H3">
         <item name="android:textSize">16sp</item>
@@ -78,41 +111,58 @@
         <item name="android:background">@drawable/bottom_sheet</item>
     </style>
 
-    <style name="BaseBottomSheetDialog" parent="@style/Theme.Design.Light.BottomSheetDialog">
+    <style name="AppTheme.BottomSheetDialog" parent="@style/Theme.MaterialComponents.Light.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
-        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:windowSoftInputMode">adjustResize|stateVisible</item>
         <item name="bottomSheetStyle">@style/BottomSheet</item>
     </style>
 
-    <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog">
+    <style name="AppTheme.Dark.BottomSheetDialog" parent="@style/Theme.MaterialComponents.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize|stateVisible</item>
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+    </style>
+
+    <style name="AppTheme.BottomSheetDialogTheme" parent="AppTheme.BottomSheetDialog">
         <item name="colorPrimary">@color/colorBlueGray</item>
         <item name="colorPrimaryDark">@color/colorBlueGray</item>
         <item name="colorAccent">@color/colorBlueGray</item>
         <item name="colorBackground">@color/colorWhite</item>
+        <item name="colorBackgroundVariant">@color/colorWhite</item>
         <item name="colorTextBold">@color/colorBlack</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
+    </style>
+
+    <style name="AppTheme.Dark.BottomSheetDialogTheme" parent="AppTheme.Dark.BottomSheetDialog">
+        <item name="colorPrimary">@color/colorBlueGray</item>
+        <item name="colorPrimaryDark">@color/colorBlueGray</item>
+        <item name="colorAccent">@color/colorBlueGray</item>
+        <item name="colorBackground">@color/colorBlackSecondary</item>
+        <item name="colorBackgroundVariant">@color/colorBlack</item>
+        <item name="colorTextBold">@color/colorWhite</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
     <!-- Dialog -->
     <style name="AppTheme.Dialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
-
-    </style>
-
-    <style name="AppTheme.Dialog.Full">
-        <item name="colorPrimary">@color/colorWhite</item>
-        <item name="colorPrimaryDark">@color/colorWhiteSecondary</item>
+        <item name="colorPrimary">@color/colorBlueGray</item>
+        <item name="colorPrimaryDark">@color/colorBlueGray</item>
         <item name="colorAccent">@color/colorBlueGray</item>
-        <item name="android:backgroundDimEnabled">false</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:padding">0dp</item>
-        <item name="android:windowIsFloating">false</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowCloseOnTouchOutside">false</item>
-        <item name="android:windowAnimationStyle">@style/AppTheme.Dialog.Full.Animation</item>
     </style>
 
-    <style name="AppTheme.Dialog.Full.Animation">
-        <item name="android:windowEnterAnimation">@anim/explode_enter</item>
-        <item name="android:windowExitAnimation">@anim/explode_exit</item>
+    <style name="AppTheme.Dialog.NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/colorBlueGray</item>
+    </style>
+
+    <style name="AppTheme.Dialog.PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/colorBlueGray</item>
+    </style>
+
+    <style name="AppTheme.Dark.Dialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="colorPrimary">@color/colorBlueGray</item>
+        <item name="colorPrimaryDark">@color/colorBlueGray</item>
+        <item name="colorAccent">@color/colorBlueGray</item>
     </style>
 </resources>
