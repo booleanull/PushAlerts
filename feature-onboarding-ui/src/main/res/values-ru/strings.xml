@@ -5,7 +5,4 @@
     <string name="onboarding_title_second">Откройте доступ сервису</string>
     <string name="onboarding_description_second">Для работы сервиса необходимо предоставить возможность реагировать на Ваши Push-сообщения.\n\nВозможные проблемы.</string>
     <string name="take_permission">Разрешить</string>
-    <string name="permission_autostart">Доступ к автостарту</string>
-    <string name="permission_alert">Доступ к пробуждению</string>
-    <string name="permission_notification">Доступ к уведомлениям</string>
 </resources>
