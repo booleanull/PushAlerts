@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_onboarding_item.*
 import org.booleanull.core_ui.base.BaseFragment
 import org.booleanull.core_ui.fragment.ProblemBottomSheetDialogFragment
+import org.booleanull.core_ui.getSpannableLink
 import org.booleanull.core_ui.setSpannableClick
 import org.booleanull.core_ui.setSpannableLink
 import org.booleanull.feature_onboarding_ui.R
@@ -51,7 +52,11 @@ class OnboardingItemFragment : BaseFragment() {
             2 -> {
                 titleTextView.text = requireContext().getString(R.string.mark_app)
                 descriptionTextView.setSpannableLink(
-                    requireContext().getString(R.string.mark_app_playmarket),
+                    getSpannableLink(
+                        requireContext().getString(R.string.mark_app_playmarket),
+                        requireContext().getString(R.string.privacy_policy),
+                        requireContext().getString(R.string.privacy_policy_url)
+                    ),
                     requireContext().getString(R.string.play_market),
                     requireContext().getString(R.string.play_market_url)
                 )

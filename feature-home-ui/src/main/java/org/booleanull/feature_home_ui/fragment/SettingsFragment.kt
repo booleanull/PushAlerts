@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
@@ -48,9 +49,19 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
 
+        findPreference<Preference>(SettingsFacade.PREFERENCE_POLICY)?.setOnPreferenceClickListener {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(getString(R.string.privacy_policy_url))
+                )
+            )
+            true
+        }
+
         findPreference<Preference>(SettingsFacade.PREFERENCE_PERMISSIONS)?.setOnPreferenceClickListener {
             PermissionFragment().apply {
-                onCheckDisabledListener = PermissionFragment.OnCheckDisabledListener {
+                onCheckDisabledListener = {
                     this@apply.dismiss()
                     router.navigateTo(router.resolve(NavigationDeepLinkHandler.ONBOARDING_FRAGMENT))
                 }
@@ -86,7 +97,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.complete.observe(viewLifecycleOwner, {
+        viewModel.complete.observe(viewLifecycleOwner, Observer {
             Snackbar.make(view, getString(R.string.alarm_clear), Snackbar.LENGTH_SHORT).show()
         })
     }

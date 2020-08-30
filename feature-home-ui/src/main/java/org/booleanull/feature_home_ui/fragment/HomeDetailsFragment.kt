@@ -8,6 +8,7 @@ import android.widget.CompoundButton
 import androidx.core.content.ContextCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
@@ -164,13 +165,13 @@ class HomeDetailsFragment : BaseFragment() {
 
         filterOverlapLayout.setOnClickListener { }
 
-        viewModel.application.observe(viewLifecycleOwner, {
+        viewModel.application.observe(viewLifecycleOwner, Observer {
             iconImageView.setImageDrawable(it.icon)
             titleTextView.text = it.name
             descriptionTextView.text = it.packageName
         })
 
-        viewModel.alarm.observe(viewLifecycleOwner, { alarmWithFilter ->
+        viewModel.alarm.observe(viewLifecycleOwner, Observer { alarmWithFilter ->
             alarmWithFilter.alarm.let { alarm ->
                 alarmSwitch.setChecked(alarm.hasAlarm, alarmSwitchOnCheckedChangeListener)
                 filterSwitch.setChecked(alarm.hasFilter, filterSwitchOnCheckedChangeListener)
@@ -184,7 +185,7 @@ class HomeDetailsFragment : BaseFragment() {
             filterAdapter.dataList = alarmWithFilter.filters.map { it.filter }
         })
 
-        viewModel.errorNotFound.observe(viewLifecycleOwner, {
+        viewModel.errorNotFound.observe(viewLifecycleOwner, Observer {
             Snackbar.make(
                 requireParentFragment().requireView(),
                 getString(R.string.simple_error_text),

@@ -67,7 +67,6 @@ dependencies {
     implementation "androidx.appcompat:appcompat:${rootProject.ext.libraries.appcompat}"
 
     implementation "com.google.firebase:firebase-crashlytics:${rootProject.ext.libraries.crashlytics}"
-    implementation "com.google.firebase:firebase-analytics:${rootProject.ext.libraries.analytics}"
 
     implementation "com.google.android.material:material:${rootProject.ext.libraries.material}"
     implementation "androidx.constraintlayout:constraintlayout:${rootProject.ext.libraries.constraintlayout}"

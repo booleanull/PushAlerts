@@ -10,6 +10,10 @@
             app:key="mark"
             app:title="@string/mark_app" />
 
+        <Preference
+            app:key="policy"
+            app:title="@string/privacy_policy" />
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/app">
