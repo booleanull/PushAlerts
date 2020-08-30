@@ -48,8 +48,12 @@ fun Switch.setChecked(status: Boolean, changeListener: CompoundButton.OnCheckedC
     setOnCheckedChangeListener(changeListener)
 }
 
-fun getSpannableClick(string: String, substring: String, onClick: (v: View) -> Unit): CharSequence {
-    return SpannableString(string).apply {
+fun getSpannableClick(
+    charSequence: CharSequence,
+    substring: String,
+    onClick: (v: View) -> Unit
+): CharSequence {
+    return SpannableString(charSequence).apply {
         setSpan(
             object : ClickableSpan() {
                 override fun onClick(v: View) {
@@ -63,13 +67,17 @@ fun getSpannableClick(string: String, substring: String, onClick: (v: View) -> U
     }
 }
 
-fun TextView.setSpannableClick(string: String, substring: String, onClick: (v: View) -> Unit) {
-    text = getSpannableClick(string, substring, onClick)
+fun TextView.setSpannableClick(
+    charSequence: CharSequence,
+    substring: String,
+    onClick: (v: View) -> Unit
+) {
+    text = getSpannableClick(charSequence, substring, onClick)
     movementMethod = LinkMovementMethod.getInstance()
 }
 
-fun getSpannableLink(string: String, substring: String, link: String): CharSequence {
-    return SpannableString(string).apply {
+fun getSpannableLink(charSequence: CharSequence, substring: String, link: String): CharSequence {
+    return SpannableString(charSequence).apply {
         setSpan(
             URLSpan(link),
             indexOf(substring),
@@ -79,8 +87,8 @@ fun getSpannableLink(string: String, substring: String, link: String): CharSeque
     }
 }
 
-fun TextView.setSpannableLink(string: String, substring: String, link: String) {
-    text = getSpannableLink(string, substring, link)
+fun TextView.setSpannableLink(charSequence: CharSequence, substring: String, link: String) {
+    text = getSpannableLink(charSequence, substring, link)
     movementMethod = LinkMovementMethod.getInstance()
 }
 

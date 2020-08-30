@@ -1,9 +1,11 @@
 package org.booleanull.core_ui.fragment
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import android.widget.Switch
 import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.fragment_permission.*
@@ -15,11 +17,9 @@ import org.booleanull.core_ui.base.RoundedBottomSheetDialogFragment
 import org.booleanull.core_ui.setChecked
 import org.koin.android.ext.android.inject
 
-class PermissionFragment : RoundedBottomSheetDialogFragment(128) {
+typealias OnCheckDisabledListener = () -> Unit
 
-    fun interface OnCheckDisabledListener {
-        fun checkDisabled()
-    }
+class PermissionFragment : RoundedBottomSheetDialogFragment(128) {
 
     var onCheckDisabledListener: OnCheckDisabledListener? = null
 
@@ -37,6 +37,7 @@ class PermissionFragment : RoundedBottomSheetDialogFragment(128) {
         super.onViewCreated(view, savedInstanceState)
         autoStartButton.isVisible =
             permissionCompositeController.getPermissionStatus(PermissionCompositeControllerImpl.PERMISSION_CHINE) !is PermissionStatus.PermissionNoneStatus
+        alertSwitch.isVisible = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
 
         alertSwitch.setOnCheckedChangeListener { _, _ ->
             callPermission(PermissionCompositeControllerImpl.PERMISSION_ALERT)
@@ -65,20 +66,22 @@ class PermissionFragment : RoundedBottomSheetDialogFragment(128) {
         when (permissionCompositeController.getPermissionStatus(permissionId)) {
             is PermissionStatus.PermissionBadStatus -> {
                 switch.setChecked(
-                    false
-                ) { _, _ ->
-                    callPermission(permissionId)
-                }
+                    false,
+                    CompoundButton.OnCheckedChangeListener { _, _ ->
+                        callPermission(permissionId)
+                    })
+
                 view?.handler?.post {
-                    onCheckDisabledListener?.checkDisabled()
+                    onCheckDisabledListener?.invoke()
                 }
             }
             is PermissionStatus.PermissionOkStatus -> {
                 switch.setChecked(
-                    true
-                ) { _, _ ->
-                    callPermission(permissionId)
-                }
+                    true,
+                    CompoundButton.OnCheckedChangeListener { _, _ ->
+                        callPermission(permissionId)
+                    }
+                )
             }
         }
     }
