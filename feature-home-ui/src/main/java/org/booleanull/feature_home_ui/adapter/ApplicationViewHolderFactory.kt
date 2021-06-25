@@ -28,6 +28,7 @@ class ApplicationViewHolderFactory :
                     tvDescription.text = item.packageName
                     iconImageView.setImageDrawable(item.icon)
                     iconImageView.transitionName = item.packageName
+                    notifyImageView.isVisible = item.hasAlarm
                     favoriteImageView.isVisible = item.isFavorite
                     setOnClickListener {
                         onItemClickListener?.onItemClick(

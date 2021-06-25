@@ -22,7 +22,6 @@ import org.booleanull.core_ui.helper.DismissItemTouchHelper
 import org.booleanull.core_ui.helper.RecyclerDivider
 import org.booleanull.core_ui.setChecked
 import org.booleanull.feature_home_ui.R
-import org.booleanull.feature_home_ui.Utils
 import org.booleanull.feature_home_ui.adapter.FilterViewHolderFactory
 import org.booleanull.feature_home_ui.viewmodel.HomeDetailsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -144,7 +143,6 @@ class HomeDetailsFragment : BaseFragment() {
 
         favoriteFab.setOnClickListener {
             viewModel.inverseFavorite()
-            Utils.needUpdateMainAdapter = true
         }
 
         filterRecyclerView.adapter = filterAdapter

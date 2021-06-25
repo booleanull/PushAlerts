@@ -27,8 +27,9 @@
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical"
+        android:layout_marginEnd="@dimen/default_margin"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/favoriteImageView"
+        app:layout_constraintEnd_toStartOf="@id/notifyImageView"
         app:layout_constraintStart_toEndOf="@id/iconImageView"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -49,6 +50,20 @@
             tools:text="Description" />
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/notifyImageView"
+        android:layout_width="@dimen/small_icon_cell_size"
+        android:layout_height="@dimen/small_icon_cell_size"
+        android:layout_marginEnd="@dimen/small_margin"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/favoriteImageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginEnd="0dp"
+        app:srcCompat="@drawable/ic_notifications"
+        app:tint="@color/colorBlueGray"
+        tools:visibility="visible" />
 
     <ImageView
         android:id="@+id/favoriteImageView"

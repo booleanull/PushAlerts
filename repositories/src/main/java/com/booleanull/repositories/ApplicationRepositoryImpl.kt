@@ -36,16 +36,18 @@ class ApplicationRepositoryImpl(
         packages.firstOrNull {
             it.packageName == packageName
         }?.let {
+            val alarm = alarmRepository.searchAlarm(it.packageName).fold({ alarm ->
+                alarm.alarm
+            }, {
+                null
+            })
             return Task.Success(
                 Application(
                     packageManager.getApplicationLabel(it.applicationInfo).toString(),
                     it.packageName,
                     packageManager.getActivityIcon(packageManager.getLaunchIntentForPackage(it.packageName)!!),
-                    alarmRepository.searchAlarm(it.packageName).fold({ alarm ->
-                        alarm.alarm.isFavorite
-                    }, {
-                        false
-                    })
+                    alarm?.hasAlarm ?: false,
+                    alarm?.isFavorite ?: false
                 )
             )
         }
@@ -66,13 +68,15 @@ class ApplicationRepositoryImpl(
                 }
             packageManager.getLaunchIntentForPackage(it.packageName) != null && hasInternetPermission*/
         }.map { packageInfo ->
+            val alarm = alarms.find { alarm ->
+                alarm.packageName == packageInfo.packageName
+            }
             Application(
                 packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(),
                 packageInfo.packageName,
                 packageManager.getActivityIcon(packageManager.getLaunchIntentForPackage(packageInfo.packageName)!!),
-                alarms.find { alarm ->
-                    alarm.packageName == packageInfo.packageName
-                }?.isFavorite ?: false
+                alarm?.hasAlarm ?: false,
+                alarm?.isFavorite ?: false
             )
         }
     }

@@ -6,5 +6,6 @@ data class Application(
     val name: String,
     val packageName: String,
     val icon: Drawable,
+    val hasAlarm: Boolean,
     val isFavorite: Boolean
 )

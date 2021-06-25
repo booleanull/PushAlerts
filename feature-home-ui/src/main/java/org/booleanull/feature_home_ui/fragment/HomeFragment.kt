@@ -17,7 +17,6 @@ import org.booleanull.core_ui.dp
 import org.booleanull.core_ui.getAttributeColor
 import org.booleanull.core_ui.helper.RecyclerDivider
 import org.booleanull.feature_home_ui.R
-import org.booleanull.feature_home_ui.Utils
 import org.booleanull.feature_home_ui.adapter.ApplicationViewHolderFactory
 import org.booleanull.feature_home_ui.screen.HomeDetailsScreen
 import org.booleanull.feature_home_ui.screen.SettingsScreen
@@ -64,6 +63,7 @@ class HomeFragment : BaseFragment() {
                     val new = newItems[newItemPosition]
                     return old.name == new.name
                             && old.icon == new.icon
+                            && old.hasAlarm == new.hasAlarm
                             && old.isFavorite == new.isFavorite
                 }
             })
@@ -100,10 +100,7 @@ class HomeFragment : BaseFragment() {
     override fun onStart() {
         super.onStart()
         searchView.isVisible = viewModel.searchQuery.isNotBlank()
-        if (Utils.needUpdateMainAdapter) {
-            Utils.needUpdateMainAdapter = false
-            viewModel.loadApplications(true)
-        }
+        viewModel.loadApplications(true)
     }
 
     override fun onPause() {
