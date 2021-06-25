@@ -203,9 +203,9 @@ class HomeDetailsFragment : BaseFragment() {
             Snackbar.make(
                 requireView(),
                 if (isFavorite) {
-                    "Добавлено в избранное"
+                    getString(R.string.added_to_favorites)
                 } else {
-                    "Удалено из избранного"
+                    getString(R.string.removed_from_favorites)
                 },
                 Snackbar.LENGTH_SHORT
             )

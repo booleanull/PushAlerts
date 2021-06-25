@@ -22,4 +22,6 @@
     <string name="disable_all">Disable all</string>
     <string name="permissions">Permissions</string>
     <string name="add_filter">Add filter</string>
+    <string name="added_to_favorites">Added to favorites</string>
+    <string name="removed_from_favorites">Removed from favorites</string>
 </resources>

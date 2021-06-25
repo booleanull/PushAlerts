@@ -1,6 +1,5 @@
 package org.booleanull.repositories
 
-import android.Manifest
 import android.content.pm.PackageManager
 import org.booleanull.core.entity.Application
 import org.booleanull.core.functional.Task
@@ -57,14 +56,15 @@ class ApplicationRepositoryImpl(
         val alarms = alarmRepository.getAlarms().map { it.alarm }
         val packages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA)
         return packages.filter {
-            var hasInternetPermission = false
+            packageManager.getLaunchIntentForPackage(it.packageName) != null
+            /*var hasInternetPermission = false
             packageManager.getPackageInfo(it.packageName, PackageManager.GET_PERMISSIONS)
                 .requestedPermissions?.let { permissions ->
                     permissions.forEach { permission ->
                         if (permission == Manifest.permission.INTERNET) hasInternetPermission = true
                     }
                 }
-            packageManager.getLaunchIntentForPackage(it.packageName) != null && hasInternetPermission
+            packageManager.getLaunchIntentForPackage(it.packageName) != null && hasInternetPermission*/
         }.map { packageInfo ->
             Application(
                 packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(),

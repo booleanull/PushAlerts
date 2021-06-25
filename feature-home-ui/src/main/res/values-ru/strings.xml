@@ -22,4 +22,6 @@
     <string name="disable_all">Отключить все</string>
     <string name="permissions">Разрешения</string>
     <string name="add_filter">Добавить фильтр</string>
+    <string name="added_to_favorites">Добавлено в избранное</string>
+    <string name="removed_from_favorites">Удалено из избранного</string>
 </resources>
