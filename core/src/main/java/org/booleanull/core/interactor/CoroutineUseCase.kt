@@ -18,12 +18,12 @@ abstract class CoroutineUseCase<out Type, in Params> : UseCase, KoinComponent
 
     operator fun invoke(
         params: Params? = null,
-        onResult: (Type) -> Unit = {}
+        onResult: (Type) -> Unit = {},
+        dispatcher: CoroutineContext = Dispatchers.Default
     ) {
-        val defaultDispatcher: CoroutineContext = Dispatchers.Default
         val mainDispatcher: CoroutineContext = Dispatchers.Main
 
-        scope?.async(defaultDispatcher) { run(params) }?.let { job ->
+        scope?.async(dispatcher) { run(params) }?.let { job ->
             coroutineJob = job
             scope?.launch(mainDispatcher) { onResult(job.await()) }
         }

@@ -2,9 +2,11 @@ package org.booleanull.core_ui
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Typeface
 import android.text.SpannableString
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.text.style.StyleSpan
 import android.text.style.URLSpan
 import android.view.MotionEvent
 import android.view.View
@@ -90,6 +92,27 @@ fun getSpannableLink(charSequence: CharSequence, substring: String, link: String
 fun TextView.setSpannableLink(charSequence: CharSequence, substring: String, link: String) {
     text = getSpannableLink(charSequence, substring, link)
     movementMethod = LinkMovementMethod.getInstance()
+}
+
+fun getSpannableBold(
+    charSequence: CharSequence,
+    substring: String
+): CharSequence {
+    return SpannableString(charSequence).apply {
+        setSpan(
+            StyleSpan(Typeface.BOLD),
+            indexOf(substring),
+            indexOf(substring) + substring.length,
+            SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+    }
+}
+
+fun TextView.setSpannableBold(
+    charSequence: CharSequence,
+    substring: String
+) {
+    text = getSpannableBold(charSequence, substring)
 }
 
 fun View.setOnLongClickListener(

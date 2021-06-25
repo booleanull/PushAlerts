@@ -16,6 +16,7 @@ import org.booleanull.core_ui.base.BaseFragment
 import org.booleanull.core_ui.dp
 import org.booleanull.core_ui.getAttributeColor
 import org.booleanull.core_ui.helper.RecyclerDivider
+import org.booleanull.core_ui.setSpannableBold
 import org.booleanull.feature_home_ui.R
 import org.booleanull.feature_home_ui.adapter.ApplicationViewHolderFactory
 import org.booleanull.feature_home_ui.screen.HomeDetailsScreen
@@ -101,6 +102,7 @@ class HomeFragment : BaseFragment() {
         super.onStart()
         searchView.isVisible = viewModel.searchQuery.isNotBlank()
         viewModel.loadApplications(true)
+        viewModel.loadAlarmStatus()
     }
 
     override fun onPause() {
@@ -115,6 +117,12 @@ class HomeFragment : BaseFragment() {
 
         recyclerView.adapter = applicationAdapter
         recyclerView.addItemDecoration(applicationRecyclerDivider)
+
+        val attentionString = requireContext().getString(R.string.attention_alarm)
+        attentionAlarmTextView.setSpannableBold(
+            attentionString,
+            attentionString.substring(0, attentionString.indexOf("!"))
+        )
 
         closeImageView.setOnClickListener {
             searchView.isVisible = false
@@ -161,6 +169,11 @@ class HomeFragment : BaseFragment() {
 
         viewModel.applicationNotFound.observe(viewLifecycleOwner, Observer {
             emptyTextView.isVisible = it
+        })
+
+        viewModel.disabledAlarm.observe(viewLifecycleOwner, Observer {
+            attentionAlarmCardView.isVisible = it
+            attentionAlarmDividerView.isVisible = it
         })
     }
 

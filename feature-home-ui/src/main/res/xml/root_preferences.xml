@@ -3,14 +3,17 @@
     <PreferenceCategory app:title="@string/info">
 
         <Preference
+            app:icon="@drawable/ic_problem"
             app:key="problem"
             app:title="@string/problem_service" />
 
         <Preference
+            app:icon="@drawable/ic_star"
             app:key="mark"
             app:title="@string/mark_app" />
 
         <Preference
+            app:icon="@drawable/ic_privacy"
             app:key="policy"
             app:title="@string/privacy_policy" />
 
@@ -19,18 +22,22 @@
     <PreferenceCategory app:title="@string/app">
 
         <Preference
+            app:icon="@drawable/ic_permission"
             app:key="permissions"
             app:title="@string/permissions" />
 
         <SwitchPreferenceCompat
+            app:icon="@drawable/ic_style"
             app:key="theme"
             app:title="@string/dark_mode" />
 
         <SwitchPreferenceCompat
+            app:icon="@drawable/ic_notifications_off"
             app:key="alarm"
             app:title="@string/disable_all" />
 
         <Preference
+            app:icon="@drawable/ic_clear"
             app:key="clear"
             app:title="@string/clear" />
 

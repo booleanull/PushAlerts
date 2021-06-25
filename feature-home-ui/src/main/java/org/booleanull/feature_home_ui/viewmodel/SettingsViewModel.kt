@@ -11,8 +11,8 @@ class SettingsViewModel(private val clearUseCase: ClearUseCase) : BaseViewModel(
     val complete: LiveData<Unit> = completeInternal
 
     fun clear() {
-        clearUseCase.invoke {
+        clearUseCase.invoke(onResult = {
             completeInternal.call()
-        }
+        })
     }
 }

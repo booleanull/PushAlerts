@@ -4,13 +4,15 @@ import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import org.booleanull.core.entity.Application
+import org.booleanull.core.facade.SettingsFacade
 import org.booleanull.core_ui.base.BaseViewModel
 import org.booleanull.feature_home.interactor.GetApplicationListUseCase
 import org.booleanull.feature_home.interactor.SearchApplicationList
 
 class HomeViewModel(
     private val getApplicationListUseCase: GetApplicationListUseCase,
-    private val searchApplicationList: SearchApplicationList
+    private val searchApplicationList: SearchApplicationList,
+    private val settingsFacade: SettingsFacade
 ) : BaseViewModel(getApplicationListUseCase, searchApplicationList) {
 
     private val applicationListInternal = MutableLiveData<List<Application>>()
@@ -24,6 +26,10 @@ class HomeViewModel(
     private val applicationNotFoundInternal = MutableLiveData<Boolean>()
     val applicationNotFound: LiveData<Boolean>
         get() = applicationNotFoundInternal
+
+    private val disabledAlarmInternal = MutableLiveData<Boolean>()
+    val disabledAlarm: LiveData<Boolean>
+        get() = disabledAlarmInternal
 
     private var timer: CountDownTimer? = null
 
@@ -70,6 +76,10 @@ class HomeViewModel(
 
             override fun onTick(p0: Long) = Unit
         }.start()
+    }
+
+    fun loadAlarmStatus() {
+        disabledAlarmInternal.value = settingsFacade.getAlarm()
     }
 
     override fun onCleared() {
