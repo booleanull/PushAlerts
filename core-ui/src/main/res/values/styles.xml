@@ -57,7 +57,7 @@
     <!-- Buttons -->
     <style name="AppTheme.MaterialButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="cornerRadius">@dimen/default_radius</item>
-        <item name="backgroundTint">@color/colorBlueGray</item>
+        <item name="backgroundTint">@color/custom_material_button_background</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="iconTint">@color/colorWhite</item>
         <item name="android:layout_marginStart">@dimen/default_margin</item>

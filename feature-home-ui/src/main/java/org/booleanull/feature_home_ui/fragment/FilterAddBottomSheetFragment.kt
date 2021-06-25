@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.core.widget.doOnTextChanged
 import kotlinx.android.synthetic.main.fragment_filter_add_bottom_sheet.*
 import org.booleanull.core_ui.base.RoundedBottomSheetDialogFragment
 import org.booleanull.feature_home_ui.R
@@ -48,6 +49,9 @@ class FilterAddBottomSheetFragment : RoundedBottomSheetDialogFragment(0) {
                 true
             }
             false
+        }
+        filterEditText.doOnTextChanged { text, start, before, count ->
+            filterAddButton.isEnabled = !text.isNullOrBlank()
         }
     }
 }
