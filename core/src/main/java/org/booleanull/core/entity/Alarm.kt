@@ -10,5 +10,6 @@ data class Alarm(
     @ColumnInfo(name = "packageName")
     val packageName: String,
     val hasAlarm: Boolean,
-    val hasFilter: Boolean
+    val hasFilter: Boolean,
+    val isFavorite: Boolean = false
 )

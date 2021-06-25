@@ -29,13 +29,15 @@ class HomeViewModel(
 
     var searchQuery = ""
 
-    fun loadApplications() {
+    fun loadApplications(isUpdated: Boolean = false) {
         searchQuery = ""
-        loadingInternal.value = true
         applicationNotFoundInternal.value = false
+        if (!isUpdated) {
+            loadingInternal.value = true
+        }
         getApplicationListUseCase.invoke(
             params = GetApplicationListUseCase.Params(
-                GetApplicationListUseCase.SortType(GetApplicationListUseCase.SortType.SORT_NAME)
+                GetApplicationListUseCase.SortType(GetApplicationListUseCase.SortType.SORT_FAVORITE)
             ), onResult = {
                 loadingInternal.value = false
                 applicationListInternal.value = it

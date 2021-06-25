@@ -46,6 +46,11 @@ class HomeDetailsViewModel(
     val alarm: LiveData<AlarmWithFilter>
         get() = alarmInternal
 
+    private val updateFavoriteInternal =
+        SingleLiveEvent<Boolean>()
+    val updateFavorite: LiveData<Boolean>
+        get() = updateFavoriteInternal
+
     private val errorNotFoundInternal =
         SingleLiveEvent<Nothing>()
     val errorNotFound: LiveData<Nothing>
@@ -71,9 +76,33 @@ class HomeDetailsViewModel(
         })
     }
 
+    fun inverseFavorite() {
+        val isFavorite = !alarmInternal.value!!.alarm.isFavorite
+        alarmInternal.value = AlarmWithFilter(
+            Alarm(
+                packageName,
+                alarmInternal.value!!.alarm.hasAlarm,
+                alarmInternal.value!!.alarm.hasFilter,
+                isFavorite
+            ),
+            alarmInternal.value!!.filters
+        )
+        insertAlarmUseCase.invoke(
+            params = InsertAlarmUseCase.Params(
+                alarmInternal.value!!
+            )
+        )
+        updateFavoriteInternal.value = isFavorite
+    }
+
     fun setAlarm(status: Boolean) {
         alarmInternal.value = AlarmWithFilter(
-            Alarm(packageName, status, alarmInternal.value!!.alarm.hasFilter),
+            Alarm(
+                packageName,
+                status,
+                alarmInternal.value!!.alarm.hasFilter,
+                alarmInternal.value!!.alarm.isFavorite
+            ),
             alarmInternal.value!!.filters
         )
         insertAlarmUseCase.invoke(
@@ -85,7 +114,12 @@ class HomeDetailsViewModel(
 
     fun setFilter(status: Boolean) {
         alarmInternal.value = AlarmWithFilter(
-            Alarm(packageName, alarmInternal.value!!.alarm.hasAlarm, status),
+            Alarm(
+                packageName,
+                alarmInternal.value!!.alarm.hasAlarm,
+                status,
+                alarmInternal.value!!.alarm.isFavorite
+            ),
             alarmInternal.value!!.filters
         )
         insertAlarmUseCase.invoke(

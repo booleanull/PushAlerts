@@ -28,7 +28,7 @@
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/favoriteImageView"
         app:layout_constraintStart_toEndOf="@id/iconImageView"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -49,5 +49,17 @@
             tools:text="Description" />
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/favoriteImageView"
+        android:layout_width="@dimen/small_icon_cell_size"
+        android:layout_height="@dimen/small_icon_cell_size"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_favorite_enabled"
+        app:tint="@color/colorBlueGray"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

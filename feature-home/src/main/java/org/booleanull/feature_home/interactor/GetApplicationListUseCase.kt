@@ -4,7 +4,9 @@ import org.booleanull.core.entity.Application
 import org.booleanull.core.interactor.CoroutineUseCase
 import org.booleanull.core.repository.ApplicationRepository
 
-class GetApplicationListUseCase(private val applicationRepository: ApplicationRepository) :
+class GetApplicationListUseCase(
+    private val applicationRepository: ApplicationRepository
+) :
     CoroutineUseCase<List<Application>, GetApplicationListUseCase.Params>() {
 
     override suspend fun run(params: Params?): List<Application> {
@@ -16,6 +18,11 @@ class GetApplicationListUseCase(private val applicationRepository: ApplicationRe
             }
             SortType.SORT_PACKAGE -> {
                 applications.sortedBy { it.packageName }
+            }
+            SortType.SORT_FAVORITE -> {
+                applications.sortedByDescending { application ->
+                    application.isFavorite
+                }
             }
             else -> {
                 applications
@@ -32,6 +39,7 @@ class GetApplicationListUseCase(private val applicationRepository: ApplicationRe
             const val SORT_NONE = 0
             const val SORT_NAME = 1
             const val SORT_PACKAGE = 2
+            const val SORT_FAVORITE = 3
         }
     }
 }

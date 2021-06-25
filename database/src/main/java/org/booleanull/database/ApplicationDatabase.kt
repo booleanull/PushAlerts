@@ -6,7 +6,7 @@ import org.booleanull.core.entity.Alarm
 import org.booleanull.core.entity.Filter
 import org.booleanull.database.dao.AlarmDao
 
-@Database(entities = [Alarm::class, Filter::class], version = 1, exportSchema = false)
+@Database(entities = [Alarm::class, Filter::class], version = 2)
 abstract class ApplicationDatabase : RoomDatabase() {
     abstract fun alarmDao(): AlarmDao
 }

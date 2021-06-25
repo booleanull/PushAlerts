@@ -10,6 +10,7 @@ import org.booleanull.core.repository.ApplicationRepository
 import org.booleanull.core_ui.base.Router
 import org.booleanull.core_ui.handler.NavigationDeepLinkHandler
 import org.booleanull.database.ApplicationDatabase
+import org.booleanull.database.Migrations.MIGRATION_1_2
 import org.booleanull.repositories.AlarmRepositoryImpl
 import org.booleanull.repositories.ApplicationRepositoryImpl
 import org.koin.android.ext.koin.androidContext
@@ -25,6 +26,7 @@ val appModule = module {
     single {
         Room
             .databaseBuilder(get(), ApplicationDatabase::class.java, BuildConfig.DATABASE_FILE_NAME)
+            .addMigrations(MIGRATION_1_2)
             .build()
     }
 
@@ -32,6 +34,11 @@ val appModule = module {
     single<SettingsFacade> { SettingsFacadeImpl(androidContext()) }
     single<ThemeFacade> { ThemeFacadeImpl(get()) }
 
-    single<ApplicationRepository> { ApplicationRepositoryImpl(androidContext().packageManager) }
+    single<ApplicationRepository> {
+        ApplicationRepositoryImpl(
+            androidContext().packageManager,
+            get()
+        )
+    }
     single<AlarmRepository> { AlarmRepositoryImpl(get()) }
 }

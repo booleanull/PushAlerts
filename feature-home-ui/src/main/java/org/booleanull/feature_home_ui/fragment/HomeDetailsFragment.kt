@@ -22,6 +22,7 @@ import org.booleanull.core_ui.helper.DismissItemTouchHelper
 import org.booleanull.core_ui.helper.RecyclerDivider
 import org.booleanull.core_ui.setChecked
 import org.booleanull.feature_home_ui.R
+import org.booleanull.feature_home_ui.Utils
 import org.booleanull.feature_home_ui.adapter.FilterViewHolderFactory
 import org.booleanull.feature_home_ui.viewmodel.HomeDetailsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -141,6 +142,11 @@ class HomeDetailsFragment : BaseFragment() {
 
         iconImageView.transitionName = arguments?.getString(PACKAGE_NAME) ?: ""
 
+        favoriteFab.setOnClickListener {
+            viewModel.inverseFavorite()
+            Utils.needUpdateMainAdapter = true
+        }
+
         filterRecyclerView.adapter = filterAdapter
         filterRecyclerView.addItemDecoration(filterItemDecoration)
         ItemTouchHelper(
@@ -173,6 +179,14 @@ class HomeDetailsFragment : BaseFragment() {
 
         viewModel.alarm.observe(viewLifecycleOwner, Observer { alarmWithFilter ->
             alarmWithFilter.alarm.let { alarm ->
+                favoriteFab.setImageDrawable(
+                    if (alarm.isFavorite) {
+                        ContextCompat.getDrawable(requireContext(), R.drawable.ic_favorite_enabled)
+                    } else {
+                        ContextCompat.getDrawable(requireContext(), R.drawable.ic_favorite_disabled)
+                    }
+                )
+
                 alarmSwitch.setChecked(alarm.hasAlarm, alarmSwitchOnCheckedChangeListener)
                 filterSwitch.setChecked(alarm.hasFilter, filterSwitchOnCheckedChangeListener)
 
@@ -183,6 +197,19 @@ class HomeDetailsFragment : BaseFragment() {
                 filterOverlapLayout.isVisible = !alarm.hasFilter
             }
             filterAdapter.dataList = alarmWithFilter.filters.map { it.filter }
+        })
+
+        viewModel.updateFavorite.observe(viewLifecycleOwner, Observer { isFavorite ->
+            Snackbar.make(
+                requireView(),
+                if (isFavorite) {
+                    "Добавлено в избранное"
+                } else {
+                    "Удалено из избранного"
+                },
+                Snackbar.LENGTH_SHORT
+            )
+                .show()
         })
 
         viewModel.errorNotFound.observe(viewLifecycleOwner, Observer {

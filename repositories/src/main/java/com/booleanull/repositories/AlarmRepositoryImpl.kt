@@ -8,6 +8,10 @@ import org.booleanull.database.ApplicationDatabase
 
 class AlarmRepositoryImpl(private val applicationDatabase: ApplicationDatabase) : AlarmRepository {
 
+    override suspend fun getAlarms(): List<AlarmWithFilter> {
+        return applicationDatabase.alarmDao().getAlarms()
+    }
+
     override suspend fun searchAlarm(packageName: String): Task<Exception, AlarmWithFilter> {
         val alarm = applicationDatabase.alarmDao().search(packageName)
         return if (alarm != null) {

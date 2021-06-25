@@ -9,6 +9,10 @@ import org.booleanull.core.entity.Filter
 interface AlarmDao {
 
     @Transaction
+    @Query("SELECT * from alarm")
+    suspend fun getAlarms(): List<AlarmWithFilter>
+
+    @Transaction
     @Query("SELECT * from alarm WHERE packageName = :packageName")
     suspend fun search(packageName: String): AlarmWithFilter?
 

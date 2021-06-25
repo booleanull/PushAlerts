@@ -6,6 +6,8 @@ import org.booleanull.core.functional.Task
 
 interface AlarmRepository {
 
+    suspend fun getAlarms(): List<AlarmWithFilter>
+
     suspend fun searchAlarm(packageName: String): Task<Exception, AlarmWithFilter>
 
     suspend fun insertAlarm(alarmWithFilter: AlarmWithFilter)

@@ -4,10 +4,13 @@ import android.Manifest
 import android.content.pm.PackageManager
 import org.booleanull.core.entity.Application
 import org.booleanull.core.functional.Task
+import org.booleanull.core.repository.AlarmRepository
 import org.booleanull.core.repository.ApplicationRepository
 
-class ApplicationRepositoryImpl(private val packageManager: PackageManager) :
-    ApplicationRepository {
+class ApplicationRepositoryImpl(
+    private val packageManager: PackageManager,
+    private val alarmRepository: AlarmRepository
+) : ApplicationRepository {
 
     override suspend fun getApplicationList(): List<Application> {
         return getAllApplication()
@@ -29,7 +32,7 @@ class ApplicationRepositoryImpl(private val packageManager: PackageManager) :
 
     override suspend fun getApplication(
         packageName: String
-    ): Task<java.lang.Exception, Application> {
+    ): Task<Exception, Application> {
         val packages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA)
         packages.firstOrNull {
             it.packageName == packageName
@@ -38,14 +41,20 @@ class ApplicationRepositoryImpl(private val packageManager: PackageManager) :
                 Application(
                     packageManager.getApplicationLabel(it.applicationInfo).toString(),
                     it.packageName,
-                    packageManager.getActivityIcon(packageManager.getLaunchIntentForPackage(it.packageName)!!)
+                    packageManager.getActivityIcon(packageManager.getLaunchIntentForPackage(it.packageName)!!),
+                    alarmRepository.searchAlarm(it.packageName).fold({ alarm ->
+                        alarm.alarm.isFavorite
+                    }, {
+                        false
+                    })
                 )
             )
         }
         return Task.Failure(IllegalArgumentException("Application with this ID not found"))
     }
 
-    private fun getAllApplication(): List<Application> {
+    private suspend fun getAllApplication(): List<Application> {
+        val alarms = alarmRepository.getAlarms().map { it.alarm }
         val packages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA)
         return packages.filter {
             var hasInternetPermission = false
@@ -56,11 +65,14 @@ class ApplicationRepositoryImpl(private val packageManager: PackageManager) :
                     }
                 }
             packageManager.getLaunchIntentForPackage(it.packageName) != null && hasInternetPermission
-        }.map {
+        }.map { packageInfo ->
             Application(
-                packageManager.getApplicationLabel(it.applicationInfo).toString(),
-                it.packageName,
-                packageManager.getActivityIcon(packageManager.getLaunchIntentForPackage(it.packageName)!!)
+                packageManager.getApplicationLabel(packageInfo.applicationInfo).toString(),
+                packageInfo.packageName,
+                packageManager.getActivityIcon(packageManager.getLaunchIntentForPackage(packageInfo.packageName)!!),
+                alarms.find { alarm ->
+                    alarm.packageName == packageInfo.packageName
+                }?.isFavorite ?: false
             )
         }
     }

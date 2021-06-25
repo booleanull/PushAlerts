@@ -17,6 +17,7 @@ import org.booleanull.core_ui.dp
 import org.booleanull.core_ui.getAttributeColor
 import org.booleanull.core_ui.helper.RecyclerDivider
 import org.booleanull.feature_home_ui.R
+import org.booleanull.feature_home_ui.Utils
 import org.booleanull.feature_home_ui.adapter.ApplicationViewHolderFactory
 import org.booleanull.feature_home_ui.screen.HomeDetailsScreen
 import org.booleanull.feature_home_ui.screen.SettingsScreen
@@ -26,6 +27,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class HomeFragment : BaseFragment() {
 
     private val viewModel: HomeViewModel by viewModel()
+
+    private var applications: List<Application> = listOf()
 
     private val applicationAdapter by lazy {
         GenericAdapter(ApplicationViewHolderFactory()).apply {
@@ -60,6 +63,8 @@ class HomeFragment : BaseFragment() {
                     val old = oldItems[oldItemPosition]
                     val new = newItems[newItemPosition]
                     return old.name == new.name
+                            && old.icon == new.icon
+                            && old.isFavorite == new.isFavorite
                 }
             })
         }
@@ -95,6 +100,10 @@ class HomeFragment : BaseFragment() {
     override fun onStart() {
         super.onStart()
         searchView.isVisible = viewModel.searchQuery.isNotBlank()
+        if (Utils.needUpdateMainAdapter) {
+            Utils.needUpdateMainAdapter = false
+            viewModel.loadApplications(true)
+        }
     }
 
     override fun onPause() {
@@ -145,6 +154,7 @@ class HomeFragment : BaseFragment() {
         }
 
         viewModel.applicationList.observe(viewLifecycleOwner, Observer {
+            applications = it
             applicationAdapter.dataList = it
         })
 

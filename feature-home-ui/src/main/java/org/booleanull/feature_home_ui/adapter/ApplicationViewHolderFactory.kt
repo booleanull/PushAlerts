@@ -3,6 +3,7 @@ package org.booleanull.feature_home_ui.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.cell_application.view.*
 import org.booleanull.core.entity.Application
 import org.booleanull.core_ui.adapter.GenericViewHolder
@@ -27,6 +28,7 @@ class ApplicationViewHolderFactory :
                     tvDescription.text = item.packageName
                     iconImageView.setImageDrawable(item.icon)
                     iconImageView.transitionName = item.packageName
+                    favoriteImageView.isVisible = item.isFavorite
                     setOnClickListener {
                         onItemClickListener?.onItemClick(
                             ApplicationItemClickData(
