@@ -101,7 +101,6 @@ class HomeFragment : BaseFragment() {
     override fun onStart() {
         super.onStart()
         searchView.isVisible = viewModel.searchQuery.isNotBlank()
-        viewModel.loadApplications(true)
         viewModel.loadAlarmStatus()
     }
 
@@ -174,6 +173,10 @@ class HomeFragment : BaseFragment() {
         viewModel.disabledAlarm.observe(viewLifecycleOwner, Observer {
             attentionAlarmCardView.isVisible = it
             attentionAlarmDividerView.isVisible = it
+        })
+
+        viewModel.update.observe(viewLifecycleOwner, Observer {
+            viewModel.loadApplications(true)
         })
     }
 

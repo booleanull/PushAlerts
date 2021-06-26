@@ -16,6 +16,7 @@ import org.booleanull.feature_home.interactor.SearchAlarmUseCase
 
 class HomeDetailsViewModel(
     private val packageName: String,
+    private val sharedViewModel: HomeSharedViewModel,
     private val getApplicationUseCase: GetApplicationUseCase,
     private val searchAlarmUseCase: SearchAlarmUseCase,
     private val insertAlarmUseCase: InsertAlarmUseCase,
@@ -56,6 +57,9 @@ class HomeDetailsViewModel(
     val errorNotFound: LiveData<Nothing>
         get() = errorNotFoundInternal
 
+    var updateAlarmStatus: Boolean = false
+    var updateFavoriteStatus: Boolean = false
+
     fun loadApplication() {
         getApplicationUseCase.invoke(
             params = GetApplicationUseCase.Params(packageName),
@@ -77,6 +81,7 @@ class HomeDetailsViewModel(
     }
 
     fun inverseFavorite() {
+        updateFavoriteStatus = !updateFavoriteStatus
         val isFavorite = !alarmInternal.value!!.alarm.isFavorite
         alarmInternal.value = AlarmWithFilter(
             Alarm(
@@ -96,6 +101,7 @@ class HomeDetailsViewModel(
     }
 
     fun setAlarm(status: Boolean) {
+        updateAlarmStatus = !updateFavoriteStatus
         alarmInternal.value = AlarmWithFilter(
             Alarm(
                 packageName,
@@ -153,5 +159,9 @@ class HomeDetailsViewModel(
                 filters
             )
         removeFilterUseCase.invoke(params = RemoveFilterUseCase.Params(removeFilter))
+    }
+
+    fun update() {
+        sharedViewModel.update()
     }
 }

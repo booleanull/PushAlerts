@@ -122,6 +122,15 @@ class HomeDetailsFragment : BaseFragment() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        if (isRemoving) {
+            if (viewModel.updateFavoriteStatus || viewModel.updateAlarmStatus) {
+                viewModel.update()
+            }
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

@@ -1,6 +1,7 @@
 package org.booleanull.feature_home_ui.viewmodel
 
 import android.os.CountDownTimer
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import org.booleanull.core.entity.Application
@@ -10,6 +11,7 @@ import org.booleanull.feature_home.interactor.GetApplicationListUseCase
 import org.booleanull.feature_home.interactor.SearchApplicationListUseCase
 
 class HomeViewModel(
+    private val sharedViewModel: HomeSharedViewModel,
     private val getApplicationListUseCase: GetApplicationListUseCase,
     private val searchApplicationListUseCase: SearchApplicationListUseCase,
     private val settingsFacade: SettingsFacade
@@ -31,11 +33,15 @@ class HomeViewModel(
     val disabledAlarm: LiveData<Boolean>
         get() = disabledAlarmInternal
 
+    val update: LiveData<Unit>
+        get() = sharedViewModel.update
+
     private var timer: CountDownTimer? = null
 
     var searchQuery = ""
 
     fun loadApplications(isUpdated: Boolean = false) {
+        Log.d("LoadApplication", isUpdated.toString())
         searchQuery = ""
         applicationNotFoundInternal.value = false
         if (!isUpdated) {

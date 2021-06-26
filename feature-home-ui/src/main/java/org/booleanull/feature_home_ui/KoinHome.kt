@@ -2,6 +2,7 @@ package org.booleanull.feature_home_ui
 
 import org.booleanull.feature_home.interactor.*
 import org.booleanull.feature_home_ui.viewmodel.HomeDetailsViewModel
+import org.booleanull.feature_home_ui.viewmodel.HomeSharedViewModel
 import org.booleanull.feature_home_ui.viewmodel.HomeViewModel
 import org.booleanull.feature_home_ui.viewmodel.SettingsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -17,8 +18,11 @@ val homeModule = module {
     factory { RemoveFilterUseCase(get()) }
     factory { ClearUseCase(get()) }
 
+    single { HomeSharedViewModel() }
+
     viewModel {
         HomeViewModel(
+            get(),
             get(),
             get(),
             get()
@@ -27,6 +31,7 @@ val homeModule = module {
     viewModel { (packageName: String) ->
         HomeDetailsViewModel(
             packageName,
+            get(),
             get(),
             get(),
             get(),
