@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.fragment_onboarding_item.*
 import org.booleanull.core_ui.base.BaseFragment
 import org.booleanull.core_ui.fragment.ProblemBottomSheetDialogFragment
@@ -36,11 +37,23 @@ class OnboardingItemFragment : BaseFragment() {
 
         when (position) {
             0 -> {
+                iconImageView.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.ic_notifications
+                    )
+                )
                 titleTextView.text = requireContext().getString(R.string.app_name)
                 descriptionTextView.text =
                     requireContext().getString(R.string.onboarding_description_first)
             }
             1 -> {
+                iconImageView.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.ic_assignment
+                    )
+                )
                 titleTextView.text = requireContext().getString(R.string.onboarding_title_second)
                 descriptionTextView.setSpannableClick(
                     requireContext().getString(R.string.onboarding_description_second),
@@ -50,6 +63,12 @@ class OnboardingItemFragment : BaseFragment() {
                 }
             }
             2 -> {
+                iconImageView.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.ic_star
+                    )
+                )
                 titleTextView.text = requireContext().getString(R.string.mark_app)
                 descriptionTextView.setSpannableLink(
                     getSpannableLink(

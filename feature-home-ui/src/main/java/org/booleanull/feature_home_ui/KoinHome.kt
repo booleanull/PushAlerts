@@ -10,7 +10,7 @@ import org.koin.dsl.module
 val homeModule = module {
 
     factory { GetApplicationListUseCase(get()) }
-    factory { SearchApplicationList(get()) }
+    factory { SearchApplicationListUseCase(get()) }
     factory { SearchAlarmUseCase(get()) }
     factory { InsertAlarmUseCase(get()) }
     factory { InsertFilterUseCase(get()) }

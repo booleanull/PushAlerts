@@ -7,13 +7,13 @@ import org.booleanull.core.entity.Application
 import org.booleanull.core.facade.SettingsFacade
 import org.booleanull.core_ui.base.BaseViewModel
 import org.booleanull.feature_home.interactor.GetApplicationListUseCase
-import org.booleanull.feature_home.interactor.SearchApplicationList
+import org.booleanull.feature_home.interactor.SearchApplicationListUseCase
 
 class HomeViewModel(
     private val getApplicationListUseCase: GetApplicationListUseCase,
-    private val searchApplicationList: SearchApplicationList,
+    private val searchApplicationListUseCase: SearchApplicationListUseCase,
     private val settingsFacade: SettingsFacade
-) : BaseViewModel(getApplicationListUseCase, searchApplicationList) {
+) : BaseViewModel(getApplicationListUseCase, searchApplicationListUseCase) {
 
     private val applicationListInternal = MutableLiveData<List<Application>>()
     val applicationList: LiveData<List<Application>>
@@ -52,16 +52,16 @@ class HomeViewModel(
 
     fun searchApplication(query: String) {
         timer?.cancel()
-        searchApplicationList.dismiss()
+        searchApplicationListUseCase.dismiss()
         searchQuery = query
         loadingInternal.value = true
         applicationNotFoundInternal.value = false
         timer = object : CountDownTimer(300L, 100L) {
             override fun onFinish() {
-                searchApplicationList.invoke(
-                    params = SearchApplicationList.Params(
+                searchApplicationListUseCase.invoke(
+                    params = SearchApplicationListUseCase.Params(
                         query,
-                        SearchApplicationList.SortType(GetApplicationListUseCase.SortType.SORT_NAME)
+                        SearchApplicationListUseCase.SortType(GetApplicationListUseCase.SortType.SORT_FAVORITE)
                     ),
                     onResult = { task ->
                         loadingInternal.value = false

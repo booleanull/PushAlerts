@@ -27,7 +27,7 @@
             app:title="@string/permissions" />
 
         <SwitchPreferenceCompat
-            app:icon="@drawable/ic_style"
+            app:icon="@drawable/ic_theme"
             app:key="theme"
             app:title="@string/dark_mode" />
 
