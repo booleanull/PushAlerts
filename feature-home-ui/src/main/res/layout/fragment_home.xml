@@ -98,6 +98,7 @@
                 android:layout_margin="@dimen/default_margin"
                 android:drawableStart="@drawable/ic_notifications_off"
                 android:drawablePadding="@dimen/small_margin"
+                android:drawableTint="@color/colorWhite"
                 android:text="@string/attention_alarm"
                 android:textColor="@color/colorWhite" />
 

@@ -16,6 +16,7 @@ import org.booleanull.core_ui.base.BaseFragment
 import org.booleanull.core_ui.dp
 import org.booleanull.core_ui.getAttributeColor
 import org.booleanull.core_ui.helper.RecyclerDivider
+import org.booleanull.core_ui.setDrawableColor
 import org.booleanull.core_ui.setSpannableBold
 import org.booleanull.feature_home_ui.R
 import org.booleanull.feature_home_ui.adapter.ApplicationViewHolderFactory
@@ -122,6 +123,7 @@ class HomeFragment : BaseFragment() {
             attentionString,
             attentionString.substring(0, attentionString.indexOf("!"))
         )
+        attentionAlarmTextView.setDrawableColor(R.color.colorWhite)
 
         closeImageView.setOnClickListener {
             searchView.isVisible = false

@@ -73,6 +73,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         findPreference<Preference>(SettingsFacade.PREFERENCE_CLEAR)?.setOnPreferenceClickListener {
             viewModel.clear()
+            viewModel.updateDisableStatus = true
             true
         }
 
@@ -100,5 +101,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
         viewModel.complete.observe(viewLifecycleOwner, Observer {
             Snackbar.make(view, getString(R.string.alarm_clear), Snackbar.LENGTH_SHORT).show()
         })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (requireParentFragment().isRemoving) {
+            if (viewModel.updateDisableStatus) {
+                viewModel.update()
+            }
+        }
     }
 }

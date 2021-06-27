@@ -2,6 +2,8 @@ package org.booleanull.core_ui
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.graphics.Typeface
 import android.text.SpannableString
 import android.text.method.LinkMovementMethod
@@ -14,6 +16,8 @@ import android.widget.CompoundButton
 import android.widget.Switch
 import android.widget.TextView
 import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 
 fun View.dp(value: Float): Float {
@@ -130,5 +134,12 @@ fun View.setOnLongClickListener(
             listenerCancel?.invoke()
         }
         true
+    }
+}
+
+fun TextView.setDrawableColor(@ColorRes color: Int) {
+    compoundDrawables.filterNotNull().forEach {
+        it.colorFilter =
+            PorterDuffColorFilter(ContextCompat.getColor(context, color), PorterDuff.Mode.SRC_IN)
     }
 }
