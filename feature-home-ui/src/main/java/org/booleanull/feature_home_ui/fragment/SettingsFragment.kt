@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -72,8 +73,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
 
         findPreference<Preference>(SettingsFacade.PREFERENCE_CLEAR)?.setOnPreferenceClickListener {
-            viewModel.clear()
-            viewModel.updateDisableStatus = true
+            showClearDialog()
             true
         }
 
@@ -110,5 +110,19 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 viewModel.update()
             }
         }
+    }
+
+    private fun showClearDialog() {
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle(R.string.clear)
+            setMessage(getString(R.string.clear_dialog_message))
+            setPositiveButton(android.R.string.yes) { _, _ ->
+                viewModel.clear()
+                viewModel.updateDisableStatus = true
+            }
+            setNegativeButton(android.R.string.no) { _, _ -> }
+        }
+            .create()
+            .show()
     }
 }

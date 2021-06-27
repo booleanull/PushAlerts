@@ -24,5 +24,6 @@
     <string name="add_filter">Add filter</string>
     <string name="added_to_favorites">Added to favorites</string>
     <string name="removed_from_favorites">Removed from favorites</string>
-    <string name="attention_alarm">Внимание! В настройках отключены все оповещения.</string>
+    <string name="attention_alarm">Attention! All notifications are disabled in the settings.</string>
+    <string name="clear_dialog_message">Are you sure you want to clear all data?</string>
 </resources>
