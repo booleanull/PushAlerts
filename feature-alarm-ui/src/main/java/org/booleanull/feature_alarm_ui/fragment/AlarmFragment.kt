@@ -22,37 +22,35 @@ import org.booleanull.feature_alarm_ui.viewmodel.AlarmViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class AlarmFragment : BaseFragment() {
+internal class AlarmFragment : BaseFragment() {
 
-    private lateinit var viewModel: AlarmViewModel
-    private lateinit var ringtone: Ringtone
+    private var _viewModel: AlarmViewModel? = null
+    private val viewModel: AlarmViewModel
+        get() {
+            return checkNotNull(_viewModel)
+        }
 
-    private val vibrationDuration = 200L
+    private val ringtone: Ringtone by lazy {
+        var alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
+        if (alarmUri == null) {
+            alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
+        }
+        RingtoneManager.getRingtone(context, alarmUri)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
-            requireActivity().setShowWhenLocked(true)
-            requireActivity().setTurnScreenOn(true)
-            val keyguardManager =
-                requireActivity().getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
-            keyguardManager.requestDismissKeyguard(requireActivity(), null)
-        } else {
-            requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
-            requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD)
-            requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON)
-        }
-        requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON)
         return inflater.inflate(R.layout.fragment_alarm, container, false)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = viewModel<AlarmViewModel> {
+        showWhenLock()
+
+        _viewModel = viewModel<AlarmViewModel> {
             parametersOf(
                 requireActivity().intent?.getStringExtra(NavigationDeepLinkHandler.PACKAGE_NAME)
                     ?: ""
@@ -62,24 +60,23 @@ class AlarmFragment : BaseFragment() {
         if (savedInstanceState == null) {
             viewModel.loadApplication()
         }
-
-        var alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
-        if (alarmUri == null) {
-            alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
-        }
-        ringtone = RingtoneManager.getRingtone(context, alarmUri)
         ringtone.play()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        hideWhenLock()
+        ringtone.stop()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val vibrator =
-            requireActivity().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-
+        val vibrator = requireActivity().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         pulseView.start()
 
-        alarmImageView.setOnLongClickListener(800,
+        alarmImageView.setOnLongClickListener(
+            800,
             listenerStart = {
                 pulseView.stop()
             },
@@ -87,12 +84,12 @@ class AlarmFragment : BaseFragment() {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     vibrator.vibrate(
                         VibrationEffect.createOneShot(
-                            vibrationDuration,
+                            VIBRATION_DURATION,
                             VibrationEffect.DEFAULT_AMPLITUDE
                         )
                     )
                 } else {
-                    vibrator.vibrate(vibrationDuration)
+                    vibrator.vibrate(VIBRATION_DURATION)
                 }
 
                 ringtone.stop()
@@ -116,8 +113,23 @@ class AlarmFragment : BaseFragment() {
         })
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    private fun showWhenLock() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+            requireActivity().setShowWhenLocked(true)
+            requireActivity().setTurnScreenOn(true)
+            val keyguardManager =
+                requireActivity().getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
+            keyguardManager.requestDismissKeyguard(requireActivity(), null)
+        } else {
+            requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
+            requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD)
+            requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON)
+        }
+        requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON)
+    }
+
+    private fun hideWhenLock() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
             requireActivity().setShowWhenLocked(false)
             requireActivity().setTurnScreenOn(false)
@@ -128,6 +140,9 @@ class AlarmFragment : BaseFragment() {
         }
         requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON)
-        ringtone.stop()
+    }
+
+    companion object {
+        private const val VIBRATION_DURATION = 200L
     }
 }

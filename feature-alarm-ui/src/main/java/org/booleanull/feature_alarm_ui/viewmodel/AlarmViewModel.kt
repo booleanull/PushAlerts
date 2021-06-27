@@ -8,7 +8,7 @@ import org.booleanull.core.interactor.GetApplicationUseCase
 import org.booleanull.core_ui.base.BaseViewModel
 import org.booleanull.core_ui.helper.SingleLiveEvent
 
-class AlarmViewModel(
+internal class AlarmViewModel(
     private val packageName: String,
     private val getApplicationUseCase: GetApplicationUseCase
 ) : BaseViewModel(getApplicationUseCase) {
