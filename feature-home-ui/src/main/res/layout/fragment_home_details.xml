@@ -203,9 +203,9 @@
         app:backgroundTint="?attr/colorAccent"
         app:behavior_autoHide="false"
         app:elevation="10dp"
-        app:layout_behavior="com.google.android.material.floatingactionbutton.FloatingActionButton$Behavior"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|end"
+        app:layout_behavior="com.google.android.material.floatingactionbutton.FloatingActionButton$Behavior"
         app:tint="?attr/colorBackground"
         tools:visibility="visible" />
 
@@ -218,6 +218,7 @@
         android:layout_marginEnd="@dimen/default_margin"
         android:layout_marginBottom="@dimen/small_margin"
         android:translationZ="6dp"
+        android:visibility="gone"
         app:cardBackgroundColor="@color/colorBlueGray"
         app:cardCornerRadius="56dp"
         app:cardElevation="8dp"
@@ -226,16 +227,14 @@
 
         <TextView
             android:id="@+id/countTextView"
-            style="@style/AppTheme.Text.Title.H3"
+            style="@style/AppTheme.Text.Title.H5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:drawableEnd="@drawable/ic_notifications"
-            android:drawablePadding="@dimen/very_small_margin"
             android:gravity="center"
             android:paddingStart="@dimen/default_margin"
             android:paddingEnd="@dimen/default_margin"
-            android:text="8"
+            android:text="@string/notification_count"
             android:textColor="?attr/colorBackground" />
 
     </androidx.cardview.widget.CardView>

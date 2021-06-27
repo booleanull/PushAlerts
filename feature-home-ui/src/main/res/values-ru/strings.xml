@@ -26,4 +26,5 @@
     <string name="removed_from_favorites">Удалено из избранного</string>
     <string name="attention_alarm">Внимание! В настройках отключены все оповещения.</string>
     <string name="clear_dialog_message">Вы уверены, что хотите очистить все данные?</string>
+    <string name="notification_count">Уведомлений: %1$d</string>
 </resources>

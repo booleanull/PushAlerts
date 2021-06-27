@@ -203,7 +203,8 @@ class HomeDetailsFragment : BaseFragment() {
                 )
 
                 countCardView.isVisible = alarm.count != 0
-                countTextView.text = alarm.count.toString()
+                countTextView.text =
+                    requireContext().getString(R.string.notification_count, alarm.count)
 
                 alarmSwitch.setChecked(alarm.hasAlarm, alarmSwitchOnCheckedChangeListener)
                 filterSwitch.setChecked(alarm.hasFilter, filterSwitchOnCheckedChangeListener)
