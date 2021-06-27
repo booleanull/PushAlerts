@@ -1,4 +1,4 @@
-package org.booleanull.core.permission
+package org.booleanull.pushalerts.permission
 
 import android.content.Context
 import android.content.Intent
@@ -7,6 +7,9 @@ import android.os.Build
 import android.provider.Settings
 import androidx.annotation.RequiresApi
 import org.booleanull.core.R
+import org.booleanull.core.permission.PermissionController
+import org.booleanull.core.permission.PermissionIntent
+import org.booleanull.core.permission.PermissionStatus
 
 class PermissionAlertController(private val context: Context) : PermissionController {
 

@@ -6,7 +6,6 @@ import org.booleanull.core.facade.AnalyticsFacade
 import org.booleanull.core.facade.SettingsFacade
 import org.booleanull.core.facade.ThemeFacade
 import org.booleanull.core.permission.PermissionCompositeController
-import org.booleanull.core.permission.PermissionCompositeControllerImpl
 import org.booleanull.core.repository.AlarmRepository
 import org.booleanull.core.repository.ApplicationRepository
 import org.booleanull.core_ui.base.Router
@@ -18,6 +17,7 @@ import org.booleanull.pushalerts.facade.AnalyticsFacadeImpl
 import org.booleanull.pushalerts.facade.SettingsFacadeImpl
 import org.booleanull.pushalerts.facade.ThemeFacadeImpl
 import org.booleanull.pushalerts.handler.ApplicationNavigationDeepLinkHandler
+import org.booleanull.pushalerts.permission.PermissionCompositeControllerImpl
 import org.booleanull.repositories.AlarmRepositoryImpl
 import org.booleanull.repositories.ApplicationRepositoryImpl
 import org.koin.android.ext.koin.androidContext

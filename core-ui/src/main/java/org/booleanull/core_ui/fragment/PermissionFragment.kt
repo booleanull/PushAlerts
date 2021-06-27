@@ -10,7 +10,6 @@ import android.widget.Switch
 import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.fragment_permission.*
 import org.booleanull.core.permission.PermissionCompositeController
-import org.booleanull.core.permission.PermissionCompositeControllerImpl
 import org.booleanull.core.permission.PermissionStatus
 import org.booleanull.core_ui.R
 import org.booleanull.core_ui.base.RoundedBottomSheetDialogFragment
@@ -36,24 +35,24 @@ class PermissionFragment : RoundedBottomSheetDialogFragment(128) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         autoStartButton.isVisible =
-            permissionCompositeController.getPermissionStatus(PermissionCompositeControllerImpl.PERMISSION_CHINE) !is PermissionStatus.PermissionNoneStatus
+            permissionCompositeController.getPermissionStatus(PermissionCompositeController.PERMISSION_CHINE) !is PermissionStatus.PermissionNoneStatus
         alertSwitch.isVisible = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
 
         alertSwitch.setOnCheckedChangeListener { _, _ ->
-            callPermission(PermissionCompositeControllerImpl.PERMISSION_ALERT)
+            callPermission(PermissionCompositeController.PERMISSION_ALERT)
         }
         notificationSwitch.setOnCheckedChangeListener { _, _ ->
-            callPermission(PermissionCompositeControllerImpl.PERMISSION_NOTIFICATION)
+            callPermission(PermissionCompositeController.PERMISSION_NOTIFICATION)
         }
         autoStartButton.setOnClickListener {
-            callPermission(PermissionCompositeControllerImpl.PERMISSION_CHINE)
+            callPermission(PermissionCompositeController.PERMISSION_CHINE)
         }
     }
 
     override fun onResume() {
         super.onResume()
-        updateSwitch(alertSwitch, PermissionCompositeControllerImpl.PERMISSION_ALERT)
-        updateSwitch(notificationSwitch, PermissionCompositeControllerImpl.PERMISSION_NOTIFICATION)
+        updateSwitch(alertSwitch, PermissionCompositeController.PERMISSION_ALERT)
+        updateSwitch(notificationSwitch, PermissionCompositeController.PERMISSION_NOTIFICATION)
     }
 
     private fun callPermission(permissionId: Int) {
@@ -82,6 +81,8 @@ class PermissionFragment : RoundedBottomSheetDialogFragment(128) {
                         callPermission(permissionId)
                     }
                 )
+            }
+            else -> {
             }
         }
     }

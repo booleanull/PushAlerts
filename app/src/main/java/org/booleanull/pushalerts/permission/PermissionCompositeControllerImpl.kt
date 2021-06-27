@@ -1,6 +1,9 @@
-package org.booleanull.core.permission
+package org.booleanull.pushalerts.permission
 
 import android.content.Context
+import org.booleanull.core.permission.PermissionCompositeController
+import org.booleanull.core.permission.PermissionIntent
+import org.booleanull.core.permission.PermissionStatus
 
 class PermissionCompositeControllerImpl(context: Context) : PermissionCompositeController {
 
@@ -31,11 +34,5 @@ class PermissionCompositeControllerImpl(context: Context) : PermissionCompositeC
 
     override fun requestPermission(id: Int): List<PermissionIntent> {
         return permissionControllers[id].requestPermission()
-    }
-
-    companion object {
-        const val PERMISSION_ALERT = 0
-        const val PERMISSION_NOTIFICATION = 1
-        const val PERMISSION_CHINE = 2
     }
 }

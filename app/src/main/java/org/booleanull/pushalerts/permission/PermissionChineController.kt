@@ -1,10 +1,13 @@
-package org.booleanull.core.permission
+package org.booleanull.pushalerts.permission
 
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
+import org.booleanull.core.permission.PermissionController
+import org.booleanull.core.permission.PermissionIntent
+import org.booleanull.core.permission.PermissionStatus
 
 class PermissionChineController(private val context: Context) : PermissionController {
 
