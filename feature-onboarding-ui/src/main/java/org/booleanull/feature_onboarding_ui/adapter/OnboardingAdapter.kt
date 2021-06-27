@@ -5,20 +5,20 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import org.booleanull.feature_onboarding_ui.fragment.OnboardingItemFragment
 
-class OnboardingAdapter(
-    fragmentManager: FragmentManager
-) :
+internal class OnboardingAdapter(fragmentManager: FragmentManager) :
     FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getItem(position: Int): Fragment {
-        return OnboardingItemFragment.newInstance(position)
+        return OnboardingItemFragment.newInstance(OnboardingItem.values()[position])
     }
 
     override fun getCount(): Int {
-        return ONBOARDING_COUNT
+        return OnboardingItem.values().size
     }
 
-    companion object {
-        const val ONBOARDING_COUNT = 3
+    enum class OnboardingItem {
+        WELCOME_SCREEN,
+        PERMISSION_SCREEN,
+        END_SCREEN
     }
 }

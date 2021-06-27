@@ -2,7 +2,6 @@ package org.booleanull.pushalerts
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import org.booleanull.core.facade.ThemeFacade
 import org.booleanull.core_ui.base.BaseFragment
@@ -15,10 +14,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         themeFacade.setCurrentTheme(this)
-        window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
-        window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD)
-        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        window.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 

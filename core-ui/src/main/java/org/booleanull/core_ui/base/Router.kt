@@ -10,7 +10,9 @@ import ru.terrakok.cicerone.commands.BackTo
 import ru.terrakok.cicerone.commands.Forward
 import ru.terrakok.cicerone.commands.Replace
 
-class Router(private val navigationDeepLinkHandler: NavigationDeepLinkHandler) : BaseRouter() {
+class Router(
+    private val navigationDeepLinkHandler: NavigationDeepLinkHandler
+) : BaseRouter() {
 
     fun navigateTo(screen: BaseScreen) {
         executeCommands(Forward(screen))

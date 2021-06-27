@@ -178,7 +178,11 @@ class HomeFragment : BaseFragment() {
         })
 
         viewModel.update.observe(viewLifecycleOwner, Observer {
-            viewModel.loadApplications(true)
+            if (viewModel.searchQuery.isBlank()) {
+                viewModel.loadApplications(true)
+            } else {
+                viewModel.searchApplication(viewModel.searchQuery)
+            }
         })
     }
 

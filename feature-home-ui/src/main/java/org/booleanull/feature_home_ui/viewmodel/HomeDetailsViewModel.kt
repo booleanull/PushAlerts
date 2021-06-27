@@ -83,14 +83,10 @@ class HomeDetailsViewModel(
     fun inverseFavorite() {
         updateFavoriteStatus = !updateFavoriteStatus
         val isFavorite = !alarmInternal.value!!.alarm.isFavorite
-        alarmInternal.value = AlarmWithFilter(
-            Alarm(
-                packageName,
-                alarmInternal.value!!.alarm.hasAlarm,
-                alarmInternal.value!!.alarm.hasFilter,
-                isFavorite
-            ),
-            alarmInternal.value!!.filters
+        alarmInternal.value = alarmInternal.value!!.copy(
+            alarm = alarmInternal.value!!.alarm.copy(
+                isFavorite = isFavorite
+            )
         )
         insertAlarmUseCase.invoke(
             params = InsertAlarmUseCase.Params(
@@ -102,14 +98,10 @@ class HomeDetailsViewModel(
 
     fun setAlarm(status: Boolean) {
         updateAlarmStatus = !updateFavoriteStatus
-        alarmInternal.value = AlarmWithFilter(
-            Alarm(
-                packageName,
-                status,
-                alarmInternal.value!!.alarm.hasFilter,
-                alarmInternal.value!!.alarm.isFavorite
-            ),
-            alarmInternal.value!!.filters
+        alarmInternal.value = alarmInternal.value!!.copy(
+            alarm = alarmInternal.value!!.alarm.copy(
+                hasAlarm = status
+            )
         )
         insertAlarmUseCase.invoke(
             params = InsertAlarmUseCase.Params(
@@ -119,14 +111,10 @@ class HomeDetailsViewModel(
     }
 
     fun setFilter(status: Boolean) {
-        alarmInternal.value = AlarmWithFilter(
-            Alarm(
-                packageName,
-                alarmInternal.value!!.alarm.hasAlarm,
-                status,
-                alarmInternal.value!!.alarm.isFavorite
-            ),
-            alarmInternal.value!!.filters
+        alarmInternal.value = alarmInternal.value!!.copy(
+            alarm = alarmInternal.value!!.alarm.copy(
+                hasFilter = status
+            )
         )
         insertAlarmUseCase.invoke(
             params = InsertAlarmUseCase.Params(
@@ -140,11 +128,7 @@ class HomeDetailsViewModel(
         val newFilter = Filter(packageName, filter)
         val filters = alarm.filters.toMutableSet()
         filters.add(newFilter)
-        alarmInternal.value =
-            AlarmWithFilter(
-                Alarm(packageName, alarm.alarm.hasAlarm, alarm.alarm.hasFilter),
-                filters
-            )
+        alarmInternal.value = alarmInternal.value!!.copy(filters = filters)
         insertFilterUseCase.invoke(params = InsertFilterUseCase.Params(newFilter))
     }
 
@@ -153,11 +137,7 @@ class HomeDetailsViewModel(
         val removeFilter = Filter(packageName, filter)
         val filters = alarm.filters.toMutableSet()
         filters.remove(filters.find { it.filter == filter })
-        alarmInternal.value =
-            AlarmWithFilter(
-                Alarm(packageName, alarm.alarm.hasAlarm, alarm.alarm.hasFilter),
-                filters
-            )
+        alarmInternal.value = alarmInternal.value!!.copy(filters = filters)
         removeFilterUseCase.invoke(params = RemoveFilterUseCase.Params(removeFilter))
     }
 

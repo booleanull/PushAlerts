@@ -8,7 +8,7 @@
     <string name="problem_service">Possible problems</string>
     <string name="problem_service_description">The service may require certain system permissions that are required for a specific device to work correctly. If you work with a service You have not processed the notification, please email us at booleanull@gmail.com.</string>
     <string name="mark_app">Rate our app</string>
-    <string name="mark_app_playmarket">Rate our apps in the Play Market.\nPrivacy Policy.</string>
+    <string name="mark_app_playmarket">Rate our apps in the Play Market.\n\nPrivacy Policy.</string>
     <string name="take_permission">Allow access</string>
     <string name="permission_autostart">Access to auto start</string>
     <string name="permission_alert">Access to wake up</string>

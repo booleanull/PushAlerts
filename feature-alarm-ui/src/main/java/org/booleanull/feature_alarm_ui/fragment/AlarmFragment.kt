@@ -1,5 +1,6 @@
 package org.booleanull.feature_alarm_ui.fragment
 
+import android.app.KeyguardManager
 import android.content.Context
 import android.media.Ringtone
 import android.media.RingtoneManager
@@ -10,6 +11,7 @@ import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.fragment_alarm.*
 import org.booleanull.core_ui.base.BaseFragment
@@ -32,6 +34,19 @@ class AlarmFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+            requireActivity().setShowWhenLocked(true)
+            requireActivity().setTurnScreenOn(true)
+            val keyguardManager =
+                requireActivity().getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
+            keyguardManager.requestDismissKeyguard(requireActivity(), null)
+        } else {
+            requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
+            requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD)
+            requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON)
+        }
+        requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON)
         return inflater.inflate(R.layout.fragment_alarm, container, false)
     }
 
@@ -103,6 +118,16 @@ class AlarmFragment : BaseFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+            requireActivity().setShowWhenLocked(false)
+            requireActivity().setTurnScreenOn(false)
+        } else {
+            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
+            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD)
+            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON)
+        }
+        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON)
         ringtone.stop()
     }
 }

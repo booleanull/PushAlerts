@@ -1,6 +1,8 @@
 package org.booleanull.pushalerts
 
 import androidx.room.Room
+import com.google.firebase.analytics.FirebaseAnalytics
+import org.booleanull.core.facade.AnalyticsFacade
 import org.booleanull.core.facade.SettingsFacade
 import org.booleanull.core.facade.ThemeFacade
 import org.booleanull.core.permission.PermissionCompositeController
@@ -24,6 +26,8 @@ val appModule = module {
     single { get<Cicerone<Router>>().navigatorHolder }
     single<NavigationDeepLinkHandler> { ApplicationNavigationDeepLinkHandler() }
 
+    single { FirebaseAnalytics.getInstance(androidContext()) }
+
     single {
         Room
             .databaseBuilder(get(), ApplicationDatabase::class.java, BuildConfig.DATABASE_FILE_NAME)
@@ -34,6 +38,7 @@ val appModule = module {
     single<PermissionCompositeController> { PermissionCompositeControllerImpl(androidContext()) }
     single<SettingsFacade> { SettingsFacadeImpl(androidContext()) }
     single<ThemeFacade> { ThemeFacadeImpl(get()) }
+    single<AnalyticsFacade> { AnalyticsFacadeImpl(get()) }
 
     single<ApplicationRepository> {
         ApplicationRepositoryImpl(

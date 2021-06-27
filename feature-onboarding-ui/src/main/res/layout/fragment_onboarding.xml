@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
@@ -10,8 +9,7 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
         android:overScrollMode="never" />
 
     <org.booleanull.core_ui.widget.PagerIndicator
@@ -21,24 +19,6 @@
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginStart="@dimen/default_margin"
         android:layout_marginEnd="@dimen/default_margin"
-        android:layout_marginBottom="@dimen/default_margin" />
+        android:layout_marginBottom="100dp" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/errorTextView"
-        style="@style/AppTheme.Text.Error"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/default_margin"
-        android:layout_marginEnd="@dimen/default_margin"
-        android:visibility="invisible"
-        tools:visibility="visible" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/nextButton"
-        style="@style/AppTheme.MaterialButton"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/material_button_height"
-        android:layout_gravity="bottom"
-        android:text="@string/take_permission" />
-
-</LinearLayout>
+</FrameLayout>
