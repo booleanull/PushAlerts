@@ -1,4 +1,4 @@
-package org.booleanull.pushalerts
+package org.booleanull.pushalerts.handler
 
 import org.booleanull.core_ui.base.BaseScreen
 import org.booleanull.core_ui.handler.NavigationDeepLinkHandler

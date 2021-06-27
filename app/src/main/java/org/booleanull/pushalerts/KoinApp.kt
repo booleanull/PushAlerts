@@ -14,6 +14,10 @@ import org.booleanull.core_ui.handler.NavigationDeepLinkHandler
 import org.booleanull.database.ApplicationDatabase
 import org.booleanull.database.Migrations.MIGRATION_1_2
 import org.booleanull.database.Migrations.MIGRATION_2_3
+import org.booleanull.pushalerts.facade.AnalyticsFacadeImpl
+import org.booleanull.pushalerts.facade.SettingsFacadeImpl
+import org.booleanull.pushalerts.facade.ThemeFacadeImpl
+import org.booleanull.pushalerts.handler.ApplicationNavigationDeepLinkHandler
 import org.booleanull.repositories.AlarmRepositoryImpl
 import org.booleanull.repositories.ApplicationRepositoryImpl
 import org.koin.android.ext.koin.androidContext

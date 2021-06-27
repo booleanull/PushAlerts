@@ -1,4 +1,4 @@
-package org.booleanull.pushalerts
+package org.booleanull.pushalerts.facade
 
 import android.content.Context
 import android.content.res.Configuration

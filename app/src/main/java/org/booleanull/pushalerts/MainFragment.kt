@@ -10,7 +10,6 @@ import org.booleanull.core_ui.base.AppNavigator
 import org.booleanull.core_ui.base.BaseFragment
 import org.booleanull.core_ui.handler.NavigationDeepLinkHandler
 import org.booleanull.core_ui.handler.ScreenDeepLinkHandler
-import org.booleanull.feature_alarm_ui.fragment.AlarmFragment
 import org.booleanull.feature_home_ui.screen.HomeScreen
 import org.booleanull.feature_onboarding_ui.screen.OnboardingScreen
 import org.koin.android.ext.android.inject
@@ -61,20 +60,16 @@ class MainFragment : BaseFragment() {
         return false
     }
 
-    internal fun onDeepLinkNavigate(deepLink: String) {
-        if (childFragmentManager.fragments.lastOrNull() is AlarmFragment) {
-            router.replace(router.resolve(deepLink))
-        } else {
-            if (childFragmentManager.fragments.isEmpty()) {
-                val screen = router.resolve(deepLink)
-                if (screen is ScreenDeepLinkHandler) {
-                    screen.resolve(router)
-                } else {
-                    router.replace(router.resolve(deepLink))
-                }
+    fun onDeepLinkNavigate(deepLink: String) {
+        if (childFragmentManager.fragments.isEmpty()) {
+            val screen = router.resolve(deepLink)
+            if (screen is ScreenDeepLinkHandler) {
+                screen.resolve(router)
             } else {
-                router.navigateTo(router.resolve(deepLink))
+                router.replace(router.resolve(deepLink))
             }
+        } else {
+            router.navigateTo(router.resolve(deepLink))
         }
     }
 
