@@ -11,5 +11,6 @@ data class Alarm(
     val packageName: String,
     val hasAlarm: Boolean,
     val hasFilter: Boolean,
-    val isFavorite: Boolean = false
+    val isFavorite: Boolean = false,
+    val count: Int = 0
 )

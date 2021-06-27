@@ -11,6 +11,7 @@ import org.booleanull.core_ui.base.Router
 import org.booleanull.core_ui.handler.NavigationDeepLinkHandler
 import org.booleanull.database.ApplicationDatabase
 import org.booleanull.database.Migrations.MIGRATION_1_2
+import org.booleanull.database.Migrations.MIGRATION_2_3
 import org.booleanull.repositories.AlarmRepositoryImpl
 import org.booleanull.repositories.ApplicationRepositoryImpl
 import org.koin.android.ext.koin.androidContext
@@ -26,7 +27,7 @@ val appModule = module {
     single {
         Room
             .databaseBuilder(get(), ApplicationDatabase::class.java, BuildConfig.DATABASE_FILE_NAME)
-            .addMigrations(MIGRATION_1_2)
+            .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
             .build()
     }
 

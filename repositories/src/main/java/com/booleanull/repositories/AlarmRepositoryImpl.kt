@@ -23,6 +23,11 @@ class AlarmRepositoryImpl(private val applicationDatabase: ApplicationDatabase) 
         }
     }
 
+    override suspend fun incrementCountAlarm(packageName: String) {
+        val alarm = applicationDatabase.alarmDao().search(packageName)?.alarm ?: return
+        applicationDatabase.alarmDao().insert(alarm.copy(count = alarm.count + 1))
+    }
+
     override suspend fun insertAlarm(alarmWithFilter: AlarmWithFilter) {
         applicationDatabase.alarmDao().insert(alarmWithFilter)
     }

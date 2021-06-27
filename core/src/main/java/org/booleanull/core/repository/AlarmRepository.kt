@@ -10,6 +10,8 @@ interface AlarmRepository {
 
     suspend fun searchAlarm(packageName: String): Task<Exception, AlarmWithFilter>
 
+    suspend fun incrementCountAlarm(packageName: String)
+
     suspend fun insertAlarm(alarmWithFilter: AlarmWithFilter)
 
     suspend fun insertFilter(filter: Filter)

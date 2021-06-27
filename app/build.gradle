@@ -7,8 +7,8 @@ apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     signingConfigs {
-        developer {
-            storeFile file('/Users/vitaly/Untitled')
+        release {
+            storeFile file('/Users/vitaly/Downloads/key_store')
             storePassword '350500'
             keyAlias 'key0'
             keyPassword '350500'
@@ -24,7 +24,7 @@ android {
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        signingConfig signingConfigs.developer
+        signingConfig signingConfigs.release
     }
 
     buildTypes {

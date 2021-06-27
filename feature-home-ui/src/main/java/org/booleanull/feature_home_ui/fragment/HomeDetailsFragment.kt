@@ -146,6 +146,14 @@ class HomeDetailsFragment : BaseFragment() {
             val progress = min(1f, (abs(verticalOffset).toFloat() / threshold))
             iconImageView.scaleX = max(1f - progress, 0.5f)
             iconImageView.scaleY = max(1f - progress, 0.5f)
+
+            countCardView.scaleX = max(1f - progress * 2, 0f)
+            countCardView.scaleY = max(1f - progress * 2, 0f)
+            countCardView.alpha = max(1f - progress * 4, 0f)
+
+            favoriteFab.scaleX = max(1f - progress * 2, 0f)
+            favoriteFab.scaleY = max(1f - progress * 2, 0f)
+            favoriteFab.alpha = max(1f - progress * 4, 0f)
         })
 
         iconImageView.transitionName = arguments?.getString(PACKAGE_NAME) ?: ""
@@ -193,6 +201,9 @@ class HomeDetailsFragment : BaseFragment() {
                         ContextCompat.getDrawable(requireContext(), R.drawable.ic_favorite_disabled)
                     }
                 )
+
+                countCardView.isVisible = alarm.count != 0
+                countTextView.text = alarm.count.toString()
 
                 alarmSwitch.setChecked(alarm.hasAlarm, alarmSwitchOnCheckedChangeListener)
                 filterSwitch.setChecked(alarm.hasFilter, filterSwitchOnCheckedChangeListener)

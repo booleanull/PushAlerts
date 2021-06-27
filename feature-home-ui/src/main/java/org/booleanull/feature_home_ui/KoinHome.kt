@@ -13,6 +13,7 @@ val homeModule = module {
     factory { GetApplicationListUseCase(get()) }
     factory { SearchApplicationListUseCase(get()) }
     factory { SearchAlarmUseCase(get()) }
+    factory { IncrementCountAlarmUseCase(get()) }
     factory { InsertAlarmUseCase(get()) }
     factory { InsertFilterUseCase(get()) }
     factory { RemoveFilterUseCase(get()) }
