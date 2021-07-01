@@ -33,6 +33,9 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.core:core-ktx:${rootProject.ext.libraries.core}"
 
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${rootProject.ext.libraries.coroutines}"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${rootProject.ext.libraries.coroutines}"
+
     implementation "org.koin:koin-android:${rootProject.ext.libraries.koin}"
     implementation "org.koin:koin-androidx-scope:${rootProject.ext.libraries.koin}"
 

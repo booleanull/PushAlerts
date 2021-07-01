@@ -5,7 +5,7 @@ import org.booleanull.core_ui.base.BaseViewModel
 import org.booleanull.core_ui.helper.SingleLiveEvent
 import org.booleanull.feature_home.interactor.ClearUseCase
 
-class SettingsViewModel(
+internal class SettingsViewModel(
     private val sharedViewModel: HomeSharedViewModel,
     private val clearUseCase: ClearUseCase
 ) : BaseViewModel(clearUseCase) {

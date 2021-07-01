@@ -1,5 +1,6 @@
 package org.booleanull.feature_home.interactor
 
+import kotlinx.coroutines.delay
 import org.booleanull.core.entity.Application
 import org.booleanull.core.functional.Task
 import org.booleanull.core.functional.map
@@ -11,6 +12,7 @@ class SearchApplicationListUseCase(private val applicationRepository: Applicatio
 
     override suspend fun run(params: Params?): Task<Exception, List<Application>> {
         checkNotNull(params)
+        delay(DELAY)
         val applications = applicationRepository.searchApplicationList(params.query)
         return when (params.sortType.value) {
             SortType.SORT_NAME -> {
@@ -44,5 +46,9 @@ class SearchApplicationListUseCase(private val applicationRepository: Applicatio
             const val SORT_PACKAGE = 2
             const val SORT_FAVORITE = 3
         }
+    }
+
+    companion object {
+        private const val DELAY = 300L
     }
 }

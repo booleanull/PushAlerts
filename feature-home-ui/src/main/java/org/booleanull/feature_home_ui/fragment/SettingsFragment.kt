@@ -21,7 +21,7 @@ import org.booleanull.feature_home_ui.viewmodel.SettingsViewModel
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SettingsFragment : PreferenceFragmentCompat() {
+internal class SettingsFragment : PreferenceFragmentCompat() {
 
     private val viewModel: SettingsViewModel by viewModel()
 

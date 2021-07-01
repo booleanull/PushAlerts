@@ -15,9 +15,9 @@ import org.booleanull.core_ui.adapter.OnItemClickListener
 import org.booleanull.core_ui.base.BaseFragment
 import org.booleanull.core_ui.dp
 import org.booleanull.core_ui.getAttributeColor
-import org.booleanull.core_ui.helper.RecyclerDivider
 import org.booleanull.core_ui.setDrawableColor
 import org.booleanull.core_ui.setSpannableBold
+import org.booleanull.core_ui.widget.RecyclerDivider
 import org.booleanull.feature_home_ui.R
 import org.booleanull.feature_home_ui.adapter.ApplicationViewHolderFactory
 import org.booleanull.feature_home_ui.screen.HomeDetailsScreen
@@ -25,11 +25,9 @@ import org.booleanull.feature_home_ui.screen.SettingsScreen
 import org.booleanull.feature_home_ui.viewmodel.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HomeFragment : BaseFragment() {
+internal class HomeFragment : BaseFragment() {
 
     private val viewModel: HomeViewModel by viewModel()
-
-    private var applications: List<Application> = listOf()
 
     private val applicationAdapter by lazy {
         GenericAdapter(ApplicationViewHolderFactory()).apply {
@@ -110,6 +108,37 @@ class HomeFragment : BaseFragment() {
         hideKeyboard(searchEditText)
     }
 
+    override fun onDestroyView() {
+        (requireActivity() as AppCompatActivity).setSupportActionBar(null)
+        super.onDestroyView()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_home, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.search -> {
+                searchView.isVisible = true
+                showKeyboard(searchEditText)
+                true
+            }
+            R.id.settings -> {
+                router.navigateTo(
+                    SettingsScreen(),
+                    android.R.anim.slide_in_left,
+                    android.R.anim.slide_out_right,
+                    android.R.anim.slide_in_left,
+                    android.R.anim.slide_out_right
+                )
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -160,7 +189,6 @@ class HomeFragment : BaseFragment() {
         }
 
         viewModel.applicationList.observe(viewLifecycleOwner, Observer {
-            applications = it
             applicationAdapter.dataList = it
         })
 
@@ -184,36 +212,5 @@ class HomeFragment : BaseFragment() {
                 viewModel.searchApplication(viewModel.searchQuery)
             }
         })
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_home, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.search -> {
-                searchView.isVisible = true
-                showKeyboard(searchEditText)
-                true
-            }
-            R.id.settings -> {
-                router.navigateTo(
-                    SettingsScreen(),
-                    android.R.anim.slide_in_left,
-                    android.R.anim.slide_out_right,
-                    android.R.anim.slide_in_left,
-                    android.R.anim.slide_out_right
-                )
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    override fun onDestroyView() {
-        (requireActivity() as AppCompatActivity).setSupportActionBar(null)
-        super.onDestroyView()
     }
 }

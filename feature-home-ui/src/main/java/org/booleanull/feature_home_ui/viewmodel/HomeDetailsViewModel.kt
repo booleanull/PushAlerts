@@ -14,7 +14,7 @@ import org.booleanull.feature_home.interactor.InsertFilterUseCase
 import org.booleanull.feature_home.interactor.RemoveFilterUseCase
 import org.booleanull.feature_home.interactor.SearchAlarmUseCase
 
-class HomeDetailsViewModel(
+internal class HomeDetailsViewModel(
     private val packageName: String,
     private val sharedViewModel: HomeSharedViewModel,
     private val getApplicationUseCase: GetApplicationUseCase,

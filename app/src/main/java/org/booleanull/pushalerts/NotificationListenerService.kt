@@ -1,4 +1,4 @@
-package org.booleanull.pushalerts.service
+package org.booleanull.pushalerts
 
 import android.content.Intent
 import android.service.notification.NotificationListenerService
@@ -11,7 +11,6 @@ import org.booleanull.core.facade.SettingsFacade
 import org.booleanull.core_ui.handler.NavigationDeepLinkHandler
 import org.booleanull.feature_home.interactor.IncrementCountAlarmUseCase
 import org.booleanull.feature_home.interactor.SearchAlarmUseCase
-import org.booleanull.pushalerts.MainActivity
 import org.koin.android.ext.android.inject
 
 class NotificationListenerService : NotificationListenerService() {

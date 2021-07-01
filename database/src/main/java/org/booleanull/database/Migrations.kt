@@ -3,7 +3,6 @@ package org.booleanull.database
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-
 object Migrations {
 
     val MIGRATION_1_2: Migration = object : Migration(1, 2) {

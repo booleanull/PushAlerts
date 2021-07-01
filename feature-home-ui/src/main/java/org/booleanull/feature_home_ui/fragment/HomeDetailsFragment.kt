@@ -15,12 +15,13 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home_details.*
 import org.booleanull.core_ui.adapter.GenericAdapter
 import org.booleanull.core_ui.adapter.GenericItemDiff
+import org.booleanull.core_ui.adapter.OnItemClickListener
 import org.booleanull.core_ui.base.BaseFragment
 import org.booleanull.core_ui.dp
 import org.booleanull.core_ui.getAttributeColor
 import org.booleanull.core_ui.helper.DismissItemTouchHelper
-import org.booleanull.core_ui.helper.RecyclerDivider
 import org.booleanull.core_ui.setChecked
+import org.booleanull.core_ui.widget.RecyclerDivider
 import org.booleanull.feature_home_ui.R
 import org.booleanull.feature_home_ui.adapter.FilterViewHolderFactory
 import org.booleanull.feature_home_ui.viewmodel.HomeDetailsViewModel
@@ -30,7 +31,7 @@ import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
-class HomeDetailsFragment : BaseFragment() {
+internal class HomeDetailsFragment : BaseFragment() {
 
     private lateinit var viewModel: HomeDetailsViewModel
 
@@ -48,6 +49,16 @@ class HomeDetailsFragment : BaseFragment() {
                         .setAction(android.R.string.cancel) {
                             viewModel.addFilter(item)
                         }
+                        .show()
+                }
+            })
+            setOnItemClickListener(object : OnItemClickListener<Int> {
+                override fun onItemClick(position: Int) {
+                    Snackbar.make(
+                        requireParentFragment().requireView(),
+                        getString(R.string.filter_remove_message),
+                        Snackbar.LENGTH_SHORT
+                    )
                         .show()
                 }
             })

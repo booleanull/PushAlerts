@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.fragment_settings.*
 import org.booleanull.core_ui.base.BaseFragment
 import org.booleanull.feature_home_ui.R
 
-class SettingsHolderFragment : BaseFragment() {
+internal class SettingsHolderFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -1,4 +1,4 @@
-package org.booleanull.core_ui.helper
+package org.booleanull.core_ui.widget
 
 import android.graphics.Canvas
 import android.graphics.Paint

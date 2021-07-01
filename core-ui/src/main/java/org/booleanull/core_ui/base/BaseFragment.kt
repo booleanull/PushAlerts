@@ -11,7 +11,7 @@ import org.koin.android.ext.android.inject
 
 abstract class BaseFragment : Fragment(), BackPressHandler {
 
-    val router: Router by inject()
+    protected val router: Router by inject()
 
     override fun onBackPressed(): Boolean {
         router.back()

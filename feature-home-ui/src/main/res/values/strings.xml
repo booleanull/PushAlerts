@@ -27,4 +27,5 @@
     <string name="attention_alarm">Attention! All notifications are disabled in the settings.</string>
     <string name="clear_dialog_message">Are you sure you want to clear all data?</string>
     <string name="notification_count">Notifications: %1$d</string>
+    <string name="filter_remove_message">Swipe the filter to the right to remove</string>
 </resources>

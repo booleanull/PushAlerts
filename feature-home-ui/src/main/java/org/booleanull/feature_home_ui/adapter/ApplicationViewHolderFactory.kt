@@ -11,7 +11,7 @@ import org.booleanull.core_ui.adapter.OnItemClickListener
 import org.booleanull.core_ui.adapter.ViewHolderFactory
 import org.booleanull.feature_home_ui.R
 
-class ApplicationViewHolderFactory :
+internal class ApplicationViewHolderFactory :
     ViewHolderFactory<Application, ApplicationViewHolderFactory.ApplicationItemClickData> {
 
     override fun create(parent: ViewGroup, viewType: Int) =

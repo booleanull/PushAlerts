@@ -11,11 +11,7 @@ import kotlinx.android.synthetic.main.fragment_filter_add_bottom_sheet.*
 import org.booleanull.core_ui.base.RoundedBottomSheetDialogFragment
 import org.booleanull.feature_home_ui.R
 
-class FilterAddBottomSheetFragment : RoundedBottomSheetDialogFragment(0) {
-
-    interface Delegate {
-        fun onFinished(filter: String)
-    }
+internal class FilterAddBottomSheetFragment : RoundedBottomSheetDialogFragment(0) {
 
     var delegate: Delegate? = null
 
@@ -53,5 +49,9 @@ class FilterAddBottomSheetFragment : RoundedBottomSheetDialogFragment(0) {
         filterEditText.doOnTextChanged { text, start, before, count ->
             filterAddButton.isEnabled = !text.isNullOrBlank()
         }
+    }
+
+    interface Delegate {
+        fun onFinished(filter: String)
     }
 }
