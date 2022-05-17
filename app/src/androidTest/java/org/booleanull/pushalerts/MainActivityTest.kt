@@ -37,7 +37,7 @@ import org.hamcrest.Matchers.`is`
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
 
-    object AndroidTestMockFactory {
+    object AndroidTestFactory {
         const val FILTER = "filter"
     }
 
@@ -53,7 +53,7 @@ class MainActivityTest {
         val nextFragment = onView(withId(R.id.fragment_container_view_tag))
 
         // Секция взаимодействия с компонентами
-        editText.perform(typeText(AndroidTestMockFactory.FILTER))
+        editText.perform(typeText(AndroidTestFactory.FILTER))
         button.perform(click())
 
         // Секция проверки
