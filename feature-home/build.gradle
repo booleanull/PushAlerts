@@ -39,7 +39,12 @@ dependencies {
     implementation "org.koin:koin-android:${rootProject.ext.libraries.koin}"
     implementation "org.koin:koin-androidx-scope:${rootProject.ext.libraries.koin}"
 
+    testImplementation project(":mock-factory")
+
     testImplementation "junit:junit:${rootProject.ext.libraries.junit}"
+    testImplementation "org.mockito:mockito-core:4.0.0"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:4.0.0"
+
     androidTestImplementation "androidx.test.ext:junit:${rootProject.ext.libraries.junit_android}"
     androidTestImplementation "androidx.test.espresso:espresso-core:${rootProject.ext.libraries.expresso}"
 }

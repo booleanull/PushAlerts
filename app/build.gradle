@@ -30,6 +30,7 @@ android {
     buildTypes {
         debug {
             buildConfigField "String", "DATABASE_FILE_NAME", "\"DebugDatabase\""
+            testCoverageEnabled = true
         }
         release {
             buildConfigField "String", "DATABASE_FILE_NAME", "\"ApplicationDatabase\""
@@ -83,9 +84,10 @@ dependencies {
 
     implementation "androidx.room:room-ktx:${rootProject.ext.libraries.room}"
     implementation "androidx.room:room-runtime:${rootProject.ext.libraries.room}"
+    androidTestImplementation 'androidx.test:rules:1.4.0-alpha05'
     kapt "androidx.room:room-compiler:${rootProject.ext.libraries.room}"
 
     testImplementation "junit:junit:${rootProject.ext.libraries.junit}"
     androidTestImplementation "androidx.test.ext:junit:${rootProject.ext.libraries.junit_android}"
-    androidTestImplementation "androidx.test.espresso:espresso-core:${rootProject.ext.libraries.expresso}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.5.0-alpha06"
 }

@@ -38,6 +38,10 @@ dependencies {
     kapt "androidx.room:room-compiler:${rootProject.ext.libraries.room}"
 
     testImplementation "junit:junit:${rootProject.ext.libraries.junit}"
+    androidTestImplementation project(":mock-factory")
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1"
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation "androidx.room:room-testing:${rootProject.ext.libraries.room}"
     androidTestImplementation "androidx.test.ext:junit:${rootProject.ext.libraries.junit_android}"
     androidTestImplementation "androidx.test.espresso:espresso-core:${rootProject.ext.libraries.expresso}"
 }

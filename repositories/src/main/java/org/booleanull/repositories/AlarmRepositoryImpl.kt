@@ -4,16 +4,16 @@ import org.booleanull.core.entity.AlarmWithFilter
 import org.booleanull.core.entity.Filter
 import org.booleanull.core.functional.Task
 import org.booleanull.core.repository.AlarmRepository
-import org.booleanull.database.ApplicationDatabase
+import org.booleanull.database.dao.AlarmDao
 
-class AlarmRepositoryImpl(private val applicationDatabase: ApplicationDatabase) : AlarmRepository {
+class AlarmRepositoryImpl(private val alarmDao: AlarmDao) : AlarmRepository {
 
     override suspend fun getAlarms(): List<AlarmWithFilter> {
-        return applicationDatabase.alarmDao().getAlarms()
+        return alarmDao.getAlarms()
     }
 
     override suspend fun searchAlarm(packageName: String): Task<Exception, AlarmWithFilter> {
-        val alarm = applicationDatabase.alarmDao().search(packageName)
+        val alarm = alarmDao.search(packageName)
         return if (alarm != null) {
             Task.Success(alarm)
         } else {
@@ -24,23 +24,23 @@ class AlarmRepositoryImpl(private val applicationDatabase: ApplicationDatabase) 
     }
 
     override suspend fun incrementCountAlarm(packageName: String) {
-        val alarm = applicationDatabase.alarmDao().search(packageName)?.alarm ?: return
-        applicationDatabase.alarmDao().insert(alarm.copy(count = alarm.count + 1))
+        val alarm = alarmDao.search(packageName)?.alarm ?: return
+        alarmDao.insert(alarm.copy(count = alarm.count + 1))
     }
 
     override suspend fun insertAlarm(alarmWithFilter: AlarmWithFilter) {
-        applicationDatabase.alarmDao().insert(alarmWithFilter)
+        alarmDao.insert(alarmWithFilter)
     }
 
     override suspend fun insertFilter(filter: Filter) {
-        applicationDatabase.alarmDao().insert(filter)
+        alarmDao.insert(filter)
     }
 
     override suspend fun removeFilter(filter: Filter) {
-        applicationDatabase.alarmDao().remove(filter)
+        alarmDao.remove(filter)
     }
 
     override suspend fun clear() {
-        applicationDatabase.alarmDao().clear()
+        alarmDao.clear()
     }
 }

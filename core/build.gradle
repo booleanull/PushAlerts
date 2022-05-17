@@ -41,6 +41,10 @@ dependencies {
     implementation "androidx.room:room-runtime:${rootProject.ext.libraries.room}"
     kapt "androidx.room:room-compiler:${rootProject.ext.libraries.room}"
 
+    testImplementation project(":mock-factory")
+
+    testImplementation "org.mockito:mockito-core:4.0.0"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:4.0.0"
     testImplementation "junit:junit:${rootProject.ext.libraries.junit}"
     androidTestImplementation "androidx.test.ext:junit:${rootProject.ext.libraries.junit_android}"
     androidTestImplementation "androidx.test.espresso:espresso-core:${rootProject.ext.libraries.expresso}"

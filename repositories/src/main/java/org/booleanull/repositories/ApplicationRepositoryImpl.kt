@@ -12,13 +12,13 @@ class ApplicationRepositoryImpl(
 ) : ApplicationRepository {
 
     override suspend fun getApplicationList(): List<Application> {
-        return getAllApplication()
+        return getApplications()
     }
 
     override suspend fun searchApplicationList(
         query: String
     ): Task<Exception, List<Application>> {
-        val filteredPackages = getAllApplication().filter {
+        val filteredPackages = getApplications().filter {
             it.name.contains(query, true) || it.packageName.contains(query, true)
         }
 
@@ -54,19 +54,11 @@ class ApplicationRepositoryImpl(
         return Task.Failure(IllegalArgumentException("Application with this ID not found"))
     }
 
-    private suspend fun getAllApplication(): List<Application> {
+    private suspend fun getApplications(): List<Application> {
         val alarms = alarmRepository.getAlarms().map { it.alarm }
         val packages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA)
         return packages.filter {
             packageManager.getLaunchIntentForPackage(it.packageName) != null
-            /*var hasInternetPermission = false
-            packageManager.getPackageInfo(it.packageName, PackageManager.GET_PERMISSIONS)
-                .requestedPermissions?.let { permissions ->
-                    permissions.forEach { permission ->
-                        if (permission == Manifest.permission.INTERNET) hasInternetPermission = true
-                    }
-                }
-            packageManager.getLaunchIntentForPackage(it.packageName) != null && hasInternetPermission*/
         }.map { packageInfo ->
             val alarm = alarms.find { alarm ->
                 alarm.packageName == packageInfo.packageName

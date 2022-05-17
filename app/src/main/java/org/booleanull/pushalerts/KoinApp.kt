@@ -33,6 +33,7 @@ val appModule = module {
             .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
             .build()
     }
+    single { get<ApplicationDatabase>().alarmDao() }
 
     single<PermissionCompositeController> { PermissionCompositeControllerImpl(androidContext()) }
     single<SettingsFacade> { SettingsFacadeImpl(androidContext()) }

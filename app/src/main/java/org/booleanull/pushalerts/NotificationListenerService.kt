@@ -67,7 +67,6 @@ class NotificationListenerService : NotificationListenerService() {
 
     private fun onPushIntercepted(sbn: StatusBarNotification, rankingMap: RankingMap?) {
         if (!alarmDelayStatus) {
-            incrementCountAlarmUseCase.invoke(IncrementCountAlarmUseCase.Params(sbn.packageName))
             alarmDelayStatus = true
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
